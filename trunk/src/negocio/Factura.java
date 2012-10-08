@@ -63,7 +63,7 @@ public class Factura {
 				ItemFactura itmFact = new ItemFactura(itemVenta.getItem(),
 						itemVenta.getCantidad());
 				this.itemsFactura.add(itmFact);
-				total = itemVenta.getCantidad() * itemVenta.getItem().getPrecio();
+				total += itemVenta.getCantidad() * itemVenta.getItem().getPrecio();
 			}
 		}
 		this.total = total;
