@@ -3,16 +3,14 @@ package controlador;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import negocio.Area;
-import negocio.Barra;
-import negocio.Cafeteria;
-import negocio.Cocina;
-import negocio.ItemBillete;
-import negocio.Sucursal;
+import negocio.*;
 
 public class Sistema {
 
 	private Collection<Sucursal> sucursales;
+	private Administracion administracion;
+	private DepositoCentral depositoCentral;
+	
 	private static Sistema instance = null;
 
 	public static Sistema getInstance() {
@@ -86,4 +84,23 @@ public class Sistema {
 		}
 	}
 
+	public Administracion getAdministracion() {
+		return administracion;
+	}
+
+	public void setAdministracion(Administracion administracion) {
+		this.administracion = administracion;
+	}
+	
+	public DepositoCentral getDepositoCentral() {
+		return depositoCentral;
+	}
+
+	public void setDepositoCentral(DepositoCentral depositoCentral) {
+		this.depositoCentral = depositoCentral;
+	}
+
+	public ArrayList<OrdenCompra> generarOrdenesCompra(){
+		return depositoCentral.generarCompra();
+	}
 }
