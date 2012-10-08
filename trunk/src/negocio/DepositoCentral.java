@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class DepositoCentral extends Deposito {
@@ -8,7 +9,10 @@ public class DepositoCentral extends Deposito {
 		super(stock, pedidosPendientes);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	private Collection<OrdenCompra> ordenesCompras;
 
+	public ArrayList<OrdenCompra> generarCompra(){
+		return null;
+	}
 }
