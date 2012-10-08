@@ -7,6 +7,7 @@ import negocio.Area;
 import negocio.Barra;
 import negocio.Cafeteria;
 import negocio.Cocina;
+import negocio.ItemBillete;
 import negocio.Sucursal;
 
 public class Sistema {
@@ -46,7 +47,7 @@ public class Sistema {
 		suc2.agregarArea(bar2);
 		suc2.agregarArea(cafeteria2);
 		sucursales.add(suc2);
-		
+
 		Sucursal suc3 = new Sucursal("Puerto Madero");
 		Area cocina3 = new Cocina(null, null, null);
 		Area bar3 = new Barra(null, null, null);
@@ -57,12 +58,31 @@ public class Sistema {
 		sucursales.add(suc3);
 	}
 
-	public void generarFactura(String nombreSucursal, int nroMesa) {
+	public void abrirCaja(String nombreSucursal, ArrayList<ItemBillete> billetes) {
 		for (Sucursal suc : sucursales) {
-			if(suc.getNombre().equals(nombreSucursal)){
+			if (suc.getNombre().equals(nombreSucursal)) {
+				suc.abrirCaja(billetes);
+			}
+
+		}
+
+	}
+
+	public void cerrarCaja(String nombreSucursal, ArrayList<ItemBillete> efectivoEnCaja) {
+		for (Sucursal suc : sucursales) {
+			if (suc.getNombre().equals(nombreSucursal)) {
+				suc.cerrarCaja(efectivoEnCaja);
+			}
+		}
+	}
+
+	public void generarFactura(String nombreSucursal, int nroMesa) {
+
+		for (Sucursal suc : sucursales) {
+			if (suc.getNombre().equals(nombreSucursal)) {
 				suc.generarFactura(nroMesa);
 			}
-			
+
 		}
 	}
 

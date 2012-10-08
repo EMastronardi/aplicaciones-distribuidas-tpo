@@ -91,4 +91,14 @@ public class Sucursal {
 
 	}
 
+	public void abrirCaja(ArrayList<ItemBillete> billetes) {
+		this.caja.aperturaCajaDiaria(billetes);
+		
+	}
+
+	public void cerrarCaja(ArrayList<ItemBillete> efectivoEnCaja) {
+		this.caja.cerrarCajaDiaria(efectivoEnCaja);
+		
+	}
+
 }
