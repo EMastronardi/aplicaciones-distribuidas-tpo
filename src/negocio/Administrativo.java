@@ -6,8 +6,4 @@ public class Administrativo extends Empleado {
 		super(nombre, clave);
 		// TODO Auto-generated constructor stub
 	}
-	public void Test(){
-		
-	}
-
 }
