@@ -3,6 +3,26 @@ package negocio;
 public class Empleado {
 	protected String nombre;
 	protected String clave;
-	protected String cargo;
-	
+
+	public Empleado(String nombre, String clave) {
+		this.nombre = nombre;
+		this.clave = clave;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
 }
