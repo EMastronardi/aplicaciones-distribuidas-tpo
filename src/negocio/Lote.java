@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Lote {
 	private String codigo;
-	private String estado;
+	private Boolean estado;
 	private Date vencimiento;
 	private Producto producto;
 
@@ -16,11 +16,11 @@ public class Lote {
 		this.codigo = codigo;
 	}
 
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -40,7 +40,7 @@ public class Lote {
 		this.producto = producto;
 	}
 
-	public Lote(String codigo, String estado, Date vencimiento,
+	public Lote(String codigo, Boolean estado, Date vencimiento,
 			Producto producto) {
 		this.codigo = codigo;
 		this.estado = estado;
