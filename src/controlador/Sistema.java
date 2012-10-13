@@ -103,4 +103,7 @@ public class Sistema {
 	public ArrayList<OrdenCompra> generarOrdenesCompra(){
 		return depositoCentral.generarCompra();
 	}
+	public void AbrirMesa(){
+		
+	}
 }
