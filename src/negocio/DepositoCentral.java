@@ -10,7 +10,7 @@ public class DepositoCentral extends Deposito {
 		// TODO Auto-generated constructor stub
 	}
 	
-	private Collection<OrdenCompra> ordenesCompras;
+	private Collection<OrdenCompra> ordenesCompras; 
 
 	public ArrayList<OrdenCompra> generarCompra(){
 		return null;
