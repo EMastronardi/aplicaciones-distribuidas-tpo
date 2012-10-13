@@ -2,7 +2,6 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 public class Sucursal {
 	private String nombre;
 	private Collection<Area> areas;
@@ -12,7 +11,7 @@ public class Sucursal {
 	private Collection<Comision> comisiones;
 	private Collection<Venta> ventas;
 	private Collection<Factura> facturas;
-
+	
 	public Sucursal(String nombre) {
 		this.nombre = nombre;
 		areas = new ArrayList<Area>();
