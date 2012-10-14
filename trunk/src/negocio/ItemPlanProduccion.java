@@ -3,7 +3,7 @@ package negocio;
 public class ItemPlanProduccion {
 	private SemiElaborado item;
 	private float cantidad;
-	private float estadoProcentual;
+	private float cantidadFinalizada;
 	public SemiElaborado getItem() {
 		return item;
 	}
@@ -17,16 +17,16 @@ public class ItemPlanProduccion {
 		this.cantidad = cantidad;
 	}
 	public float getEstadoProcentual() {
-		return estadoProcentual;
+		return cantidadFinalizada;
 	}
 	public void setEstadoProcentual(float estadoProcentual) {
-		this.estadoProcentual = estadoProcentual;
+		this.cantidadFinalizada = estadoProcentual;
 	}
 	public ItemPlanProduccion(SemiElaborado item, float cantidad,
 			float estadoProcentual) {
 		this.item = item;
 		this.cantidad = cantidad;
-		this.estadoProcentual = estadoProcentual;
+		this.cantidadFinalizada = estadoProcentual;
 	}
 	
 

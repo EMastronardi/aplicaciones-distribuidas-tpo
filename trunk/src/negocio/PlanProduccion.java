@@ -12,6 +12,7 @@ public class PlanProduccion {
 	private int tiempo;
 	private Date fecha;
 	private String estado;
+	
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
@@ -50,5 +51,12 @@ public class PlanProduccion {
 		ItemPlanProduccion iplan = new ItemPlanProduccion(semi, cantidad, 0);
 		itemsPlaneados.add(iplan);
 	}
+	public void modificarItemPlanProd(String nombreSemielaborado, float cantidadProducida){
+		for (ItemPlanProduccion itmPlaneado : itemsPlaneados) {
+			if(itmPlaneado.getItem().getNombre().equals(nombreSemielaborado))
+				itmPlaneado.setCantidad(cantidadProducida);
+			
+		}
+	};
 
 }
