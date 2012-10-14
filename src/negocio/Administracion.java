@@ -1,8 +1,10 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import controlador.Sistema;
+import controlador.ViewItemPlanProduccion;
 
 public class Administracion {
 	private ArrayList<PlanProduccion> planesProduccion;
@@ -44,5 +46,14 @@ public class Administracion {
 		
 		if (ordenesNuevas != null)
 			ordenesCompra.addAll(ordenesNuevas);
+	}
+	
+	public void CrearPlanProduccion(Sucursal sucursal, int tiempo,Date fecha, ArrayList<ViewItemPlanProduccion> items){
+		PlanProduccion pp = new PlanProduccion(sucursal, tiempo, fecha, "");
+		//creo objetos itemPlanProd, los agrego
+		for (ViewItemPlanProduccion viewItmPlan : items) {
+			pp.addItemPlaneado(viewItmPlan.getNombreSemielaborad(), viewItmPlan.getCantidad());
+		}
+		this.planesProduccion.add(pp);
 	}
 }

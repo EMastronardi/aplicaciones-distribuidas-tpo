@@ -2,14 +2,25 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
-import negocio.*;
+import negocio.Administracion;
+import negocio.Area;
+import negocio.Barra;
+import negocio.Cafeteria;
+import negocio.Cocina;
+import negocio.DepositoCentral;
+import negocio.ItemBillete;
+import negocio.OrdenCompra;
+import negocio.Producto;
+import negocio.Sucursal;
 
 public class Sistema {
 
 	private Collection<Sucursal> sucursales;
 	private Administracion administracion;
 	private DepositoCentral depositoCentral;
+	private Collection<Producto> productos;
 	
 	private static Sistema instance = null;
 
@@ -73,7 +84,14 @@ public class Sistema {
 			}
 		}
 	}
-
+	public Sucursal buscarSucursalPorNombre(String nombre){
+		for (Sucursal suc : sucursales) {
+			if(suc.getNombre().equals(nombre)){
+				return suc;
+			}
+		}
+		return null;
+	}
 	public void generarFactura(String nombreSucursal, int nroMesa) {
 
 		for (Sucursal suc : sucursales) {
@@ -105,5 +123,15 @@ public class Sistema {
 	}
 	public void AbrirMesa(){
 		
+	}
+	public void crearPlanProduccion(String nombreSucursal, int tiempo, Date fecha, ArrayList<ViewItemPlanProduccion> items){
+		administracion.CrearPlanProduccion(buscarSucursalPorNombre(nombreSucursal), tiempo, fecha, items);
+	}
+	public Producto buscarProductoPorNombre(String nombreProducto){
+		for (Producto prod : productos) {
+			if(prod.getNombre().equals(nombreProducto))
+				return prod;	
+		}
+		return null;
 	}
 }
