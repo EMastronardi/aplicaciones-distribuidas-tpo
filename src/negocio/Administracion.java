@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import controlador.Sistema;
@@ -55,5 +56,32 @@ public class Administracion {
 			pp.addItemPlaneado(viewItmPlan.getNombreSemielaborad(), viewItmPlan.getCantidad());
 		}
 		this.planesProduccion.add(pp);
+	}
+
+	public void ejecutarPlanProduccion(ArrayList<ViewItemPlanProduccion> itemsRealizados) {
+		PlanProduccion pp = getPlanProduccionActual();
+		//por cada itemRealizado, actualizo el plan de produccion con lo realizado
+		for (ViewItemPlanProduccion viewItmPlanProd: itemsRealizados) {
+			pp.modificarItemPlanProd(viewItmPlanProd.getNombreSemielaborad(), viewItmPlanProd.getCantidadFinalizada());
+		}
+		
+		//genero y disminuyo el Stock de Productos
+		/*
+		 * 
+		 * Uff aca se me complicó! tengo que poner el stock generado, en que depósito? Si cada area de producciónn
+		 * genera su propio stock, tenemos que tocar un poco el diagrama.. Desp lo charlamos!
+		 * 
+		 * */
+		
+		//
+	}
+
+	private PlanProduccion getPlanProduccionActual() {
+		Date fechaActual = new Date();
+		for (PlanProduccion pp : planesProduccion) {
+			if(pp.getFecha().compareTo(fechaActual) == 0 )
+				return pp;
+		}
+		return null;
 	}
 }

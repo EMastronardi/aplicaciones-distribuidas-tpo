@@ -21,7 +21,7 @@ public class Sistema {
 	private Administracion administracion;
 	private DepositoCentral depositoCentral;
 	private Collection<Producto> productos;
-	
+
 	private static Sistema instance = null;
 
 	public static Sistema getInstance() {
@@ -77,21 +77,24 @@ public class Sistema {
 
 	}
 
-	public void cerrarCaja(String nombreSucursal, ArrayList<ItemBillete> efectivoEnCaja) {
+	public void cerrarCaja(String nombreSucursal,
+			ArrayList<ItemBillete> efectivoEnCaja) {
 		for (Sucursal suc : sucursales) {
 			if (suc.getNombre().equals(nombreSucursal)) {
 				suc.cerrarCaja(efectivoEnCaja);
 			}
 		}
 	}
-	public Sucursal buscarSucursalPorNombre(String nombre){
+
+	public Sucursal buscarSucursalPorNombre(String nombre) {
 		for (Sucursal suc : sucursales) {
-			if(suc.getNombre().equals(nombre)){
+			if (suc.getNombre().equals(nombre)) {
 				return suc;
 			}
 		}
 		return null;
 	}
+
 	public void generarFactura(String nombreSucursal, int nroMesa) {
 
 		for (Sucursal suc : sucursales) {
@@ -109,7 +112,7 @@ public class Sistema {
 	public void setAdministracion(Administracion administracion) {
 		this.administracion = administracion;
 	}
-	
+
 	public DepositoCentral getDepositoCentral() {
 		return depositoCentral;
 	}
@@ -118,20 +121,29 @@ public class Sistema {
 		this.depositoCentral = depositoCentral;
 	}
 
-	public ArrayList<OrdenCompra> generarOrdenesCompra(){
+	public ArrayList<OrdenCompra> generarOrdenesCompra() {
 		return depositoCentral.generarCompra();
 	}
-	public void AbrirMesa(){
+
+	public void AbrirMesa() {
+
+	}
+
+	public void crearPlanProduccion(String nombreSucursal, int tiempo,
+			Date fecha, ArrayList<ViewItemPlanProduccion> items) {
+		administracion.CrearPlanProduccion(
+				buscarSucursalPorNombre(nombreSucursal), tiempo, fecha, items);
+	}
+	public void ejecutarPlanProduccion(ArrayList<ViewItemPlanProduccion> itemsRealizados){
+		administracion.ejecutarPlanProduccion(itemsRealizados);
 		
 	}
-	public void crearPlanProduccion(String nombreSucursal, int tiempo, Date fecha, ArrayList<ViewItemPlanProduccion> items){
-		administracion.CrearPlanProduccion(buscarSucursalPorNombre(nombreSucursal), tiempo, fecha, items);
-	}
-	public Producto buscarProductoPorNombre(String nombreProducto){
+	public Producto buscarProductoPorNombre(String nombreProducto) {
 		for (Producto prod : productos) {
-			if(prod.getNombre().equals(nombreProducto))
-				return prod;	
+			if (prod.getNombre().equals(nombreProducto))
+				return prod;
 		}
 		return null;
 	}
+	
 }
