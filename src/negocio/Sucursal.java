@@ -10,7 +10,6 @@ public class Sucursal {
 	private Caja caja;
 	private Collection<Comision> comisiones;
 	private Collection<Venta> ventas;
-	private Collection<Factura> facturas;
 	
 	public Sucursal(String nombre) {
 		this.nombre = nombre;
@@ -20,7 +19,6 @@ public class Sucursal {
 		caja = new Caja();
 		comisiones = new ArrayList<Comision>();
 		ventas = new ArrayList<Venta>();
-		facturas = new ArrayList<Factura>();
 	}
 
 	public String getNombre() {
@@ -90,7 +88,10 @@ public class Sucursal {
 
 	public void cerrarCaja(ArrayList<ItemBillete> efectivoEnCaja) {
 		this.caja.cerrarCajaDiaria(efectivoEnCaja);
-		
 	}
-
+	
+	public void cerrarVenta(Venta venta){
+		caja.generarFactura(venta);
+		venta.cerrarVenta();
+	}
 }

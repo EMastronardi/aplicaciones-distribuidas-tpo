@@ -12,7 +12,6 @@ public class Salon {
 	private ArrayList<Venta> ventasAbiertas;
 	private ArrayList<Comanda> comandas;
 	
-	
 	public Salon(String nombre, ArrayList<Mesa> mesasSalon) {
 		this.nombre = nombre;
 		this.mesas = mesasSalon;
@@ -50,7 +49,7 @@ public class Salon {
 		
 		if(this.getLugaresLibres() >= cantComezales){
 			for (Mesa mesa : mesasParaAbrir) {
-				mesa.setEstado("ocupada");
+				mesa.setEstado("Ocupada");
 				if(numeroMasAlto < mesa.getNumero()){
 					numeroMasAlto = mesa.getNumero();
 				}
@@ -98,10 +97,5 @@ public class Salon {
 		if(i < comandas.size()){
 			comandas.remove(i);
 		}
-	}
-	
-	public void cerrarMesa(Venta vta){
-		
-		
 	}
 }

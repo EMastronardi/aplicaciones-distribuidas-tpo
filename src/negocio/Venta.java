@@ -58,4 +58,11 @@ public class Venta {
 	public void setItemsVenta(Collection<ItemVenta> itemsVenta) {
 		this.itemsVenta = itemsVenta;
 	}
+	
+	public void cerrarVenta(){
+		for (Mesa mesa : mesas) {
+			mesa.setEstado("Disponible");
+		}
+		this.estado = "Cerrada";
+	}
 }
