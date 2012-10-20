@@ -19,7 +19,7 @@ public class Mesa {
 			this.capacidadMaxima = this.capacidad + 1;	
 			break;
 		default:
-			this.capacidad = this.capacidadMaxima;
+			this.capacidadMaxima = this.capacidad ;
 			break;
 		}	
 	}
