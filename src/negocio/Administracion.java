@@ -1,84 +1,111 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-import vista.ViewItemPlanProduccion;
-
 import controlador.Sistema;
+import vista.ViewItemPlanProduccion;
 
 public class Administracion {
 	private ArrayList<PlanProduccion> planesProduccion;
 	private ArrayList<OrdenCompra> ordenesCompra;
 	private ArrayList<NotaDevolucion> notasDevolucion;
-	
+
 	public Administracion() {
 		super();
 	}
-	
+
 	public ArrayList<PlanProduccion> getPlanesProduccion() {
 		return planesProduccion;
 	}
-	
+
 	public void setPlanesProduccion(ArrayList<PlanProduccion> planesProduccion) {
 		this.planesProduccion = planesProduccion;
 	}
-	
+
 	public ArrayList<OrdenCompra> getOrdenesCompra() {
 		return ordenesCompra;
 	}
-	
+
 	public void setOrdenesCompra(ArrayList<OrdenCompra> ordenesCompra) {
 		this.ordenesCompra = ordenesCompra;
 	}
-	
+
 	public ArrayList<NotaDevolucion> getNotasDevolucion() {
 		return notasDevolucion;
 	}
-	
+
 	public void setNotasDevolucion(ArrayList<NotaDevolucion> notasDevolucion) {
 		this.notasDevolucion = notasDevolucion;
 	}
 	
 	public void generarOrdenesCompra(ArrayList<ListaReposicion> listaRepo){
 		ArrayList<OrdenCompra> ordenesNuevas = new ArrayList<OrdenCompra>();
-		
+
 		if (ordenesNuevas != null)
 			ordenesCompra.addAll(ordenesNuevas);
 	}
-	
-	public void CrearPlanProduccion(Sucursal sucursal, int tiempo,Date fecha, ArrayList<ViewItemPlanProduccion> items){
-		PlanProduccion pp = new PlanProduccion(sucursal, tiempo, fecha, "");
-		//creo objetos itemPlanProd, los agrego
+
+	public void CrearPlanProduccion(Sucursal sucursal, Area area, int tiempo,
+			Date fecha, ArrayList<ViewItemPlanProduccion> items) {
+		PlanProduccion pp = getPlanProduccionPorFecha(fecha);
+		if (pp == null)
+			pp = new PlanProduccion(sucursal, area, tiempo, fecha, "");
+
+		// creo objetos itemPlanProd, los agrego buscando si primero no existen,
+		// y en caso que existan solo incremento su cantidad.
 		for (ViewItemPlanProduccion viewItmPlan : items) {
-			pp.addItemPlaneado(viewItmPlan.getNombreSemielaborad(), viewItmPlan.getCantidad());
+			pp.addItemPlaneado(viewItmPlan.getNombreSemielaborad(),
+					viewItmPlan.getCantidad());
 		}
 		this.planesProduccion.add(pp);
 	}
 
-	public void ejecutarPlanProduccion(ArrayList<ViewItemPlanProduccion> itemsRealizados) {
-		PlanProduccion pp = getPlanProduccionActual();
-		//por cada itemRealizado, actualizo el plan de produccion con lo realizado
-		for (ViewItemPlanProduccion viewItmPlanProd: itemsRealizados) {
-			pp.modificarItemPlanProd(viewItmPlanProd.getNombreSemielaborad(), viewItmPlanProd.getCantidadFinalizada());
+	private PlanProduccion getPlanProduccionPorFecha(Date fecha) {
+		for (PlanProduccion plan : planesProduccion) {
+			if (plan.getFecha().equals(fecha))
+				return plan;
 		}
-		
-		//genero y disminuyo el Stock de Productos
-		/*
-		 * 
-		 * Uff aca se me complic�! tengo que poner el stock generado, en que dep�sito? Si cada area de producci�nn
-		 * genera su propio stock, tenemos que tocar un poco el diagrama.. Desp lo charlamos!
-		 * 
-		 * */
-		
-		//
+		return null;
 	}
 
-	private PlanProduccion getPlanProduccionActual() {
+	public void ejecutarPlanProduccion(
+			ArrayList<ViewItemPlanProduccion> itemsRealizados,
+			String nombreSucursal, String nombreArea) {
+		PlanProduccion pp = getPlanProduccionActual(nombreSucursal, nombreArea);
+		// por cada itemRealizado, actualizo el plan de produccion con lo
+		// realizado
+		if (pp != null) {
+			Deposito dep = pp.getArea().getDeposito();
+
+			for (ViewItemPlanProduccion viewItmPlanProd : itemsRealizados) {
+				pp.modificarItemPlanProd(
+						viewItmPlanProd.getNombreSemielaborad(),
+						viewItmPlanProd.getCantidadFinalizada());
+				// alta de semielaborados
+				Producto p = Sistema.getInstance().buscarProductoPorNombre(
+						viewItmPlanProd.getNombreSemielaborad());
+				dep.ajustarInventario(p,
+						viewItmPlanProd.getCantidadFinalizada());
+
+				// baja de insumos consumidos
+				//obtengo receta
+				SemiElaborado semi = (SemiElaborado)p;
+				Receta rec = semi.getReceta();
+				for (ItemReceta ir : rec.getItemsReceta()) { // Descuento los items correspondientes
+					dep.ajustarInventario((Producto)ir.getIngrediente(), ir.getCantidad()*viewItmPlanProd.getCantidadFinalizada()*(-1));
+				}
+			}
+		}
+	}
+
+	private PlanProduccion getPlanProduccionActual(String nombreSucursal,
+			String nombreArea) {
 		Date fechaActual = new Date();
 		for (PlanProduccion pp : planesProduccion) {
-			if(pp.getFecha().compareTo(fechaActual) == 0 )
+			if (pp.getFecha().compareTo(fechaActual) == 0
+					&& pp.getSucursal().getNombre().equals(nombreSucursal)
+					&& pp.getArea().getNombre().equals(nombreArea))
 				return pp;
 		}
 		return null;

@@ -35,30 +35,12 @@ public class Sistema {
 	private void cargarDatosIniciales() {
 
 		Sucursal suc1 = new Sucursal("Belgrano");
-		Area cocina = new Cocina(null, null, null);
-		Area bar = new Barra(null, null, null);
-		Area cafeteria = new Cafeteria(null, null, null);
-		suc1.agregarArea(cocina);
-		suc1.agregarArea(bar);
-		suc1.agregarArea(cafeteria);
 		sucursales.add(suc1);
 
 		Sucursal suc2 = new Sucursal("Caballito");
-		Area cocina2 = new Cocina(null, null, null);
-		Area bar2 = new Barra(null, null, null);
-		Area cafeteria2 = new Cafeteria(null, null, null);
-		suc2.agregarArea(cocina2);
-		suc2.agregarArea(bar2);
-		suc2.agregarArea(cafeteria2);
 		sucursales.add(suc2);
 
 		Sucursal suc3 = new Sucursal("Puerto Madero");
-		Area cocina3 = new Cocina(null, null, null);
-		Area bar3 = new Barra(null, null, null);
-		Area cafeteria3 = new Cafeteria(null, null, null);
-		suc3.agregarArea(cocina3);
-		suc3.agregarArea(bar3);
-		suc3.agregarArea(cafeteria3);
 		sucursales.add(suc3);
 	}
 
@@ -114,13 +96,20 @@ public class Sistema {
 
 	}
 
-	public void crearPlanProduccion(String nombreSucursal, int tiempo,
-			Date fecha, ArrayList<ViewItemPlanProduccion> items) {
-		administracion.CrearPlanProduccion(
-				buscarSucursalPorNombre(nombreSucursal), tiempo, fecha, items);
+	public void crearPlanProduccion(String nombreSucursal, String nombreArea, int tiempo, Date fecha, ArrayList<ViewItemPlanProduccion> items) {
+		administracion.CrearPlanProduccion(buscarSucursalPorNombre(nombreSucursal), buscarArea(nombreSucursal, nombreArea),tiempo, fecha, items);
 	}
-	public void ejecutarPlanProduccion(ArrayList<ViewItemPlanProduccion> itemsRealizados){
-		administracion.ejecutarPlanProduccion(itemsRealizados);
+	private Area buscarArea(String nombreSucursal, String nombreArea) {
+		Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
+		for (Area a : suc.getAreas()) {
+			if(a.getNombre().equals(nombreArea))
+				return a;
+		}
+		return null;
+	}
+
+	public void ejecutarPlanProduccion(ArrayList<ViewItemPlanProduccion> itemsRealizados, String nombreSucursal, String nombreArea){
+		administracion.ejecutarPlanProduccion(itemsRealizados, nombreSucursal, nombreArea);
 		
 	}
 	public Producto buscarProductoPorNombre(String nombreProducto) {
