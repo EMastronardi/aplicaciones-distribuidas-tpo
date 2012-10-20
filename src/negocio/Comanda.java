@@ -7,13 +7,13 @@ public class Comanda {
 
 	private Venta venta;
 	private Mozo mozo;
-	private String fecha;
+	private Date fecha;
 	private ArrayList<ItemComanda> itemsComanda;
 	public Comanda(Venta venta, Mozo mozo) {
 		super();
 		this.venta = venta;
 		this.mozo = mozo;
-		this.fecha = Sistema.getInstance().getDateTime();
+		this.fecha = new Date();
 		this.itemsComanda = new ArrayList<ItemComanda>();
 	}
 	public Venta getVenta() {
@@ -31,11 +31,11 @@ public class Comanda {
 		this.mozo = mozo;
 	}
 	
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	
