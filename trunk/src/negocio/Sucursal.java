@@ -6,7 +6,7 @@ public class Sucursal {
 	private String nombre;
 	private Collection<Area> areas;
 	private Salon salon;
-	private DepositoSucursal deposito;
+	private Deposito deposito;
 	private Caja caja;
 	private Collection<Comision> comisiones;
 	private Collection<Venta> ventas;
@@ -15,7 +15,7 @@ public class Sucursal {
 		this.nombre = nombre;
 		areas = new ArrayList<Area>();
 		salon = new Salon("salon1", null);
-		deposito = new DepositoSucursal(null);
+		deposito = new Deposito(null);
 		caja = new Caja();
 		comisiones = new ArrayList<Comision>();
 		ventas = new ArrayList<Venta>();
@@ -45,11 +45,11 @@ public class Sucursal {
 		this.salon = salon;
 	}
 
-	public DepositoSucursal getDeposito() {
+	public Deposito getDeposito() {
 		return deposito;
 	}
 
-	public void setDeposito(DepositoSucursal deposito) {
+	public void setDeposito(Deposito deposito) {
 		this.deposito = deposito;
 	}
 
@@ -80,6 +80,7 @@ public class Sucursal {
 		}
 		return null;
 	}
+
 
 	public void abrirCaja(ArrayList<ItemBillete> billetes) {
 		this.caja.aperturaCajaDiaria(billetes);
