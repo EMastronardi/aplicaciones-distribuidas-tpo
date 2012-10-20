@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import vista.ViewItemPlanProduccion;
+
 import negocio.Administracion;
 import negocio.Area;
 import negocio.Barra;
