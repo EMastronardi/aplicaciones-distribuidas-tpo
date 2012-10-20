@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import vista.ViewItemPlanProduccion;
+
 import controlador.Sistema;
-import controlador.ViewItemPlanProduccion;
 
 public class Administracion {
 	private ArrayList<PlanProduccion> planesProduccion;
@@ -68,7 +69,7 @@ public class Administracion {
 		//genero y disminuyo el Stock de Productos
 		/*
 		 * 
-		 * Uff aca se me complicó! tengo que poner el stock generado, en que depósito? Si cada area de producciónn
+		 * Uff aca se me complicï¿½! tengo que poner el stock generado, en que depï¿½sito? Si cada area de producciï¿½nn
 		 * genera su propio stock, tenemos que tocar un poco el diagrama.. Desp lo charlamos!
 		 * 
 		 * */
