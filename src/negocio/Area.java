@@ -3,22 +3,34 @@ package negocio;
 import java.util.Collection;
 
 public class Area {
-	protected Collection<Plato> platos;
-	//protected Collection<ItemStock> stock;
-	protected Collection<ListaReposicion> listasReposicion;
-	protected String nombre;
-	protected DepositoSucursal deposito;
+	private Collection<Plato> platos;
+	private Collection<ListaReposicion> listasReposicion;
+	private Deposito deposito;
+	private String nombre;
+	private int cantHoras;
+	
+	public int getCantHoras() {
+		return cantHoras;
+	}
+
+	public void setCantHoras(int cantHoras) {
+		this.cantHoras = cantHoras;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public DepositoSucursal getDeposito() {
-		return deposito;
+	public void setDeposito(Deposito deposito) {
+		this.deposito = deposito;
 	}
 
-	public void setDeposito(DepositoSucursal deposito) {
-		this.deposito = deposito;
+	public Deposito getDeposito() {
+		return deposito;
 	}
 
 	public Collection<Plato> getPlatos() {
@@ -29,14 +41,6 @@ public class Area {
 		this.platos = platos;
 	}
 
-//	public Collection<ItemStock> getStock() {
-//		return stock;
-//	}
-//
-//	public void setStock(Collection<ItemStock> stock) {
-//		this.stock = stock;
-//	}
-
 	public Collection<ListaReposicion> getListasReposicion() {
 		return listasReposicion;
 	}
@@ -45,18 +49,11 @@ public class Area {
 		this.listasReposicion = listasReposicion;
 	}
 
-	public Area(Collection<Plato> platos, Collection<ItemStock> stock, Collection<ListaReposicion> listasReposicion, String nombre, DepositoSucursal depo) {
+	public Area(Collection<Plato> platos, Collection<ItemStock> stock, Collection<ListaReposicion> listasReposicion, String nombre, Deposito depo, int cantHoras) {
 		this.platos = platos;
-//		this.stock = stock;
-		this.nombre = nombre;
 		this.listasReposicion = listasReposicion;
 		this.deposito = depo;
+		this.nombre = nombre;
+		this.cantHoras = cantHoras;
 	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	
-	
 }
