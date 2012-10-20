@@ -7,11 +7,18 @@ import java.util.Collection;
 public class Caja {
 	private Collection<CajaDiaria> cajas;
 	private CajaDiaria cajaActual;
-
+	private ArrayList<Factura> facturas;
+	
 	public Caja() {
 		cajas = new ArrayList<CajaDiaria>();
+		this.facturas = new ArrayList<Factura>();
 	}
-
+	
+	public void generarFactura(Venta venta) {
+		Factura fact = new Factura(venta);
+		facturas.add(fact);
+	}
+	
 	private void calcularComisiones() {
 
 	}

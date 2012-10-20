@@ -83,13 +83,6 @@ public class Sucursal {
 		return null;
 	}
 
-	public void generarFactura(int nroMesa) {
-
-		Factura fact = new Factura(buscarVenta(nroMesa));
-		facturas.add(fact);
-
-	}
-
 	public void abrirCaja(ArrayList<ItemBillete> billetes) {
 		this.caja.aperturaCajaDiaria(billetes);
 		
