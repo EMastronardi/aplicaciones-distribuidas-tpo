@@ -125,8 +125,8 @@ public class Sistema {
 		this.depositoCentral = depositoCentral;
 	}
 
-	public ArrayList<OrdenCompra> generarOrdenesCompra() {
-		return depositoCentral.generarCompra();
+	public void generarOrdenesCompra() {
+		administracion.generarOrdenesCompra(depositoCentral.controlarExistencias());
 	}
 
 	public void AbrirMesa() {
@@ -149,7 +149,5 @@ public class Sistema {
 		}
 		return null;
 	}
-
-
 
 }
