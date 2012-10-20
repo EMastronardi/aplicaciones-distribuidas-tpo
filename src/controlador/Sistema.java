@@ -8,16 +8,7 @@ import java.util.Date;
 
 import vista.ViewItemPlanProduccion;
 
-import negocio.Administracion;
-import negocio.Area;
-import negocio.Barra;
-import negocio.Cafeteria;
-import negocio.Cocina;
-import negocio.DepositoCentral;
-import negocio.ItemBillete;
-import negocio.OrdenCompra;
-import negocio.Producto;
-import negocio.Sucursal;
+import negocio.*;
 
 public class Sistema {
 
