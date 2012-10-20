@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 public class SemiElaborado extends Ingrediente {
 	private Receta receta;
@@ -14,7 +14,7 @@ public class SemiElaborado extends Ingrediente {
 	}
 
 	public SemiElaborado(String categorizacion, String nombre,
-			Collection<Proveedor> proveedores, boolean fresco, Receta receta) {
+			ArrayList<ItemProveedor> proveedores, boolean fresco, Receta receta) {
 		super(categorizacion, nombre, proveedores, fresco);
 		this.receta = receta;
 	}

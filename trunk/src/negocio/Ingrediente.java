@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Ingrediente extends Producto {
@@ -14,7 +15,7 @@ public class Ingrediente extends Producto {
 	}
 
 	public Ingrediente(String categorizacion, String nombre,
-			Collection<Proveedor> proveedores, boolean fresco) {
+			ArrayList<ItemProveedor> proveedores, boolean fresco) {
 		super(categorizacion, nombre, proveedores);
 		this.fresco = fresco;
 	}

@@ -5,20 +5,9 @@ import java.util.Date;
 
 public class Deposito {
 	protected Collection<ItemStock> stock;
-	protected Collection<ListaReposicion> pedidosPendientes;
 	
-	public Deposito(Collection<ItemStock> stock,
-			Collection<ListaReposicion> pedidosPendientes) {
+	public Deposito(Collection<ItemStock> stock) {
 		this.stock = stock;
-		this.pedidosPendientes = pedidosPendientes;
-	}
-
-	public Collection<ListaReposicion> getPedidosPendientes() {
-		return pedidosPendientes;
-	}
-
-	public void setPedidosPendientes(Collection<ListaReposicion> pedidosPendientes) {
-		this.pedidosPendientes = pedidosPendientes;
 	}
 
 	public Collection<ItemStock> getStock() {
