@@ -41,10 +41,8 @@ public class Administracion {
 		this.notasDevolucion = notasDevolucion;
 	}
 	
-	public void generarOrdenesCompra(){
+	public void generarOrdenesCompra(ArrayList<ListaReposicion> listaRepo){
 		ArrayList<OrdenCompra> ordenesNuevas = new ArrayList<OrdenCompra>();
-		
-		ordenesNuevas = Sistema.getInstance().generarOrdenesCompra();
 		
 		if (ordenesNuevas != null)
 			ordenesCompra.addAll(ordenesNuevas);

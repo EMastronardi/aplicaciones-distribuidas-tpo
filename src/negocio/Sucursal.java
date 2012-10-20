@@ -16,7 +16,7 @@ public class Sucursal {
 		this.nombre = nombre;
 		areas = new ArrayList<Area>();
 		salon = new Salon("salon1", null);
-		deposito = new DepositoSucursal(null, null);
+		deposito = new DepositoSucursal(null);
 		caja = new Caja();
 		comisiones = new ArrayList<Comision>();
 		ventas = new ArrayList<Venta>();

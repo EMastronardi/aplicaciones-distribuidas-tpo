@@ -1,11 +1,12 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Producto {
 	protected String categorizacion;
 	protected String nombre;
-	protected Collection<Proveedor> proveedores;
+	protected ArrayList<ItemProveedor> proveedores;
 
 	public String getCategorizacion() {
 		return categorizacion;
@@ -23,16 +24,16 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public Collection<Proveedor> getProveedores() {
+	public ArrayList<ItemProveedor> getProveedores() {
 		return proveedores;
 	}
 
-	public void setProveedores(Collection<Proveedor> proveedores) {
+	public void setProveedores(ArrayList<ItemProveedor> proveedores) {
 		this.proveedores = proveedores;
 	}
 
 	public Producto(String categorizacion, String nombre,
-			Collection<Proveedor> proveedores) {
+			ArrayList<ItemProveedor> proveedores) {
 		super();
 		this.categorizacion = categorizacion;
 		this.nombre = nombre;
