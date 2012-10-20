@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,13 +13,18 @@ public class CajaDiaria {
 	private Collection<Pago> pagos;
 	private Date fechaCierre;
 	
-	public CajaDiaria(Collection<Factura> facturas, String estado, Date fecha) {
-		this.facturas = facturas;
+	public CajaDiaria(String estado, Date fecha) {
+		this.facturas = new ArrayList<Factura>();
 		this.estado = estado;
 		this.fecha = fecha;
 
 	}
 
+	public void generarFactura(Venta venta) {
+		Factura fact = new Factura(venta);
+		facturas.add(fact);
+	}
+	
 	public Date getFechaCierre() {
 		return fechaCierre;
 	}
