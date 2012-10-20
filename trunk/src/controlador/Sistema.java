@@ -90,16 +90,6 @@ public class Sistema {
 		return null;
 	}
 
-	public void generarFactura(String nombreSucursal, int nroMesa) {
-
-		for (Sucursal suc : sucursales) {
-			if (suc.getNombre().equals(nombreSucursal)) {
-				suc.generarFactura(nroMesa);
-			}
-
-		}
-	}
-
 	public Administracion getAdministracion() {
 		return administracion;
 	}
