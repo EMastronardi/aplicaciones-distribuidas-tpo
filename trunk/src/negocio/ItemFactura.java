@@ -1,5 +1,9 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ItemsFacturas")
 public class ItemFactura {
 	private Plato plato;
 	private int cantidad;

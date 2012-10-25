@@ -1,15 +1,25 @@
 package negocio;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.*;
 
+@Entity
+@Table(name="Facturas")
 public class Factura {
 	private static int ultimoNroFactura;
+	@Id
 	private int numero;
 	private Date fecha;
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
 	private Venta venta;
 	private float total;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Collection<ItemFactura> itemsFactura;
 
 	private static int getProximoNroFactura() {

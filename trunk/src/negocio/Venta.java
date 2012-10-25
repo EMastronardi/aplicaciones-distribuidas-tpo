@@ -3,11 +3,32 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Ventas")
 public class Venta {
+	@Transient
+	private static int ultNumVenta = 0;
+	@Id
+	private int nroVenta;
 	private int nroMesa;
+
+	private static int getProxNroVenta() {
+		ultNumVenta++;
+		return ultNumVenta;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Collection<Mesa> mesas;
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Mozo mozo;
 	private String estado;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Collection<ItemVenta> itemsVenta;
 
 	public Venta(int nroMesa, Collection<Mesa> mesas, Mozo mozo, String estado) {
@@ -17,6 +38,7 @@ public class Venta {
 		this.mozo = mozo;
 		this.estado = estado;
 		this.itemsVenta = new ArrayList<ItemVenta>();
+		this.nroVenta = this.getProxNroVenta();
 	}
 
 	public Collection<Mesa> getMesas() {
@@ -58,8 +80,8 @@ public class Venta {
 	public void setItemsVenta(Collection<ItemVenta> itemsVenta) {
 		this.itemsVenta = itemsVenta;
 	}
-	
-	public void cerrarVenta(){
+
+	public void cerrarVenta() {
 		for (Mesa mesa : mesas) {
 			mesa.setEstado("Disponible");
 		}
