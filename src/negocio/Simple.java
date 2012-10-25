@@ -2,6 +2,10 @@ package negocio;
 
 import java.util.ArrayList;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Simples")
 public class Simple extends Ingrediente {
 
 	public Simple(String categorizacion, String nombre,

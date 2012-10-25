@@ -1,5 +1,8 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
 public class Mozo extends Empleado {
 	private float porcentajeComision;
 
@@ -11,8 +14,8 @@ public class Mozo extends Empleado {
 		this.porcentajeComision = porcentajeComision;
 	}
 
-	public Mozo(String nombre, String clave, float porcentajeComision) {
-		super(nombre, clave);
+	public Mozo(int nro, String nombre, String clave, float porcentajeComision) {
+		super(nro, nombre, clave);
 		this.porcentajeComision = porcentajeComision;
 	}
 	

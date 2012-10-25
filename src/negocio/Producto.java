@@ -1,11 +1,21 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Productos")
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Producto {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected int idProducto;
 	protected String categorizacion;
 	protected String nombre;
+
+	@ManyToMany(cascade = CascadeType.ALL)
 	protected ArrayList<ItemProveedor> proveedores;
 
 	public String getCategorizacion() {

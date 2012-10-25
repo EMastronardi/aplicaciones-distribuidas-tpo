@@ -1,8 +1,10 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
+import javax.persistence.*;
+
+@Entity
 public class Insumo extends Producto {
 
 	public Insumo(String categorizacion, String nombre,

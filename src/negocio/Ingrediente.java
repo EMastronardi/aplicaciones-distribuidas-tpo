@@ -1,11 +1,15 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Ingredientes")
 public class Ingrediente extends Producto {
 	protected boolean fresco;
-
+	@Id
+	protected int idIngrediente;
 	public boolean isFresco() {
 		return fresco;
 	}

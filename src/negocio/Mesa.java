@@ -1,6 +1,11 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Mesas")
 public class Mesa {
+	@Id
 	private int numero;
 	private String estado;
 	private int capacidad;

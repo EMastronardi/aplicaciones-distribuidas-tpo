@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import org.hibernate.SessionFactory;
+
 import vista.ViewItemPlanProduccion;
 
 import negocio.*;
@@ -24,7 +26,11 @@ public class Sistema {
 			instance = new Sistema();
 		return instance;
 	}
-
+	public static void main(String[] args) {
+		System.out.println("Arrancó el sistema");
+		SessionFactory sf = persistencia.HibernateUtil.getSessionFactory();
+		sf.openSession();
+	}
 	private Sistema() {
 		sucursales = new ArrayList<Sucursal>();
 
