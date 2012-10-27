@@ -1,14 +1,27 @@
 package negocio;
 
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Areas")
 public class Area {
-	private Collection<Plato> platos;
-	private Collection<ListaReposicion> listasReposicion;
+	@Id
+	private int idArea;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Plato> platos;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<ListaReposicion> listasReposicion;
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Deposito deposito;
 	private String nombre;
 	private int cantHoras;
-	
+
 	public int getCantHoras() {
 		return cantHoras;
 	}
@@ -37,7 +50,7 @@ public class Area {
 		return platos;
 	}
 
-	public void setPlatos(Collection<Plato> platos) {
+	public void setPlatos(List<Plato> platos) {
 		this.platos = platos;
 	}
 
@@ -45,11 +58,13 @@ public class Area {
 		return listasReposicion;
 	}
 
-	public void setListasReposicion(Collection<ListaReposicion> listasReposicion) {
+	public void setListasReposicion(List<ListaReposicion> listasReposicion) {
 		this.listasReposicion = listasReposicion;
 	}
 
-	public Area(Collection<Plato> platos, Collection<ItemStock> stock, Collection<ListaReposicion> listasReposicion, String nombre, Deposito depo, int cantHoras) {
+	public Area(List<Plato> platos, List<ItemStock> stock,
+			List<ListaReposicion> listasReposicion, String nombre,
+			Deposito depo, int cantHoras) {
 		this.platos = platos;
 		this.listasReposicion = listasReposicion;
 		this.deposito = depo;

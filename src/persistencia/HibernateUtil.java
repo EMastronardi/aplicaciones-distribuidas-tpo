@@ -13,6 +13,11 @@ public class HibernateUtil {
 			// Aca agregar todas las clases persistibles!
 			// config.addAnnotatedClass(UnaClase.class);
 			config.addAnnotatedClass(Mesa.class);
+			config.addAnnotatedClass(Plato.class);
+			config.addAnnotatedClass(Area.class);
+			config.addAnnotatedClass(Sucursal.class);
+			config.addAnnotatedClass(ItemRepo.class);
+			config.addAnnotatedClass(ListaReposicion.class);
 			config.addAnnotatedClass(Administrativo.class);
 			config.addAnnotatedClass(Empleado.class);
 			config.addAnnotatedClass(Encargado.class);
@@ -29,6 +34,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(SemiElaborado.class);
 			config.addAnnotatedClass(Simple.class);
 			config.addAnnotatedClass(Venta.class);
+			config.addAnnotatedClass(ItemVenta.class);
 			sessionFactory = config.buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Initial SessionFactory creation failed." + ex);

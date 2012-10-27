@@ -1,8 +1,19 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Productos")
@@ -15,8 +26,9 @@ public class Producto {
 	protected String categorizacion;
 	protected String nombre;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	protected ArrayList<ItemProveedor> proveedores;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="idProducto")
+	protected List<ItemProveedor> proveedores;
 
 	public String getCategorizacion() {
 		return categorizacion;
@@ -34,7 +46,7 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public ArrayList<ItemProveedor> getProveedores() {
+	public List<ItemProveedor> getProveedores() {
 		return proveedores;
 	}
 

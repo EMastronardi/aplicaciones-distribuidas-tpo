@@ -2,8 +2,16 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Ventas")
@@ -29,7 +37,7 @@ public class Venta {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	private Collection<ItemVenta> itemsVenta;
+	private List<ItemVenta> itemsVenta;
 
 	public Venta(int nroMesa, Collection<Mesa> mesas, Mozo mozo, String estado) {
 		super();
@@ -77,7 +85,7 @@ public class Venta {
 		return itemsVenta;
 	}
 
-	public void setItemsVenta(Collection<ItemVenta> itemsVenta) {
+	public void setItemsVenta(List<ItemVenta> itemsVenta) {
 		this.itemsVenta = itemsVenta;
 	}
 

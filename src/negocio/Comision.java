@@ -1,5 +1,10 @@
 package negocio;
 
-public class Comision {
+import javax.persistence.*;
 
+@Entity
+public class Comision {
+	@Id
+	private int id;
+	
 }

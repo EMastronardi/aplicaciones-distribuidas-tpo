@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name="ItemsFacturas")
 public class ItemFactura {
+	@Id
+	private int id;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Plato plato;
 	private int cantidad;
 
