@@ -2,14 +2,40 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Sucursales")
 public class Sucursal {
+	@Id
+	private int id;
 	private String nombre;
-	private Collection<Area> areas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Area> areas;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Salon salon;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Deposito deposito;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Caja caja;
-	private Collection<Comision> comisiones;
-	private Collection<Venta> ventas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Comision> comisiones;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Venta> ventas;
 	
 	public Sucursal(String nombre) {
 		this.nombre = nombre;
@@ -33,7 +59,7 @@ public class Sucursal {
 		return areas;
 	}
 
-	public void setAreas(Collection<Area> areas) {
+	public void setAreas(List<Area> areas) {
 		this.areas = areas;
 	}
 
@@ -65,7 +91,7 @@ public class Sucursal {
 		return comisiones;
 	}
 
-	public void setComisiones(Collection<Comision> comisiones) {
+	public void setComisiones(List<Comision> comisiones) {
 		this.comisiones = comisiones;
 	}
 
