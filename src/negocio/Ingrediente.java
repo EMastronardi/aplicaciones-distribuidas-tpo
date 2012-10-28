@@ -10,9 +10,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Ingrediente extends Producto {
 	protected boolean fresco;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	protected int idIngrediente;
+
 	public boolean isFresco() {
 		return fresco;
 	}

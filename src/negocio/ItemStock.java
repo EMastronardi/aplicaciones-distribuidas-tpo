@@ -1,6 +1,14 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ItemsStock")
 public class ItemStock {
+	@Id
+	private int id;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Lote lote;
 	private float cantidad;
 

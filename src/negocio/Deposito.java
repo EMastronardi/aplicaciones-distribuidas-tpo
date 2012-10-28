@@ -2,19 +2,30 @@ package negocio;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Depositos")
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Deposito {
-	protected Collection<ItemStock> stock;
+	@Id
+	private int id;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	protected List<ItemStock> stock;
 	
-	public Deposito(Collection<ItemStock> stock) {
+	public Deposito(List<ItemStock> stock) {
 		this.stock = stock;
 	}
 
-	public Collection<ItemStock> getStock() {
+	public List<ItemStock> getStock() {
 		return stock;
 	}
 
-	public void setStock(Collection<ItemStock> stock) {
+	public void setStock(List<ItemStock> stock) {
 		this.stock = stock;
 	}
 	

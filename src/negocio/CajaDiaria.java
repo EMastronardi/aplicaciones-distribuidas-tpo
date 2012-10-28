@@ -3,16 +3,35 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CajasDiarias")
 public class CajaDiaria {
-	private Collection<Factura> facturas;
+	@Id
+	private int id;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Factura> facturas;
 	private String estado;
 	private Date fecha;
 	private float total;
-	private Collection<ItemBillete> efectivoTotal;
-	private Collection<Pago> pagos;
-	private Date fechaCierre;
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<ItemBillete> efectivoTotal;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Pago> pagos;
+	private Date fechaCierre;
+
 	public CajaDiaria(String estado, Date fecha) {
 		this.facturas = new ArrayList<Factura>();
 		this.estado = estado;
@@ -24,7 +43,7 @@ public class CajaDiaria {
 		Factura fact = new Factura(venta);
 		facturas.add(fact);
 	}
-	
+
 	public Date getFechaCierre() {
 		return fechaCierre;
 	}
@@ -45,7 +64,7 @@ public class CajaDiaria {
 		return facturas;
 	}
 
-	public void setFacturas(Collection<Factura> facturas) {
+	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
 
@@ -69,7 +88,7 @@ public class CajaDiaria {
 		return efectivoTotal;
 	}
 
-	public void setEfectivoTotal(Collection<ItemBillete> efectivoTotal) {
+	public void setEfectivoTotal(List<ItemBillete> efectivoTotal) {
 		this.efectivoTotal = efectivoTotal;
 	}
 
@@ -77,7 +96,7 @@ public class CajaDiaria {
 		return pagos;
 	}
 
-	public void setPagos(Collection<Pago> pagos) {
+	public void setPagos(List<Pago> pagos) {
 		this.pagos = pagos;
 	}
 }

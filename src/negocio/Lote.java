@@ -2,10 +2,19 @@ package negocio;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Lotes")
 public class Lote {
+	@Id
+	private int id;
 	private String codigo;
 	private Boolean estado;
 	private Date vencimiento;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Producto producto;
 
 	public String getCodigo() {
