@@ -1,19 +1,28 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
 public class DepositoCentral extends Deposito {
-	private ArrayList<ListaReposicion> pedidos;
+	
+	@Id
+	private int id;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<ListaReposicion> pedidos;
 
-	public DepositoCentral(Collection<ItemStock> stock,
-			Collection<ListaReposicion> pedidosPendientes,
+	public DepositoCentral(List<ItemStock> stock,
+			List<ListaReposicion> pedidosPendientes,
 			ArrayList<ListaReposicion> pedidos) {
 		super(stock);
 		this.pedidos = pedidos;
 	}
 
-	public ArrayList<ListaReposicion> getPedidos() {
+	public List<ListaReposicion> getPedidos() {
 		return pedidos;
 	}
 

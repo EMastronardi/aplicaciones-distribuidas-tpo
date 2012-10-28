@@ -1,5 +1,9 @@
 package negocio;
 
-public class Pago {
+import javax.persistence.*;
 
+@Entity
+public class Pago {
+	@Id
+	private int id;
 }

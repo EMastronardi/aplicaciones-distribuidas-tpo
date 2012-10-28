@@ -1,6 +1,14 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ItemsComanda")
 public class ItemComanda {
+	@Id
+	private int id;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Plato plato;
 	private int cantidad;
 	

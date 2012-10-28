@@ -2,13 +2,28 @@ package negocio;
 
 import java.util.*;
 
-import controlador.Sistema;
-public class Comanda {
+import javax.persistence.*;
 
+import controlador.Sistema;
+
+@Entity
+@Table(name="Comandas")
+public class Comanda {
+	@Id
+	private int id;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Venta venta;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Mozo mozo;
 	private Date fecha;
-	private ArrayList<ItemComanda> itemsComanda;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<ItemComanda> itemsComanda;
+	
 	public Comanda(Venta venta, Mozo mozo) {
 		super();
 		this.venta = venta;

@@ -1,11 +1,23 @@
 package negocio;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Cajas")
 public class Caja {
-	private Collection<CajaDiaria> cajas;
+	@Id
+	private int id;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<CajaDiaria> cajas;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private CajaDiaria cajaActual;
 	
 	public Caja() {

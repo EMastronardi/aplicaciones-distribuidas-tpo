@@ -1,9 +1,16 @@
 package negocio;
 
 import java.util.Collection;
+
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Reservas")
 public class Reserva {
+	@Id
+	private int id;
 	private Date fecha;
 	private Date hora;
 	private String estado;

@@ -1,6 +1,12 @@
 package negocio;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Billetes")
 public class Billete {
+	@Id
+	private int id;
 	private String denominacion;
 	private float valor;
 	public Billete(String denominacion, float valor) {

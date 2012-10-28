@@ -3,14 +3,30 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import negocio.Mozo;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
 public class Salon {
+	@Id
+	private int id;
 	private String nombre;
-	private ArrayList<Mesa> mesas;
-	private ArrayList<Reserva> reservas;
-	private ArrayList<Venta> ventasAbiertas;
-	private ArrayList<Comanda> comandas;
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Mesa> mesas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Reserva> reservas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Venta> ventasAbiertas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private List<Comanda> comandas;
 	
 	public Salon(String nombre, ArrayList<Mesa> mesasSalon) {
 		this.nombre = nombre;
@@ -28,7 +44,7 @@ public class Salon {
 		this.nombre = nombre;
 	}
 
-	public ArrayList<Mesa> getMesas() {
+	public List<Mesa> getMesas() {
 		return mesas;
 	}
 
