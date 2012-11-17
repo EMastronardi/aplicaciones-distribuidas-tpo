@@ -10,20 +10,22 @@ import controlador.Sistema;
 @Table(name="Comandas")
 public class Comanda {
 	@Id
-	private int id;
+	private int idComanda;
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idComanda")
 	private Venta venta;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private Date fecha;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idComanda")
 	private List<ItemComanda> itemsComanda;
 	
+	public Comanda() {
+	}
 	public Comanda(Venta venta, Mozo mozo) {
 		super();
 		this.venta = venta;

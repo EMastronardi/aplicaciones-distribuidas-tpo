@@ -5,6 +5,9 @@ import javax.persistence.*;
 @Entity
 public class Comision {
 	@Id
-	private int id;
+	private int idComision;
+
+	public Comision() {
+	}
 	
 }

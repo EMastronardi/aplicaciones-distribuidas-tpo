@@ -3,27 +3,30 @@ package negocio;
 import javax.persistence.*;
 
 
-@Entity
+
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Empleado {
 	@Id
-	protected int nroEmpleado;
+	protected int idEmpleado;
 	protected String nombre;
 	protected String clave;
 
 	public Empleado(int nro, String nombre, String clave) {
-		this.nroEmpleado = nro;
+		this.idEmpleado = nro;
 		this.nombre = nombre;
 		this.clave = clave;
 	}
 
+	public Empleado() {
+	}
+
 	public int getNroEmpleado() {
-		return nroEmpleado;
+		return idEmpleado;
 	}
 
 	public void setNroEmpleado(int nroEmpleado) {
-		this.nroEmpleado = nroEmpleado;
+		this.idEmpleado = nroEmpleado;
 	}
 
 	public String getNombre() {

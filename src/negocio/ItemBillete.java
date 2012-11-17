@@ -6,14 +6,17 @@ import javax.persistence.*;
 @Table(name = "ItemsBilletes")
 public class ItemBillete {
 	@Id
-	private int id;
+	private int idItemBillete;
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idBillete")
 	private Billete billete;
 	private int cantidad;
 
 	public Billete getBillete() {
 		return billete;
+	}
+
+	public ItemBillete() {
 	}
 
 	public void setBillete(Billete billete) {
