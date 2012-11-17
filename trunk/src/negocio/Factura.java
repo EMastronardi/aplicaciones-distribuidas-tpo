@@ -1,26 +1,34 @@
 package negocio;
 
 import java.util.ArrayList;
-
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="Facturas")
 public class Factura {
 	private static int ultimoNroFactura;
 	@Id
-	private int numero;
+	private int idFactura;
 	private Date fecha;
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-	private Venta venta;
+    @JoinColumn(name="idFactura")
+    private Venta venta;
 	private float total;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Collection<ItemFactura> itemsFactura;
+	@JoinColumn(name="idFactura")
+	private List<ItemFactura> itemsFactura;
 
 	private static int getProximoNroFactura() {
 		ultimoNroFactura++;
@@ -28,7 +36,7 @@ public class Factura {
 	}
 
 	public int getNumero() {
-		return numero;
+		return idFactura;
 	}
 
 	public Date getFecha() {
@@ -59,13 +67,16 @@ public class Factura {
 		return itemsFactura;
 	}
 
-	public void setItemsFactura(Collection<ItemFactura> itemsFactura) {
+	public void setItemsFactura(List<ItemFactura> itemsFactura) {
 		this.itemsFactura = itemsFactura;
+	}
+
+	public Factura() {
 	}
 
 	public Factura(Venta vta) {
 		float total=0;
-		this.numero = getProximoNroFactura();
+		this.idFactura = getProximoNroFactura();
 		itemsFactura = new ArrayList<ItemFactura>();
 
 		for (ItemVenta itemVenta : vta.getItemsVenta()) {

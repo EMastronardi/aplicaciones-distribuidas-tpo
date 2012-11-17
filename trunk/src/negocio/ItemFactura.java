@@ -6,9 +6,9 @@ import javax.persistence.*;
 @Table(name="ItemsFacturas")
 public class ItemFactura {
 	@Id
-	private int id;
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	private int idItemFactura;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="idPlato")
 	private Plato plato;
 	private int cantidad;
 

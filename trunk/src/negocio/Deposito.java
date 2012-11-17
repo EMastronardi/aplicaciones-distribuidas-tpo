@@ -1,6 +1,4 @@
 package negocio;
-
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +10,14 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Deposito {
 	@Id
-	private int id;
+	private int idDeposito;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idDeposito")
 	protected List<ItemStock> stock;
 	
+	public Deposito() {
+	}
+
 	public Deposito(List<ItemStock> stock) {
 		this.stock = stock;
 	}

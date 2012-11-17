@@ -10,19 +10,20 @@ import javax.persistence.*;
 @Table(name="Cajas")
 public class Caja {
 	@Id
-	private int id;
+	private int idCaja;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idCaja")
 	private List<CajaDiaria> cajas;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idCaja")
 	private CajaDiaria cajaActual;
 	
 	public Caja() {
 		cajas = new ArrayList<CajaDiaria>();
 	}
+	
 	
 	public void generarFactura(Venta venta) {
 		cajaActual.generarFactura(venta);

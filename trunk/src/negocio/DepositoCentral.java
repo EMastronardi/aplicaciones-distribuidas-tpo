@@ -8,11 +8,8 @@ import javax.persistence.*;
 @Entity
 public class DepositoCentral extends Deposito {
 	
-	@Id
-	private int id;
-	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idDeposito")
 	private List<ListaReposicion> pedidos;
 
 	public DepositoCentral(List<ItemStock> stock,
@@ -20,6 +17,9 @@ public class DepositoCentral extends Deposito {
 			ArrayList<ListaReposicion> pedidos) {
 		super(stock);
 		this.pedidos = pedidos;
+	}
+
+	public DepositoCentral() {
 	}
 
 	public List<ListaReposicion> getPedidos() {

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -16,19 +17,20 @@ import javax.persistence.Table;
 @Table(name = "CajasDiarias")
 public class CajaDiaria {
 	@Id
-	private int id;
+	private int idCajaDiaria;
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idCajaDiaria")
 	private List<Factura> facturas;
 	private String estado;
 	private Date fecha;
 	private float total;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idCajaDiaria")
 	private List<ItemBillete> efectivoTotal;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idCajaDiaria")
 	private List<Pago> pagos;
 	private Date fechaCierre;
 
@@ -37,6 +39,9 @@ public class CajaDiaria {
 		this.estado = estado;
 		this.fecha = fecha;
 
+	}
+
+	public CajaDiaria() {
 	}
 
 	public void generarFactura(Venta venta) {

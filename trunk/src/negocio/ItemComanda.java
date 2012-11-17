@@ -6,9 +6,9 @@ import javax.persistence.*;
 @Table(name="ItemsComanda")
 public class ItemComanda {
 	@Id
-	private int id;
+	private int idItemComanda;
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idPlato")
 	private Plato plato;
 	private int cantidad;
 	
@@ -16,6 +16,9 @@ public class ItemComanda {
 		super();
 		this.plato = plato;
 		this.cantidad = cantidad;
+	}
+
+	public ItemComanda() {
 	}
 
 	public Plato getPlato() {

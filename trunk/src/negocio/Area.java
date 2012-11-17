@@ -11,16 +11,19 @@ public class Area {
 	@Id
 	private int idArea;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idArea")
 	private List<Plato> platos;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idArea")
 	private List<ListaReposicion> listasReposicion;
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idArea")
 	private Deposito deposito;
 	private String nombre;
 	private int cantHoras;
+
+	public Area() {
+	}
 
 	public int getCantHoras() {
 		return cantHoras;

@@ -6,9 +6,12 @@ import javax.persistence.*;
 @Table(name="Billetes")
 public class Billete {
 	@Id
-	private int id;
+	private int idBillete;
 	private String denominacion;
 	private float valor;
+	
+	public Billete() {
+	}
 	public Billete(String denominacion, float valor) {
 		this.denominacion = denominacion;
 		this.valor = valor;
