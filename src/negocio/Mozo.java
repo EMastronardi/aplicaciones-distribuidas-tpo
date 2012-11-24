@@ -3,6 +3,7 @@ package negocio;
 import javax.persistence.*;
 
 @Entity
+@Table(name="mozos")
 public class Mozo extends Empleado {
 	private float porcentajeComision;
 
@@ -18,7 +19,4 @@ public class Mozo extends Empleado {
 		super(nro, nombre, clave);
 		this.porcentajeComision = porcentajeComision;
 	}
-	
-
-
 }

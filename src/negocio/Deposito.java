@@ -6,8 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Depositos")
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Deposito {
 	@Id
 	private int idDeposito;

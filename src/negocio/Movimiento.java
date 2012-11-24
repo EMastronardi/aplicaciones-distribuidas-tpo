@@ -2,11 +2,22 @@ package negocio;
 
 import java.util.Date;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="movimientos")
 public class Movimiento {
 
+@Id
+@Column(name="idMovimiento")
+@GeneratedValue(strategy=GenerationType.AUTO)
 	private int nroMovimiento;
 	private Date fecha;
+@ManyToOne
+@JoinColumn(name="idDeposito")
 	private Deposito deposito;
+@ManyToOne
+@JoinColumn(name="idLote")
 	private Lote lote;
 	private float cantidad;
 	private String motivo;
@@ -84,7 +95,4 @@ public class Movimiento {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-	
 }
