@@ -7,11 +7,16 @@ import javax.persistence.*;
 public class ItemFactura {
 	@Id
 	private int idItemFactura;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idPlato")
 	private Plato plato;
 	private int cantidad;
-
+	public ItemFactura() {}
+	public ItemFactura(Plato plato, int cantidad) {
+		this.plato = plato;
+		this.cantidad = cantidad;
+	}
+	
 	public Plato getPlato() {
 		return plato;
 	}
@@ -28,9 +33,6 @@ public class ItemFactura {
 		this.cantidad = cantidad;
 	}
 
-	public ItemFactura(Plato plato, int cantidad) {
-		this.plato = plato;
-		this.cantidad = cantidad;
-	}
+
 
 }

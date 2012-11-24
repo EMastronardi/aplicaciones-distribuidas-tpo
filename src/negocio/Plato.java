@@ -5,7 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -15,16 +19,27 @@ import javax.persistence.Table;
 @Table(name = "Platos")
 public class Plato {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPlato;
 	private String nombre;
 	private float precio;
-	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@ManyToMany
 	private List<Plato> platosAlternativos;
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "idArea")
 	private Area area;
 
+	public Plato(){}
+	
+	public Plato(String nombre, float precio, List<Plato> platosAlternativos,
+			Area area, float comisionExtra, Receta receta) {
+		this.nombre = nombre;
+		this.precio = precio;
+		this.platosAlternativos = platosAlternativos;
+		this.area = area;
+		this.comisionExtra = comisionExtra;
+		this.receta = receta;
+	}
 	public int getIdPlato() {
 		return idPlato;
 	}
@@ -85,14 +100,6 @@ public class Plato {
 		this.receta = receta;
 	}
 
-	public Plato(String nombre, float precio, List<Plato> platosAlternativos,
-			Area area, float comisionExtra, Receta receta) {
-		this.nombre = nombre;
-		this.precio = precio;
-		this.platosAlternativos = platosAlternativos;
-		this.area = area;
-		this.comisionExtra = comisionExtra;
-		this.receta = receta;
-	}
+	
 
 }

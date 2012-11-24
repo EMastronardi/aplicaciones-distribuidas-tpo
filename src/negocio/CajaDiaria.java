@@ -10,8 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.Session;
+
+import persistencia.HibernateUtil;
 
 @Entity
 @Table(name = "CajasDiarias")
@@ -46,7 +49,8 @@ public class CajaDiaria {
 
 	public void generarFactura(Venta venta) {
 		Factura fact = new Factura(venta);
-		facturas.add(fact);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.save(fact);
 	}
 
 	public Date getFechaCierre() {
