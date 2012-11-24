@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 
@@ -98,9 +99,7 @@ public class Sistema {
 		administracion.generarOrdenesCompra(depositoCentral.controlarExistencias());
 	}
 
-	public void AbrirMesa() {
-
-	}
+	
 
 	public void crearPlanProduccion(String nombreSucursal, String nombreArea, int tiempo, Date fecha, ArrayList<ViewItemPlanProduccion> items) {
 		administracion.CrearPlanProduccion(buscarSucursalPorNombre(nombreSucursal), buscarArea(nombreSucursal, nombreArea),tiempo, fecha, items);
@@ -125,5 +124,10 @@ public class Sistema {
 		}
 		return null;
 	}
-
+	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,String nombreMozo, int cantComenzales) {
+		Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
+		Mozo mozo  = suc.buscarMozo(nombreMozo);
+		Collection<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);
+		return suc.getSalon().abrirMesa(mesas, mozo, cantComenzales);
+	}
 }

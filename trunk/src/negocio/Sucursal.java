@@ -6,37 +6,44 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
+
+import persistencia.HibernateUtil;
+
+import controlador.Sistema;
+
 @Entity
-@Table(name="Sucursales")
+@Table(name = "Sucursales")
 public class Sucursal {
 	@Id
 	private int id;
 	private String nombre;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List<Area> areas;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Salon salon;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Deposito deposito;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Caja caja;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List<Comision> comisiones;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List<Venta> ventas;
-	
+
 	public Sucursal(String nombre) {
 		this.nombre = nombre;
 		areas = new ArrayList<Area>();
@@ -107,18 +114,23 @@ public class Sucursal {
 		return null;
 	}
 
-
 	public void abrirCaja(ArrayList<ItemBillete> billetes) {
 		this.caja.aperturaCajaDiaria(billetes);
-		
+
 	}
 
 	public void cerrarCaja(ArrayList<ItemBillete> efectivoEnCaja) {
 		this.caja.cerrarCajaDiaria(efectivoEnCaja);
 	}
-	
-	public void cerrarVenta(Venta venta){
+
+	public void cerrarVenta(Venta venta) {
 		caja.generarFactura(venta);
 		venta.cerrarVenta();
+	}
+
+	public Mozo buscarMozo(String nombreMozo) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		 Mozo m = (Mozo)s.createQuery("From Mozo m where m.nombre = "+nombreMozo).list();
+		 return m;
 	}
 }

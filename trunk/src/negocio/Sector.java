@@ -1,11 +1,12 @@
 package negocio;
 
 import java.util.Collection;
+import java.util.List;
 
 public class Sector {
 	private String nombre;
-	private Collection<Mesa> mesas;
-	private Collection<Mozo> mozos;
+	private List<Mesa> mesas;
+	private List<Mozo> mozos;
 
 	public String getNombre() {
 		return nombre;
@@ -19,7 +20,7 @@ public class Sector {
 		return mesas;
 	}
 
-	public void setMesas(Collection<Mesa> mesas) {
+	public void setMesas(List<Mesa> mesas) {
 		this.mesas = mesas;
 	}
 
@@ -27,11 +28,11 @@ public class Sector {
 		return mozos;
 	}
 
-	public void setMozos(Collection<Mozo> mozos) {
+	public void setMozos(List<Mozo> mozos) {
 		this.mozos = mozos;
 	}
 
-	public Sector(String nombre, Collection<Mesa> mesas, Collection<Mozo> mozos) {
+	public Sector(String nombre, List<Mesa> mesas, List<Mozo> mozos) {
 		this.nombre = nombre;
 		this.mesas = mesas;
 		this.mozos = mozos;
