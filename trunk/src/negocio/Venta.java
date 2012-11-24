@@ -5,8 +5,12 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -16,29 +20,23 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "Ventas")
 public class Venta {
-	@Transient
-	private static int ultNumVenta = 0;
 	@Id
-	private int nroVenta;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idVenta;
 	private int nroMesa;
-
-	private static int getProxNroVenta() {
-		ultNumVenta++;
-		return ultNumVenta;
-	}
-
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private Collection<Mesa> mesas;
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private String estado;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private List<ItemVenta> itemsVenta;
-
+	@OneToOne
+	@JoinColumn(name = "idFactura")
+	private Factura factura;
 	public Venta(int nroMesa, Collection<Mesa> mesas, Mozo mozo, String estado) {
 		super();
 		this.nroMesa = nroMesa;
@@ -46,7 +44,6 @@ public class Venta {
 		this.mozo = mozo;
 		this.estado = estado;
 		this.itemsVenta = new ArrayList<ItemVenta>();
-		this.nroVenta = this.getProxNroVenta();
 	}
 
 	public Collection<Mesa> getMesas() {

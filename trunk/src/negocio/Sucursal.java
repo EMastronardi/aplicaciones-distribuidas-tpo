@@ -17,31 +17,30 @@ import controlador.Sistema;
 @Table(name = "Sucursales")
 public class Sucursal {
 	@Id
-	private int id;
+	private int idSucursal;
 	private String nombre;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSucursal")
 	private List<Area> areas;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idScursal")
 	private Salon salon;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idScursal")
 	private Deposito deposito;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idScursal")
 	private Caja caja;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private List<Comision> comisiones;
+
+	//private List<Comision> comisiones;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idScursal")
 	private List<Venta> ventas;
 
 	public Sucursal(String nombre) {
@@ -50,7 +49,7 @@ public class Sucursal {
 		salon = new Salon("salon1", null);
 		deposito = new Deposito(null);
 		caja = new Caja();
-		comisiones = new ArrayList<Comision>();
+		//comisiones = new ArrayList<Comision>();
 		ventas = new ArrayList<Venta>();
 	}
 
@@ -94,25 +93,18 @@ public class Sucursal {
 		this.caja = caja;
 	}
 
-	public Collection<Comision> getComisiones() {
+	/*public Collection<Comision> getComisiones() {
 		return comisiones;
 	}
 
 	public void setComisiones(List<Comision> comisiones) {
 		this.comisiones = comisiones;
-	}
+	}*/
 
 	public void agregarArea(Area area) {
 		areas.add(area);
 	}
 
-	private Venta buscarVenta(int nroMesa) {
-		for (Venta v : ventas) {
-			if (v.getNroMesa() == nroMesa)
-				return v;
-		}
-		return null;
-	}
 
 	public void abrirCaja(ArrayList<ItemBillete> billetes) {
 		this.caja.aperturaCajaDiaria(billetes);
@@ -129,8 +121,13 @@ public class Sucursal {
 	}
 
 	public Mozo buscarMozo(String nombreMozo) {
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		 Session s = HibernateUtil.getSessionFactory().openSession();
 		 Mozo m = (Mozo)s.createQuery("From Mozo m where m.nombre = "+nombreMozo).list();
 		 return m;
+	}
+	
+	public Venta buscarVenta(int venta){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		return (Venta)s.createQuery("From Venta v where v.nroMesa = "+venta).list();
 	}
 }
