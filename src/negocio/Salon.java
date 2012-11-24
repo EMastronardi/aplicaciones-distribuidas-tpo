@@ -5,27 +5,39 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.Session;
+
+import persistencia.HibernateUtil;
 
 @Entity
 public class Salon {
 	@Id
-	private int id;
+	private int idSalon;
 	private String nombre;
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSalon")
 	private List<Mesa> mesas;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSalon")
 	private List<Reserva> reservas;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="idSalon")
+	private List<Sector> sectores;
+	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSalon")
 	private List<Venta> ventasAbiertas;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSalon")
 	private List<Comanda> comandas;
 	
 	public Salon(String nombre, ArrayList<Mesa> mesasSalon) {
@@ -113,5 +125,20 @@ public class Salon {
 		if(i < comandas.size()){
 			comandas.remove(i);
 		}
+	}
+
+	public Collection<Mesa> buscarMesas(List<Integer> nrosMesas) {
+//		Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
+//		for(int i  = 0; i< nrosMesas.length;i++){
+//			for (Mesa m : this.mesas) {
+//				if(m.getNumero()==nrosMesas[i]){
+//					mesasBuscadas.add(m);
+//				}
+//			}
+//		}
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		List<Mesa> mesasBuscadas = s.createQuery("from Mesa m where m.numero in (:numeros)").setParameterList("numeros",nrosMesas).list();
+		
+		return mesasBuscadas;
 	}
 }
