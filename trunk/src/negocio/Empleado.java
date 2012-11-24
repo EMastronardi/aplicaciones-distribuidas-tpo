@@ -2,12 +2,11 @@ package negocio;
 
 import javax.persistence.*;
 
-
-
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Empleado {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	protected int idEmpleado;
 	protected String nombre;
 	protected String clave;
