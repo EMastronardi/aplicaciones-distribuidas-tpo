@@ -3,7 +3,7 @@ package negocio;
 import javax.persistence.*;
 
 @Entity
-@Table(name="mozos")
+@Table(name="Mozos")
 public class Mozo extends Empleado {
 	private float porcentajeComision;
 

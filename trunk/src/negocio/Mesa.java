@@ -6,13 +6,14 @@ import javax.persistence.*;
 @Table(name="Mesas")
 public class Mesa {
 	@Id
-	private int numero;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idMesa;
 	private String estado;
 	private int capacidad;
 	private int capacidadMaxima;
 	
 	public Mesa(int numero, String estado, int capacidad) {
-		this.numero = numero;
+		this.idMesa = numero;
 		this.estado = estado;
 		this.capacidad = capacidad;
 		//Setemaos la capacidad maxima de la mesa
@@ -29,11 +30,11 @@ public class Mesa {
 		}	
 	}
 	public int getNumero() {
-		return numero;
+		return idMesa;
 	}
 
 	public void setNumero(int numero) {
-		this.numero = numero;
+		this.idMesa = numero;
 	}
 
 	public String getEstado() {

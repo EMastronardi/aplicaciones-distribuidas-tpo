@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Table(name="Reservas")
 public class Reserva {
 	@Id
-	private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idReserva;
 	private Date fecha;
 	private Date hora;
 	private String estado;

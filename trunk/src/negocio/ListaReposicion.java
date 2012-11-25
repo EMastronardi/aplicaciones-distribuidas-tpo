@@ -8,20 +8,20 @@ import javax.persistence.*;
 @Table(name="ListasReposicion")
 public class ListaReposicion {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private Date fecha;
 	private String estado;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idSucursal")
 	private Sucursal sucursal;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idArea")
 	private Area area;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private List<ItemRepo> items;
 
 	public ListaReposicion(Date fecha, String estado, Sucursal sucursal,

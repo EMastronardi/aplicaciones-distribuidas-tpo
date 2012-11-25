@@ -2,14 +2,9 @@ package negocio;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="ItemsProveedores")
 public class ItemProveedor {
-	@Id
-	private int id;
+	private int idItemProveedor;	
 	private int idProducto;
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private Proveedor proveedor;
 	private float precio;
 

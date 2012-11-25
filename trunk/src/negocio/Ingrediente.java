@@ -6,8 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Ingredientes")
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Ingrediente extends Producto {
 	protected boolean fresco;
 

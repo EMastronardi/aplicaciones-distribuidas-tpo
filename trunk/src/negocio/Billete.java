@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name="Billetes")
 public class Billete {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idBillete;
 	private String denominacion;
 	private float valor;

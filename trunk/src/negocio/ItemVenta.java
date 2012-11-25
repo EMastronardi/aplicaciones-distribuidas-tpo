@@ -6,13 +6,21 @@ import javax.persistence.*;
 @Table(name="ItemsVentas")
 public class ItemVenta {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idPlato")
 	private Plato item;
 	private int cantidad;
 	private String estado;
 
+	public ItemVenta() {}
+	public ItemVenta(Plato item, int cantidad, String estado) {
+		this.item = item;
+		this.cantidad = cantidad;
+		this.estado = estado;
+	}
+	
 	public Plato getItem() {
 		return item;
 	}
@@ -34,12 +42,6 @@ public class ItemVenta {
 	}
 
 	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public ItemVenta(Plato item, int cantidad, String estado) {
-		this.item = item;
-		this.cantidad = cantidad;
 		this.estado = estado;
 	}
 
