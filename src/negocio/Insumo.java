@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Insumos")
+@PrimaryKeyJoinColumn(name="idProducto")
 public class Insumo extends Producto {
 
 	

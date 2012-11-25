@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Ingredientes")
+@PrimaryKeyJoinColumn(name="idProducto")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Ingrediente extends Producto {
 	protected boolean fresco;
 

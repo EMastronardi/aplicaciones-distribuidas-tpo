@@ -16,7 +16,7 @@ public class Comanda {
 	@JoinColumn(name="idVenta")
 	private Venta venta;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private Date fecha;
