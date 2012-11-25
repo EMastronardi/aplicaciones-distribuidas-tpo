@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import beans.SucursalVO;
+
 import controlador.Sistema;
 
 public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
@@ -21,6 +23,12 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 	public boolean abrirMesa(String nombreSucursal, List<Integer> nrosMesas, String nombreMozo, int cantComenzales) throws RemoteException {
 		return Sistema.getInstance().AbrirMesa(nombreSucursal, nrosMesas,nombreMozo, cantComenzales );
 		
+	}
+
+	@Override
+	public List<SucursalVO> getSucursales() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
