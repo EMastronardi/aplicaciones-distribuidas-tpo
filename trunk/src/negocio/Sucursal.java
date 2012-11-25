@@ -17,6 +17,7 @@ import controlador.Sistema;
 @Table(name = "Sucursales")
 public class Sucursal {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSucursal;
 	private String nombre;
 
@@ -25,22 +26,22 @@ public class Sucursal {
 	private List<Area> areas;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idScursal")
+	@JoinColumn(name="idSalon")
 	private Salon salon;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idScursal")
+	@JoinColumn(name="idDeposito")
 	private Deposito deposito;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idScursal")
+	@JoinColumn(name="idCaja")
 	private Caja caja;
 
 
 	//private List<Comision> comisiones;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idScursal")
+	@JoinColumn(name="idSucursal")
 	private List<Venta> ventas;
 
 	public Sucursal(String nombre) {
@@ -55,6 +56,14 @@ public class Sucursal {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public int getIdSucursal() {
+		return idSucursal;
+	}
+
+	public void setIdSucursal(int idSucursal) {
+		this.idSucursal = idSucursal;
 	}
 
 	public void setNombre(String nombre) {

@@ -1,5 +1,11 @@
 package controlador;
 
+import interfaz.InterfazRemota;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+
+import rmi.ServerRMI;
+
+import beans.SucursalVO;
 
 import vista.ViewItemPlanProduccion;
 
@@ -31,6 +41,23 @@ public class Sistema {
 		System.out.println("Arrancó el sistema");
 		SessionFactory sf = persistencia.HibernateUtil.getSessionFactory();
 		sf.openSession();
+		try {
+			LocateRegistry.createRegistry(1099);
+			InterfazRemota gestion = new ServerRMI();
+			Naming.rebind("//localhost/Server", gestion);
+			System.out.println("Fijado en //localhost/Server");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		
+		
+		
 	}
 	private Sistema() {
 		sucursales = new ArrayList<Sucursal>();
@@ -129,5 +156,15 @@ public class Sistema {
 		Mozo mozo  = suc.buscarMozo(nombreMozo);
 		Collection<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);
 		return suc.getSalon().abrirMesa(mesas, mozo, cantComenzales);
+	}
+	public List<SucursalVO> getSucursalesVO() {
+		List<SucursalVO> lista = new ArrayList<SucursalVO>();
+		for (Sucursal s : this.sucursales) {
+			SucursalVO svo = new SucursalVO();
+			svo.setIdSucursal(s.getIdSucursal());
+			svo.setNombre(s.getNombre());
+			lista.add(svo);
+		}
+		return lista;
 	}
 }
