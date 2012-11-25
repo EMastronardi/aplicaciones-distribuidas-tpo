@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.Session;
 
@@ -34,8 +35,8 @@ public class CajaDiaria {
 	@JoinColumn(name="idCajaDiaria")
 	private List<ItemBillete> efectivoTotal;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idCajaDiaria")
+	
+	@Transient
 	private List<Pago> pagos;
 	private Date fechaCierre;
 

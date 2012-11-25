@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="SemiElaborados")
+@PrimaryKeyJoinColumn(name="idIngrediente")
 public class SemiElaborado extends Ingrediente {
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@PrimaryKeyJoinColumn
