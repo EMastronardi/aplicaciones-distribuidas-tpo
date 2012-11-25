@@ -8,15 +8,25 @@ import javax.persistence.*;
 @Table(name="Lotes")
 public class Lote {
 	@Id
-	private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idLote;
 	private String codigo;
 	private Boolean estado;
 	private Date vencimiento;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idProducto")
 	private Producto producto;
 
+	public Lote() {
+	}
+	public Lote(String codigo, Boolean estado, Date vencimiento,
+			Producto producto) {
+		this.codigo = codigo;
+		this.estado = estado;
+		this.vencimiento = vencimiento;
+		this.producto = producto;
+	}
 	public String getCodigo() {
 		return codigo;
 	}
@@ -49,12 +59,6 @@ public class Lote {
 		this.producto = producto;
 	}
 
-	public Lote(String codigo, Boolean estado, Date vencimiento,
-			Producto producto) {
-		this.codigo = codigo;
-		this.estado = estado;
-		this.vencimiento = vencimiento;
-		this.producto = producto;
-	}
+
 
 }

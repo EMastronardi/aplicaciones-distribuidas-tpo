@@ -3,12 +3,14 @@ package negocio;
 import javax.persistence.*;
 
 @Entity
+@Table(name="ItemsRepo")
 public class ItemRepo {
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int idItemRepo;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idProducto")
 	private Producto prod;
 	private float cant;
 	private String estado;

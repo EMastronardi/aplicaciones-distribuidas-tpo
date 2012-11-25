@@ -11,8 +11,16 @@ public class ItemReceta {
 	private float cantidad;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idIngrediente")
 	private Ingrediente ingrediente;
+
+	public ItemReceta() {}
+	
+	public ItemReceta(int id, float cantidad, Ingrediente ingrediente) {
+		this.cantidad = cantidad;
+		this.ingrediente = ingrediente;
+		this.idItemReceta = id;
+	}
 
 	public float getCantidad() {
 		return cantidad;
@@ -38,10 +46,5 @@ public class ItemReceta {
 		this.ingrediente = ingrediente;
 	}
 
-	public ItemReceta(int id, float cantidad, Ingrediente ingrediente) {
-		this.cantidad = cantidad;
-		this.ingrediente = ingrediente;
-		this.idItemReceta = id;
-	}
 
 }

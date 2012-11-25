@@ -14,10 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Productos")
-@MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Producto {
 	@Id
@@ -26,10 +26,20 @@ public class Producto {
 	protected String categorizacion;
 	protected String nombre;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idProducto")
+	@Transient
 	protected List<ItemProveedor> proveedores;
-
+	
+	public Producto() {
+	}
+	
+	public Producto(String categorizacion, String nombre,
+			ArrayList<ItemProveedor> proveedores) {
+		super();
+		this.categorizacion = categorizacion;
+		this.nombre = nombre;
+		this.proveedores = proveedores;
+	}
+	
 	public String getCategorizacion() {
 		return categorizacion;
 	}
@@ -51,14 +61,6 @@ public class Producto {
 	}
 
 	public void setProveedores(ArrayList<ItemProveedor> proveedores) {
-		this.proveedores = proveedores;
-	}
-
-	public Producto(String categorizacion, String nombre,
-			ArrayList<ItemProveedor> proveedores) {
-		super();
-		this.categorizacion = categorizacion;
-		this.nombre = nombre;
 		this.proveedores = proveedores;
 	}
 

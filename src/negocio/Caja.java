@@ -10,12 +10,10 @@ import javax.persistence.*;
 @Table(name="Cajas")
 public class Caja {
 	@Id
-	private int idCaja;
-	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idCaja;	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idCaja")
 	private List<CajaDiaria> cajas;
-	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idCaja")
 	private CajaDiaria cajaActual;
@@ -23,7 +21,6 @@ public class Caja {
 	public Caja() {
 		cajas = new ArrayList<CajaDiaria>();
 	}
-	
 	
 	public void generarFactura(Venta venta) {
 		cajaActual.generarFactura(venta);

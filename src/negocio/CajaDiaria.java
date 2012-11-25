@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,8 +22,8 @@ import persistencia.HibernateUtil;
 @Table(name = "CajasDiarias")
 public class CajaDiaria {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCajaDiaria;
-	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idCajaDiaria")
 	private List<Factura> facturas;

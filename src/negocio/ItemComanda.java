@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name="ItemsComanda")
 public class ItemComanda {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemComanda;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idPlato")

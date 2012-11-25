@@ -6,11 +6,20 @@ import javax.persistence.*;
 @Table(name="ItemsStock")
 public class ItemStock {
 	@Id
-	private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idItemStock;
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn( name = "idLote")
 	private Lote lote;
 	private float cantidad;
+	
+	public ItemStock() {
+	}
+
+	public ItemStock(Lote lote, float cantidad) {
+		this.lote = lote;
+		this.cantidad = cantidad;
+	}
 
 	public Lote getLote() {
 		return lote;
@@ -27,10 +36,4 @@ public class ItemStock {
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
-
-	public ItemStock(Lote lote, float cantidad) {
-		this.lote = lote;
-		this.cantidad = cantidad;
-	}
-
 }

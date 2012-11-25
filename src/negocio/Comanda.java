@@ -10,12 +10,13 @@ import controlador.Sistema;
 @Table(name="Comandas")
 public class Comanda {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idComanda;
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="idComanda")
+	@JoinColumn(name="idVenta")
 	private Venta venta;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private Date fecha;
