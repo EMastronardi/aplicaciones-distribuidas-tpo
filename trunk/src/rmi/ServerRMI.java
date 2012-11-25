@@ -13,7 +13,7 @@ import controlador.Sistema;
 public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 
 	
-	protected ServerRMI() throws RemoteException {
+	public ServerRMI() throws RemoteException {
 		super();
 	}
 
@@ -27,8 +27,8 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 
 	@Override
 	public List<SucursalVO> getSucursales() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		List<SucursalVO> lista = Sistema.getInstance().getSucursalesVO();
+		return lista;
 	}
 
 }
