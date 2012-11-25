@@ -49,6 +49,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(Pago.class);
 			config.addAnnotatedClass(Billete.class);
 			config.addAnnotatedClass(ItemBillete.class);
+			config.addAnnotatedClass(Sector.class);
 			sessionFactory = config.buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Initial SessionFactory creation failed." + ex);
