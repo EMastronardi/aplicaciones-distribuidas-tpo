@@ -6,22 +6,27 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import negocio.Administracion;
+import negocio.Area;
+import negocio.DepositoCentral;
+import negocio.ItemBillete;
+import negocio.Mesa;
+import negocio.Mozo;
+import negocio.Producto;
+import negocio.Sucursal;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import persistencia.HibernateUtil;
 import rmi.ServerRMI;
-
-import beans.SucursalVO;
-
 import vista.ViewItemPlanProduccion;
-
-import negocio.*;
+import beans.SucursalVO;
 
 public class Sistema {
 
@@ -62,22 +67,9 @@ public class Sistema {
 	private Sistema() {
 		sucursales = new ArrayList<Sucursal>();
 
-		cargarDatosIniciales(); // Datos hardcoreados
-
 	}
 
-	private void cargarDatosIniciales() {
-
-		Sucursal suc1 = new Sucursal("Belgrano");
-		sucursales.add(suc1);
-
-		Sucursal suc2 = new Sucursal("Caballito");
-		sucursales.add(suc2);
-
-		Sucursal suc3 = new Sucursal("Puerto Madero");
-		sucursales.add(suc3);
-	}
-
+	
 	public void abrirCaja(String nombreSucursal, ArrayList<ItemBillete> billetes) {
 		for (Sucursal suc : sucursales) {
 			if (suc.getNombre().equals(nombreSucursal)) {
@@ -159,7 +151,10 @@ public class Sistema {
 	}
 	public List<SucursalVO> getSucursalesVO() {
 		List<SucursalVO> lista = new ArrayList<SucursalVO>();
-		for (Sucursal s : this.sucursales) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Sucursal> sucursales = session.createQuery("from Sucursal").list();
+		
+		for (Sucursal s : sucursales) {
 			SucursalVO svo = new SucursalVO();
 			svo.setIdSucursal(s.getIdSucursal());
 			svo.setNombre(s.getNombre());
