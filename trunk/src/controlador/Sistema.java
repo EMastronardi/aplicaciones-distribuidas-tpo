@@ -4,6 +4,7 @@ import interfaz.InterfazRemota;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
@@ -43,14 +44,16 @@ public class Sistema {
 		return instance;
 	}
 	public static void main(String[] args) {
+		
+	
 		System.out.println("Arrancó el sistema");
-		SessionFactory sf = persistencia.HibernateUtil.getSessionFactory();
-		sf.openSession();
+	
 		try {
 			LocateRegistry.createRegistry(1099);
 			InterfazRemota gestion = new ServerRMI();
-			Naming.rebind("//localhost/Server", gestion);
-			System.out.println("Fijado en //localhost/Server");
+			Naming.rebind("//127.0.0.1/Server", gestion);
+			System.out.println("Fijado en //127.0.0.1/Server");
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,10 +61,6 @@ public class Sistema {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
-		
-		
 		
 	}
 	private Sistema() {
@@ -153,8 +152,9 @@ public class Sistema {
 		List<SucursalVO> lista = new ArrayList<SucursalVO>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Sucursal> sucursales = session.createQuery("from Sucursal").list();
-		
+		System.out.println("Metodo en server encontro:");
 		for (Sucursal s : sucursales) {
+			System.out.println("Sucursal: " + s.getNombre());
 			SucursalVO svo = new SucursalVO();
 			svo.setIdSucursal(s.getIdSucursal());
 			svo.setNombre(s.getNombre());
