@@ -1,0 +1,3 @@
+grant codeBase "file:C:\Users\Ema\workspace\TpoAppsDistribuidas\src" {
+    permission java.security.AllPermission;
+};
