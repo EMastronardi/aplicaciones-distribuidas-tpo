@@ -12,10 +12,10 @@ public class DepositoCentral extends Deposito {
 	@JoinColumn(name="idDeposito")
 	private List<ListaReposicion> pedidos;
 
-	public DepositoCentral(List<ItemStock> stock,
+	public DepositoCentral(List<Movimiento> movimientos,
 			List<ListaReposicion> pedidosPendientes,
 			ArrayList<ListaReposicion> pedidos) {
-		super(stock);
+		super(movimientos);
 		this.pedidos = pedidos;
 	}
 
