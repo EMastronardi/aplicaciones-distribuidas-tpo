@@ -57,7 +57,7 @@ public class Sucursal {
 	public String getNombre() {
 		return nombre;
 	}
-
+	public Sucursal(){}
 	public int getIdSucursal() {
 		return idSucursal;
 	}
