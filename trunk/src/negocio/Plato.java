@@ -1,19 +1,9 @@
 package negocio;
 
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Platos")
@@ -23,13 +13,23 @@ public class Plato {
 	private int idPlato;
 	private String nombre;
 	private float precio;
+	
 	@ManyToMany
 	private List<Plato> platosAlternativos;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idArea")
 	private Area area;
 
-	public Plato(){}
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idReceta")
+	private Receta receta;
+	private float comisionExtra;
+
+	
+	public Plato(){
+		
+	}
 	
 	public Plato(String nombre, float precio, List<Plato> platosAlternativos,
 			Area area, float comisionExtra, Receta receta) {
@@ -48,10 +48,7 @@ public class Plato {
 		this.idPlato = idPlato;
 	}
 
-	private float comisionExtra;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Receta receta;
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -68,7 +65,7 @@ public class Plato {
 		this.precio = precio;
 	}
 
-	public Collection<Plato> getPlatosAlternativos() {
+	public List<Plato> getPlatosAlternativos() {
 		return platosAlternativos;
 	}
 

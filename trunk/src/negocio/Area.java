@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.Collection;
+
 import java.util.List;
 
 import javax.persistence.*;
@@ -9,10 +9,13 @@ import javax.persistence.*;
 @Table(name = "Areas")
 public class Area {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idArea;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idArea")
 	private List<Plato> platos;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idArea")
 	private List<ListaReposicion> listasReposicion;
@@ -49,7 +52,7 @@ public class Area {
 		return deposito;
 	}
 
-	public Collection<Plato> getPlatos() {
+	public List<Plato> getPlatos() {
 		return platos;
 	}
 
@@ -57,7 +60,7 @@ public class Area {
 		this.platos = platos;
 	}
 
-	public Collection<ListaReposicion> getListasReposicion() {
+	public List<ListaReposicion> getListasReposicion() {
 		return listasReposicion;
 	}
 
@@ -73,5 +76,13 @@ public class Area {
 		this.deposito = depo;
 		this.nombre = nombre;
 		this.cantHoras = cantHoras;
+	}
+
+	public int getIdArea() {
+		return idArea;
+	}
+
+	public void setIdArea(int idArea) {
+		this.idArea = idArea;
 	}
 }
