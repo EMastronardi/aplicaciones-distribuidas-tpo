@@ -30,7 +30,8 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 	}
 
 	public List<SucursalVO> getSucursales() throws RemoteException {
-
+		System.out.println("Llamado al metodo getSucursales en el server!");
+		
 		List<SucursalVO> lista = Sistema.getInstance().getSucursalesVO();
 		return lista;
 	}

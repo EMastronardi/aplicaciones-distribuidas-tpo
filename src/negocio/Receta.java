@@ -1,8 +1,16 @@
 package negocio;
 
-import java.util.Collection;
 
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Recetas")
@@ -11,11 +19,11 @@ public class Receta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idReceta;
 	@OneToMany(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Collection<ItemReceta> itemsReceta;
+	@JoinColumn(name="idReceta")
+	private List<ItemReceta> itemsReceta;
 	private String nombre;
 
-	public Collection<ItemReceta> getItemsReceta() {
+	public List<ItemReceta> getItemsReceta() {
 		return itemsReceta;
 	}
 
@@ -27,7 +35,7 @@ public class Receta {
 		this.idReceta = idReceta;
 	}
 
-	public void setItemsReceta(Collection<ItemReceta> itemsReceta) {
+	public void setItemsReceta(List<ItemReceta> itemsReceta) {
 		this.itemsReceta = itemsReceta;
 	}
 
@@ -39,7 +47,7 @@ public class Receta {
 		this.nombre = nombre;
 	}
 
-	public Receta(Collection<ItemReceta> itemsReceta, String nombre) {
+	public Receta(List<ItemReceta> itemsReceta, String nombre) {
 		this.itemsReceta = itemsReceta;
 		this.nombre = nombre;
 	}

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class ListaReposicion {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int idListaReposicion;
 	private Date fecha;
 	private String estado;
 	
@@ -23,7 +23,9 @@ public class ListaReposicion {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ItemRepo> items;
-
+	public ListaReposicion(){
+		
+	}
 	public ListaReposicion(Date fecha, String estado, Sucursal sucursal,
 			Area area, List<ItemRepo> items) {
 		super();
