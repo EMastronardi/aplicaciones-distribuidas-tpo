@@ -14,6 +14,8 @@ public class Insumo extends Producto {
 			ArrayList<ItemProveedor> proveedores) {
 		super(categorizacion, nombre, proveedores);
 		// TODO Auto-generated constructor stub
+	}public Insumo() {
+		// TODO Auto-generated constructor stub
 	}
 
 }

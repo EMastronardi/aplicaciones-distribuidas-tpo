@@ -50,7 +50,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(Billete.class);
 			config.addAnnotatedClass(ItemBillete.class);
 			config.addAnnotatedClass(Sector.class);
-			//config.addAnnotatedClass(Movimiento.class);
+			config.addAnnotatedClass(Movimiento.class);
 			sessionFactory = config.buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Initial SessionFactory creation failed." + ex);

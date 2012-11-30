@@ -18,7 +18,7 @@ public class Ingrediente extends Producto {
 	public void setFresco(boolean fresco) {
 		this.fresco = fresco;
 	}
-
+	public Ingrediente(){}
 	public Ingrediente(String categorizacion, String nombre,
 			ArrayList<ItemProveedor> proveedores, boolean fresco) {
 		super(categorizacion, nombre, proveedores);

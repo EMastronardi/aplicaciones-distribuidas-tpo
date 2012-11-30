@@ -44,7 +44,7 @@ public class Sector {
 	public void setMozos(List<Mozo> mozos) {
 		this.mozos = mozos;
 	}
-
+	public Sector(){}
 	public Sector(String nombre, List<Mesa> mesas, List<Mozo> mozos) {
 		this.nombre = nombre;
 		this.mesas = mesas;

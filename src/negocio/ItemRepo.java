@@ -45,4 +45,6 @@ public class ItemRepo {
 	public void setCant(float cant) {
 		this.cant = cant;
 	}
+	public ItemRepo() {
+	}
 }

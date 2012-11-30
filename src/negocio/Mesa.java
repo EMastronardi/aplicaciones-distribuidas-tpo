@@ -3,32 +3,33 @@ package negocio;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Mesas")
+@Table(name = "Mesas")
 public class Mesa {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idMesa;
 	private String estado;
 	private int capacidad;
 	private int capacidadMaxima;
-	
+
 	public Mesa(int numero, String estado, int capacidad) {
 		this.idMesa = numero;
 		this.estado = estado;
 		this.capacidad = capacidad;
-		//Setemaos la capacidad maxima de la mesa
-		switch (this.capacidad){
+		// Setemaos la capacidad maxima de la mesa
+		switch (this.capacidad) {
 		case 6:
-			this.capacidadMaxima = this.capacidad +2;
+			this.capacidadMaxima = this.capacidad + 2;
 			break;
 		case 8:
-			this.capacidadMaxima = this.capacidad + 1;	
+			this.capacidadMaxima = this.capacidad + 1;
 			break;
 		default:
-			this.capacidadMaxima = this.capacidad ;
+			this.capacidadMaxima = this.capacidad;
 			break;
-		}	
+		}
 	}
+
 	public int getNumero() {
 		return idMesa;
 	}
@@ -53,5 +54,8 @@ public class Mesa {
 		this.capacidad = capacidad;
 	}
 
-	
+	public Mesa() {
+
+	}
+
 }

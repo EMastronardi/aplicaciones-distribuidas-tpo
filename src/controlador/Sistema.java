@@ -25,6 +25,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import persistencia.HibernateUtil;
+import persistencia.UsuarioDAO;
 import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
 import beans.SucursalVO;
@@ -47,7 +48,7 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arrancó el sistema");
-		SessionFactory sf = HibernateUtil.getSessionFactory();
+		//SessionFactory sf = HibernateUtil.getSessionFactory();
 		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
@@ -175,5 +176,10 @@ public class Sistema {
 			lista.add(svo);
 		}
 		return lista;
+	}
+
+	public boolean validarUsuario(String usuario, String password) {
+		return UsuarioDAO.getInstancia().validarUsuario(usuario, password);
+		
 	}
 }
