@@ -92,4 +92,7 @@ public class Venta {
 		}
 		this.estado = "Cerrada";
 	}
+	public Venta() {
+	
+	}
 }

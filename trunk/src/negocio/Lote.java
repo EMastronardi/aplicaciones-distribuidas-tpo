@@ -1,8 +1,17 @@
 package negocio;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="Lotes")
@@ -17,7 +26,7 @@ public class Lote {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idProducto")
 	private Producto producto;
-
+	
 	public Lote() {
 	}
 	public Lote(String codigo, Boolean estado, Date vencimiento,
@@ -43,6 +52,13 @@ public class Lote {
 		this.estado = estado;
 	}
 
+	public int getIdLote() {
+		return idLote;
+	}
+	public void setIdLote(int idLote) {
+		this.idLote = idLote;
+	}
+	
 	public Date getVencimiento() {
 		return vencimiento;
 	}

@@ -5,27 +5,25 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="movimientos")
+@Table(name = "Movimientos")
 public class Movimiento {
 
-@Id
-@Column(name="idMovimiento")
-@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "idMovimiento")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int nroMovimiento;
 	private Date fecha;
-@ManyToOne
-@JoinColumn(name="idDeposito")
-	private Deposito deposito;
-@ManyToOne
-@JoinColumn(name="idLote")
+	
+	@ManyToOne
+	@JoinColumn(name = "idLote")
 	private Lote lote;
+	
 	private float cantidad;
 	private String motivo;
 	private String usuario;
-	
+
 	public Movimiento() {
-		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	public Movimiento(int nroMovimiento, Date fecha, Deposito deposito,
@@ -55,7 +53,9 @@ public class Movimiento {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
+	@ManyToOne
+	@JoinColumn(name = "idDeposito")
+	private Deposito deposito;
 	public Deposito getDeposito() {
 		return deposito;
 	}

@@ -14,7 +14,7 @@ import controlador.Sistema;
 public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 
 	
-	/**
+	/** 
 	 * 
 	 */
 	private static final long serialVersionUID = -6783278426212059747L;
@@ -40,6 +40,16 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 	public String getCadena() throws RemoteException {
 		System.out.println("Llamado al metodo getCadena en el server!");
 		return "Hola";
+	}
+
+
+	
+	public boolean validarUsuario(String usuario, String password)
+			throws RemoteException {
+	
+		return Sistema.getInstance().validarUsuario(usuario, password);
+		
+		
 	}
 
 }

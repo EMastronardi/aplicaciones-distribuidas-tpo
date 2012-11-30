@@ -51,5 +51,8 @@ public class Receta {
 		this.itemsReceta = itemsReceta;
 		this.nombre = nombre;
 	}
+	public Receta() {
+	
+	}
 
 }

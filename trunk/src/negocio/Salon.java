@@ -141,4 +141,7 @@ public class Salon {
 		
 		return mesasBuscadas;
 	}
+	public Salon() {
+	
+	}
 }

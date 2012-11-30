@@ -14,5 +14,7 @@ public class Simple extends Ingrediente {
 		super(categorizacion, nombre, proveedores, fresco);
 		// TODO Auto-generated constructor stub
 	}
-
+	public Simple() {
+		// TODO Auto-generated constructor stub
+	}
 }

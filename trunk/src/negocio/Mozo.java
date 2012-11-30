@@ -19,4 +19,6 @@ public class Mozo extends Empleado {
 		super(nro, nombre, clave);
 		this.porcentajeComision = porcentajeComision;
 	}
+	public Mozo() {
+	}
 }

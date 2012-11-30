@@ -48,4 +48,7 @@ public class Reserva {
 	public void setCantComenzales(int cantComenzales) {
 		this.cantComenzales = cantComenzales;
 	}
+	public Reserva() {
+	
+	}
 }

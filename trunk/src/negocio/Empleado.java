@@ -2,8 +2,9 @@ package negocio;
 
 import javax.persistence.*;
 
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
+@Table(name="Empleados")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Empleado {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
