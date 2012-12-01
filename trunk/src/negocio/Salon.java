@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,28 +20,29 @@ import persistencia.HibernateUtil;
 @Entity
 public class Salon {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSalon;
 	private String nombre;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idSalon")
-	private List<Mesa> mesas;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idSalon")
-	private List<Reserva> reservas;
-	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idSalon")
+	@JoinColumn(name = "idSalon")
+	private List<Mesa> mesas;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idSalon")
+	private List<Reserva> reservas;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idSalon")
 	private List<Sector> sectores;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idSalon")
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idSalon")
 	private List<Venta> ventasAbiertas;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idSalon")
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idSalon")
 	private List<Comanda> comandas;
-	
+
 	public Salon(String nombre, ArrayList<Mesa> mesasSalon) {
 		this.nombre = nombre;
 		this.mesas = mesasSalon;
@@ -47,7 +50,7 @@ public class Salon {
 		this.ventasAbiertas = new ArrayList<Venta>();
 		this.comandas = new ArrayList<Comanda>();
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,84 +67,89 @@ public class Salon {
 		this.mesas = mesasSalon;
 	}
 
-	public boolean reservarMesa(Date fecha, Date hora, int cantComenzales){
+	public boolean reservarMesa(Date fecha, Date hora, int cantComenzales) {
 		Reserva rsv = new Reserva(fecha, hora, cantComenzales);
 		reservas.add(rsv);
 		return true;
 	}
-	
-	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo, int cantComezales){
-		int numeroMasAlto=0;
-		
-		//Comprobamos si existen lugares libres para abrir la mesa!
-		
-		if(this.getLugaresLibres() >= cantComezales){
+
+	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo,
+			int cantComezales) {
+		int numeroMasAlto = 0;
+
+		// Comprobamos si existen lugares libres para abrir la mesa!
+
+		if (this.getLugaresLibres() >= cantComezales) {
 			for (Mesa mesa : mesasParaAbrir) {
 				mesa.setEstado("Ocupada");
-				if(numeroMasAlto < mesa.getNumero()){
+				if (numeroMasAlto < mesa.getNumero()) {
 					numeroMasAlto = mesa.getNumero();
 				}
 			}
-			//Generamos la venta!
-			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo, "Abierta");
-			
+			// Generamos la venta!
+			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,
+					"Abierta");
+
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	private int getLugaresLibres(){
-		int cantDisponible=0;
-		//Cantidad de lugares disponibles
+	private int getLugaresLibres() {
+		int cantDisponible = 0;
+		// Cantidad de lugares disponibles
 		for (Mesa mesa : this.mesas) {
-			if(mesa.getEstado().equals("habilitada")){
+			if (mesa.getEstado().equals("habilitada")) {
 				cantDisponible += mesa.getCapacidad();
 			}
 		}
-		//Descontamos la cantidad de lugares en las reservas
+		// Descontamos la cantidad de lugares en las reservas
 		for (Reserva reserva : reservas) {
-			if(reserva.getEstado().equals("activa")){
+			if (reserva.getEstado().equals("activa")) {
 				cantDisponible -= reserva.getCantComenzales();
 			}
 		}
-		
+
 		return cantDisponible;
 	}
-	
-	public void generarComanda(ArrayList<ItemComanda> itemsComanda, Venta vta){
+
+	public void generarComanda(ArrayList<ItemComanda> itemsComanda, Venta vta) {
 		Comanda cmd = new Comanda(vta, vta.getMozo());
 		for (ItemComanda itemComanda : itemsComanda) {
 			cmd.addItemComanda(itemComanda);
-		}	
+		}
 		comandas.add(cmd);
 	}
-	
-	public void eliminarComanda(Comanda cmd){
+
+	public void eliminarComanda(Comanda cmd) {
 		int i = 0;
-		while(i < comandas.size() && this.comandas.get(i).equals(cmd)){
+		while (i < comandas.size() && this.comandas.get(i).equals(cmd)) {
 			i++;
 		}
-		if(i < comandas.size()){
+		if (i < comandas.size()) {
 			comandas.remove(i);
 		}
 	}
 
 	public Collection<Mesa> buscarMesas(List<Integer> nrosMesas) {
-//		Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
-//		for(int i  = 0; i< nrosMesas.length;i++){
-//			for (Mesa m : this.mesas) {
-//				if(m.getNumero()==nrosMesas[i]){
-//					mesasBuscadas.add(m);
-//				}
-//			}
-//		}
+		// Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
+		// for(int i = 0; i< nrosMesas.length;i++){
+		// for (Mesa m : this.mesas) {
+		// if(m.getNumero()==nrosMesas[i]){
+		// mesasBuscadas.add(m);
+		// }
+		// }
+		// }
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		List<Mesa> mesasBuscadas = s.createQuery("from Mesa m where m.numero in (:numeros)").setParameterList("numeros",nrosMesas).list();
-		
+		List<Mesa> mesasBuscadas = s
+				.createQuery("from Mesa m where m.numero in (:numeros)")
+				.setParameterList("numeros", nrosMesas).list();
+
 		return mesasBuscadas;
 	}
+
 	public Salon() {
-	
+
 	}
 }

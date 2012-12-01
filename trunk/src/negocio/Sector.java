@@ -7,18 +7,18 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Sectores")
+@Table(name = "Sectores")
 public class Sector {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSector;
 	private String nombre;
 	@OneToMany
-	@JoinColumn(name="idSector")
+	@JoinColumn(name = "idSector")
 	private List<Mesa> mesas;
-	
+
 	@OneToMany
-	@JoinColumn(name="idSector")
+	@JoinColumn(name = "idSector")
 	private List<Mozo> mozos;
 
 	public String getNombre() {
@@ -44,7 +44,10 @@ public class Sector {
 	public void setMozos(List<Mozo> mozos) {
 		this.mozos = mozos;
 	}
-	public Sector(){}
+
+	public Sector() {
+	}
+
 	public Sector(String nombre, List<Mesa> mesas, List<Mozo> mozos) {
 		this.nombre = nombre;
 		this.mesas = mesas;
