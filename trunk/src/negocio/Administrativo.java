@@ -3,7 +3,7 @@ package negocio;
 import javax.persistence.*;
 
 @Entity
-@Table(name="administrativos")
+@Table(name="Administrativos")
 public class Administrativo extends Empleado {
 	
 	public Administrativo() {
