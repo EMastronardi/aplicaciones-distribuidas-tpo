@@ -26,10 +26,9 @@ public class Movimiento {
 	
 	}
 
-	public Movimiento(int nroMovimiento, Date fecha, Deposito deposito,
+	public Movimiento(Date fecha, Deposito deposito,
 			Lote lote, float cantidad, String motivo, String usuario) {
 		super();
-		this.nroMovimiento = nroMovimiento;
 		this.fecha = fecha;
 		this.deposito = deposito;
 		this.lote = lote;
