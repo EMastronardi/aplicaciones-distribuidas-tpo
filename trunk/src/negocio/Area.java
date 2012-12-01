@@ -68,7 +68,7 @@ public class Area {
 		this.listasReposicion = listasReposicion;
 	}
 
-	public Area(List<Plato> platos, List<ItemStock> stock,
+	public Area(List<Plato> platos,
 			List<ListaReposicion> listasReposicion, String nombre,
 			Deposito depo, int cantHoras) {
 		this.platos = platos;
