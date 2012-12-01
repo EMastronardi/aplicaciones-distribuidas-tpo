@@ -25,6 +25,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import persistencia.HibernateUtil;
+import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
 import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
@@ -48,7 +49,7 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arrancó el sistema");
-		//SessionFactory sf = HibernateUtil.getSessionFactory();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
 		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
@@ -61,7 +62,7 @@ public class Sistema {
 			System.out.println("Fijado en //127.0.0.1:1099/Server");
 
 		} catch (RemoteException e) {
-		
+
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -180,6 +181,16 @@ public class Sistema {
 
 	public boolean validarUsuario(String usuario, String password) {
 		return UsuarioDAO.getInstancia().validarUsuario(usuario, password);
+
+	}
+
+	public SucursalVO getSucursal(String usuario) {
+		SucursalVO vo = new SucursalVO();
+		Sucursal suc = SucursalDAO.getInstancia().obtenerSucursal(usuario);
 		
+		vo.setIdSucursal(suc.getIdSucursal());
+		vo.setNombre(suc.getNombre());
+		
+		return  vo;
 	}
 }
