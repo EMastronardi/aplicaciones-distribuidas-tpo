@@ -24,11 +24,20 @@ public class Deposito {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idDeposito;
+	private String descripcion;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDeposito")
 	protected List<Movimiento> movimientos;
 
 	public Deposito() {
+	}
+		
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Deposito(List<Movimiento> movimientos) {
