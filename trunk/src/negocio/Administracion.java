@@ -79,21 +79,18 @@ public class Administracion {
 			Deposito dep = pp.getArea().getDeposito();
 
 			for (ViewItemPlanProduccion viewItmPlanProd : itemsRealizados) {
-				pp.modificarItemPlanProd(
-						viewItmPlanProd.getNombreSemielaborad(),
-						viewItmPlanProd.getCantidadFinalizada());
+				pp.modificarItemPlanProd(viewItmPlanProd.getNombreSemielaborad(),viewItmPlanProd.getCantidadFinalizada());
 				// alta de semielaborados
-				Producto p = Sistema.getInstance().buscarProductoPorNombre(
-						viewItmPlanProd.getNombreSemielaborad());
-				dep.ajustarInventario(p,
-						viewItmPlanProd.getCantidadFinalizada());
-
+				Producto p = Sistema.getInstance().buscarProductoPorNombre(viewItmPlanProd.getNombreSemielaborad());
+				Date d = new Date();
+				d.setYear(d.getYear()+1);
+				dep.sumarInventario(viewItmPlanProd.getCantidadFinalizada(),new Lote("PP",true,d,p));
 				// baja de insumos consumidos
 				//obtengo receta
 				SemiElaborado semi = (SemiElaborado)p;
 				Receta rec = semi.getReceta();
 				for (ItemReceta ir : rec.getItemsReceta()) { // Descuento los items correspondientes
-					dep.ajustarInventario((Producto)ir.getIngrediente(), ir.getCantidad()*viewItmPlanProd.getCantidadFinalizada()*(-1));
+					dep.restarInventario((Producto)ir.getIngrediente(), ir.getCantidad()*viewItmPlanProd.getCantidadFinalizada());
 				}
 			}
 		}
