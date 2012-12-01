@@ -165,18 +165,7 @@ public class Sistema {
 	}
 
 	public List<SucursalVO> getSucursalesVO() {
-		List<SucursalVO> lista = new ArrayList<SucursalVO>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Sucursal> sucursales = session.createQuery("from Sucursal").list();
-		System.out.println("Metodo en server encontro:");
-		for (Sucursal s : sucursales) {
-			System.out.println("Sucursal: " + s.getNombre());
-			SucursalVO svo = new SucursalVO();
-			svo.setIdSucursal(s.getIdSucursal());
-			svo.setNombre(s.getNombre());
-			lista.add(svo);
-		}
-		return lista;
+		return SucursalDAO.getInstancia().obtenerSucursales();
 	}
 
 	public boolean validarUsuario(String usuario, String password) {
@@ -187,10 +176,10 @@ public class Sistema {
 	public SucursalVO getSucursal(String usuario) {
 		SucursalVO vo = new SucursalVO();
 		Sucursal suc = SucursalDAO.getInstancia().obtenerSucursal(usuario);
-		
+
 		vo.setIdSucursal(suc.getIdSucursal());
 		vo.setNombre(suc.getNombre());
-		
-		return  vo;
+
+		return vo;
 	}
 }
