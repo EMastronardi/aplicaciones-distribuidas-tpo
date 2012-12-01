@@ -19,9 +19,11 @@ public class Area {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idArea")
 	private List<ListaReposicion> listasReposicion;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="idDeposito")
 	private Deposito deposito;
+	
 	private String nombre;
 	private int cantHoras;
 
