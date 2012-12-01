@@ -39,7 +39,6 @@ public class HibernateUtil {
 			config.addAnnotatedClass(Deposito.class);
 			config.addAnnotatedClass(DepositoCentral.class);
 			config.addAnnotatedClass(Lote.class);
-			config.addAnnotatedClass(ItemStock.class);
 			config.addAnnotatedClass(Comanda.class);
 			config.addAnnotatedClass(Salon.class);
 			config.addAnnotatedClass(Reserva.class);
