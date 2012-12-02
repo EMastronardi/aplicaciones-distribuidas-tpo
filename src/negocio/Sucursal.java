@@ -23,7 +23,7 @@ public class Sucursal {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idSucursal")
 	private List<Area> areas;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCaja")
 	private Caja caja;
@@ -131,7 +131,7 @@ public class Sucursal {
 	public Mozo buscarMozo(String nombreMozo) {
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		Mozo m = (Mozo) s.createQuery(
-				"From Mozo m where m.nombre = " + nombreMozo).list();
+				"From Mozo m where m.nombre = :nombre").setParameter("nombre",nombreMozo).uniqueResult();
 		return m;
 	}
 

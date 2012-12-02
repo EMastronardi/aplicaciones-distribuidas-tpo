@@ -51,7 +51,7 @@ public class Sistema {
 
 	public static void main(String[] args) {
 
-		System.out.println("Arranc� el sistema");
+		System.out.println("Arranco el sistema");
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		try {
 			/*
@@ -98,12 +98,12 @@ public class Sistema {
 	}
 
 	public Sucursal buscarSucursalPorNombre(String nombre) {
-		for (Sucursal suc : sucursales) {
-			if (suc.getNombre().equals(nombre)) {
-				return suc;
-			}
-		}
-		return null;
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		List<Sucursal> list = s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", nombre).list();
+		if(!list.isEmpty())
+			return list.get(0);
+		else
+			return null;
 	}
 
 	public Administracion getAdministracion() {
@@ -159,8 +159,7 @@ public class Sistema {
 		return null;
 	}
 
-	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,
-			String nombreMozo, int cantComenzales) {
+	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,String nombreMozo, int cantComenzales) {
 		Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
 		Mozo mozo = suc.buscarMozo(nombreMozo);
 		Collection<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);

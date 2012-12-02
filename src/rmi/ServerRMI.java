@@ -58,9 +58,8 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 		return Sistema.getInstance().getSucursal(usuario);
 	}
 
-	@Override
+	
 	public List<PlatoVO> getPlatos() throws RemoteException {
-		// TODO Auto-generated method stub
 		return Sistema.getInstance().getPlatos();
 	}
 

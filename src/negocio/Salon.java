@@ -75,19 +75,23 @@ public class Salon {
 
 	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo,int cantComezales) {
 		int numeroMasAlto = 0;
-
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		
 		// Comprobamos si existen lugares libres para abrir la mesa!
-
+	
 		if (this.getLugaresLibres() >= cantComezales) {
 			for (Mesa mesa : mesasParaAbrir) {
 				mesa.setEstado("Ocupada");
+				s.saveOrUpdate(mesa);
 				if (numeroMasAlto < mesa.getNumero()) {
 					numeroMasAlto = mesa.getNumero();
 				}
 			}
 			// Generamos la venta!
 			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,"Abierta");
-
+			s.save(nuevaVenta);
+			
+			s.close();
 			return true;
 		} else {
 			return false;
@@ -98,7 +102,7 @@ public class Salon {
 		int cantDisponible = 0;
 		// Cantidad de lugares disponibles
 		for (Mesa mesa : this.mesas) {
-			if (mesa.getEstado().equals("habilitada")) {
+			if (mesa.getEstado().equals("Habilitada")) {
 				cantDisponible += mesa.getCapacidad();
 			}
 		}
@@ -131,17 +135,15 @@ public class Salon {
 	}
 
 	public Collection<Mesa> buscarMesas(List<Integer> nrosMesas) {
-		// Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
-		// for(int i = 0; i< nrosMesas.length;i++){
-		// for (Mesa m : this.mesas) {
-		// if(m.getNumero()==nrosMesas[i]){
-		// mesasBuscadas.add(m);
-		// }
-		// }
-		// }
-		Session s = HibernateUtil.getSessionFactory().openSession();
-		List<Mesa> mesasBuscadas = s.createQuery("from Mesa m where m.numero in (:numeros)").setParameterList("numeros", nrosMesas).list();
-
+		Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
+		
+		for (int i = 0; i < nrosMesas.size(); i++) {
+			for (Mesa m : this.mesas) {
+				if (m.getNumero() == nrosMesas.get(i)) {
+					mesasBuscadas.add(m);
+				}
+			}
+		}
 		return mesasBuscadas;
 	}
 
