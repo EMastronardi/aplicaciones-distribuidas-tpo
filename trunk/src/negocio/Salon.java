@@ -73,8 +73,7 @@ public class Salon {
 		return true;
 	}
 
-	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo,
-			int cantComezales) {
+	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo,int cantComezales) {
 		int numeroMasAlto = 0;
 
 		// Comprobamos si existen lugares libres para abrir la mesa!
@@ -87,8 +86,7 @@ public class Salon {
 				}
 			}
 			// Generamos la venta!
-			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,
-					"Abierta");
+			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,"Abierta");
 
 			return true;
 		} else {
@@ -142,9 +140,7 @@ public class Salon {
 		// }
 		// }
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		List<Mesa> mesasBuscadas = s
-				.createQuery("from Mesa m where m.numero in (:numeros)")
-				.setParameterList("numeros", nrosMesas).list();
+		List<Mesa> mesasBuscadas = s.createQuery("from Mesa m where m.numero in (:numeros)").setParameterList("numeros", nrosMesas).list();
 
 		return mesasBuscadas;
 	}
