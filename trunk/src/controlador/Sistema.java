@@ -18,6 +18,7 @@ import negocio.DepositoCentral;
 import negocio.ItemBillete;
 import negocio.Mesa;
 import negocio.Mozo;
+import negocio.Plato;
 import negocio.Producto;
 import negocio.Sucursal;
 
@@ -25,10 +26,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import persistencia.HibernateUtil;
+import persistencia.PlatoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
 import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
+import beans.PlatoVO;
 import beans.SucursalVO;
 
 public class Sistema {
@@ -48,7 +51,7 @@ public class Sistema {
 
 	public static void main(String[] args) {
 
-		System.out.println("Arrancó el sistema");
+		System.out.println("Arrancï¿½ el sistema");
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		try {
 			/*
@@ -181,5 +184,20 @@ public class Sistema {
 		vo.setNombre(suc.getNombre());
 
 		return vo;
+	}
+	
+	public List<PlatoVO> getPlatos(){
+		System.out.println("Metodo GET PLATOS EN SERVER:");
+		List<PlatoVO> lista = new ArrayList<PlatoVO>();
+		List<Plato> platos = PlatoDAO.getInstancia().getPlatos();
+		
+		for (Plato plato : platos) {
+			PlatoVO plvo = new PlatoVO();
+			plvo.setIdPlato(plato.getIdPlato());
+			plvo.setNombre(plato.getNombre());
+			plvo.setPrecio(plato.getPrecio());
+			lista.add(plvo);
+		}
+		return lista;		
 	}
 }
