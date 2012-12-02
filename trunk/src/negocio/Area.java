@@ -13,7 +13,7 @@ public class Area {
 	private int idArea;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idArea")
+	@JoinTable(name="PlatosPorAreas")
 	private List<Plato> platos;
 	
 	@OneToMany(cascade = CascadeType.ALL)
