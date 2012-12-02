@@ -20,4 +20,11 @@ public class ProductoDAO {
 	public List<Producto> getProductos(){
 		return null;
 	}
+	
+	public Producto obtenerProducto(int idProducto){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Producto prod = (Producto) s.createQuery("from Producto where idProducto = :idProducto").setInteger("idProducto", idProducto).uniqueResult();
+		
+		return prod;	
+	}
 }

@@ -20,6 +20,7 @@ public class SucursalDAO {
 	private SucursalDAO(){
 		
 	}
+	
 	public Sucursal obtenerSucursal(String usuario){
 		System.out.println("(SERVER) MEtodo obtenerSucursal llamado");
 		Session s = HibernateUtil.getSessionFactory().openSession();
@@ -28,6 +29,14 @@ public class SucursalDAO {
 		
 		return suc.get(0);	
 	}
+	
+	public Sucursal obtenerSucursal(int idSucursal){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Sucursal suc = (Sucursal) s.createQuery("from Sucursal where idSucursal = :idSucursal").setInteger("idSucursal", idSucursal).uniqueResult();
+	
+		return suc;	
+	}
+	
 	public List<SucursalVO> obtenerSucursales() {
 		List<SucursalVO> lista = new ArrayList<SucursalVO>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
