@@ -17,31 +17,30 @@ import controlador.Sistema;
 @Table(name = "Sucursales")
 public class Sucursal {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSucursal;
 	private String nombre;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idSucursal")
+	@JoinColumn(name = "idSucursal")
 	private List<Area> areas;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idSalon")
+	@JoinColumn(name = "idSalon")
 	private Salon salon;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idDeposito")
+	@JoinColumn(name = "idDeposito")
 	private Deposito deposito;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idCaja")
+	@JoinColumn(name = "idCaja")
 	private Caja caja;
 
-
-	//private List<Comision> comisiones;
+	// private List<Comision> comisiones;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idSucursal")
+	@JoinColumn(name = "idSucursal")
 	private List<Venta> ventas;
 
 	public Sucursal(String nombre) {
@@ -50,14 +49,17 @@ public class Sucursal {
 		salon = new Salon("salon1", null);
 		deposito = new Deposito(null);
 		caja = new Caja();
-		//comisiones = new ArrayList<Comision>();
+		// comisiones = new ArrayList<Comision>();
 		ventas = new ArrayList<Venta>();
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
-	public Sucursal(){}
+
+	public Sucursal() {
+	}
+
 	public int getIdSucursal() {
 		return idSucursal;
 	}
@@ -102,18 +104,16 @@ public class Sucursal {
 		this.caja = caja;
 	}
 
-	/*public Collection<Comision> getComisiones() {
-		return comisiones;
-	}
-
-	public void setComisiones(List<Comision> comisiones) {
-		this.comisiones = comisiones;
-	}*/
+	/*
+	 * public Collection<Comision> getComisiones() { return comisiones; }
+	 * 
+	 * public void setComisiones(List<Comision> comisiones) { this.comisiones =
+	 * comisiones; }
+	 */
 
 	public void agregarArea(Area area) {
 		areas.add(area);
 	}
-
 
 	public void abrirCaja(ArrayList<ItemBillete> billetes) {
 		this.caja.aperturaCajaDiaria(billetes);
@@ -130,13 +130,15 @@ public class Sucursal {
 	}
 
 	public Mozo buscarMozo(String nombreMozo) {
-		 Session s = HibernateUtil.getSessionFactory().openSession();
-		 Mozo m = (Mozo)s.createQuery("From Mozo m where m.nombre = "+nombreMozo).list();
-		 return m;
-	}
-	
-	public Venta buscarVenta(int venta){
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		return (Venta)s.createQuery("From Venta v where v.nroMesa = "+venta).list();
+		Mozo m = (Mozo) s.createQuery(
+				"From Mozo m where m.nombre = " + nombreMozo).list();
+		return m;
+	}
+
+	public Venta buscarVenta(int venta) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		return (Venta) s.createQuery("From Venta v where v.nroMesa = " + venta)
+				.list();
 	}
 }
