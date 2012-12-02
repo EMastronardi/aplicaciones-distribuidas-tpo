@@ -8,6 +8,8 @@ public class Mesa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idMesa;
+	private int numero;
+	
 	private String estado;
 	private int capacidad;
 	private int capacidadMaxima;
@@ -30,13 +32,7 @@ public class Mesa {
 		}
 	}
 
-	public int getNumero() {
-		return idMesa;
-	}
-
-	public void setNumero(int numero) {
-		this.idMesa = numero;
-	}
+	
 
 	public String getEstado() {
 		return estado;
@@ -53,7 +49,27 @@ public class Mesa {
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
+	public int getNumero() {
+		return numero;
+	}
 
+
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+
+
+	public int getCapacidadMaxima() {
+		return capacidadMaxima;
+	}
+
+
+
+	public void setCapacidadMaxima(int capacidadMaxima) {
+		this.capacidadMaxima = capacidadMaxima;
+	}
 	public Mesa() {
 
 	}
