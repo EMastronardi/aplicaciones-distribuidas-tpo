@@ -105,7 +105,7 @@ public class Deposito {
 					&& m.getLote().getProducto().getIdProducto() == p
 							.getIdProducto()) {
 				for (LoteCantidad lc : loteCantidad) {
-					if ((Lote) lc.getLote() == m.getLote()) {
+					if (lc.getLote() == m.getLote()) {
 						lc.sumarCantidad(m.getCantidad());
 						find = true;
 					}
