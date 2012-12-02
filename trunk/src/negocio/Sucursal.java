@@ -23,18 +23,18 @@ public class Sucursal {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idSucursal")
 	private List<Area> areas;
-
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idSalon")
-	private Salon salon;
+	@JoinColumn(name = "idCaja")
+	private Caja caja;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDeposito")
 	private Deposito deposito;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idCaja")
-	private Caja caja;
+	@JoinColumn(name = "idSalon")
+	private Salon salon;
 
 	// private List<Comision> comisiones;
 
