@@ -1,6 +1,7 @@
 package persistencia;
 
 import negocio.Lote;
+import negocio.Producto;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,5 +26,12 @@ public class LoteDAO {
 		Session sesion = sf.openSession();
 		sesion.update(l);
 		return true;
+	}
+	
+	public Lote obtenerLote(int idLote){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Lote lote = (Lote) s.createQuery("from Lote where idLote = :idLote").setInteger("idLote", idLote).uniqueResult();
+		
+		return lote;	
 	}
 }
