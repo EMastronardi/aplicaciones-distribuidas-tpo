@@ -2,13 +2,12 @@ package rmi;
 
 import interfaz.InterfazRemota;
 
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import beans.PlatoVO;
 import beans.SucursalVO;
-
 import controlador.Sistema;
 
 public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
@@ -57,6 +56,12 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 		System.out.println("Llamado al metodo getSucursales en el server!");
 		
 		return Sistema.getInstance().getSucursal(usuario);
+	}
+
+	@Override
+	public List<PlatoVO> getPlatos() throws RemoteException {
+		// TODO Auto-generated method stub
+		return Sistema.getInstance().getPlatos();
 	}
 
 }
