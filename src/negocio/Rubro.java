@@ -18,7 +18,7 @@ public class Rubro {
 	private int idRubro;
 	private String nombre;
 	@OneToMany
-	@JoinColumn(name="idPlato")
+	@JoinColumn(name="idRubro")
 	private List<Plato> platos;
 	
 	public Rubro() {
