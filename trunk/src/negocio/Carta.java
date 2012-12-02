@@ -19,7 +19,7 @@ public class Carta {
 	private int idCarta;
 	private String nombre;
 	@OneToOne
-	@JoinColumn(name="idSuursal")
+	@JoinColumn(name="idSucursal")
 	private Sucursal sucursal;
 	@OneToMany
 	@JoinColumn(name="idCarta")
