@@ -98,8 +98,9 @@ public class Deposito {
 
 	private List<LoteCantidad> getStockProducto(Producto p) {
 		List<LoteCantidad> loteCantidad = new ArrayList<LoteCantidad>();
-		Boolean find = false;
+		
 		for (Movimiento m : this.movimientos) {
+			Boolean find = false;
 			if (m.getLote().getEstado() == true
 					&& m.getLote().getProducto().getIdProducto() == p
 							.getIdProducto()) {
