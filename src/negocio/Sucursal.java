@@ -1,7 +1,6 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.*;
@@ -72,7 +71,7 @@ public class Sucursal {
 		this.nombre = nombre;
 	}
 
-	public Collection<Area> getAreas() {
+	public List<Area> getAreas() {
 		return areas;
 	}
 

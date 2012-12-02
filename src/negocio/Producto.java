@@ -41,6 +41,16 @@ public class Producto {
 		this.proveedores = proveedores;
 	}
 	
+	
+	
+	public int getIdProducto() {
+		return idProducto;
+	}
+
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+
 	public String getCategorizacion() {
 		return categorizacion;
 	}
