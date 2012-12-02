@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class Caja {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idCaja;	
+	private int idCaja;
+	private String nombre;
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<CajaDiaria> cajas;
 	@OneToOne(cascade=CascadeType.ALL)
