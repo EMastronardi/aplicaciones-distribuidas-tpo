@@ -29,7 +29,7 @@ public class Sector {
 		this.nombre = nombre;
 	}
 
-	public Collection<Mesa> getMesas() {
+	public List<Mesa> getMesas() {
 		return mesas;
 	}
 
@@ -37,7 +37,7 @@ public class Sector {
 		this.mesas = mesas;
 	}
 
-	public Collection<Mozo> getMozos() {
+	public List<Mozo> getMozos() {
 		return mozos;
 	}
 

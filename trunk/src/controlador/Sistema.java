@@ -20,6 +20,7 @@ import negocio.Mesa;
 import negocio.Mozo;
 import negocio.Plato;
 import negocio.Producto;
+import negocio.Sector;
 import negocio.Sucursal;
 
 import org.hibernate.Session;
@@ -52,7 +53,11 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
-		SessionFactory sf = HibernateUtil.getSessionFactory();
+		
+		List<Integer> nrosMesas = new ArrayList<>();
+		nrosMesas.add(2);
+		
+		//Sistema.getInstance().AbrirMesa("Belgrano", nrosMesas , "mozo1", 2);
 		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
@@ -160,10 +165,23 @@ public class Sistema {
 	}
 
 	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,String nombreMozo, int cantComenzales) {
-		Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
-		Mozo mozo = suc.buscarMozo(nombreMozo);
-		Collection<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);
-		return suc.getSalon().abrirMesa(mesas, mozo, cantComenzales);
+		//Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		Sucursal suc = (Sucursal) s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", nombreSucursal).uniqueResult();
+		
+		//Mozo mozo = suc.buscarMozo(nombreMozo);
+		Mozo mozo = suc.getSalon().obtenerMozo(nombreMozo);
+		
+		
+		List<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);
+		boolean resultado  = suc.getSalon().abrirMesa(mesas, mozo, cantComenzales);
+		if(resultado) {
+			s.getTransaction().commit();
+			s.close();
+		}
+		return resultado;
 	}
 
 	public List<SucursalVO> getSucursalesVO() {

@@ -73,29 +73,44 @@ public class Salon {
 		return true;
 	}
 
-	public boolean abrirMesa(Collection<Mesa> mesasParaAbrir, Mozo mozo,int cantComezales) {
+	public boolean abrirMesa(List<Mesa> mesasParaAbrir, Mozo mozo,int cantComezales) {
 		int numeroMasAlto = 0;
-		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		// Comprobamos si existen lugares libres para abrir la mesa!
 	
 		if (this.getLugaresLibres() >= cantComezales) {
+			boolean seguir = true;
 			for (Mesa mesa : mesasParaAbrir) {
-				mesa.setEstado("Ocupada");
-				s.saveOrUpdate(mesa);
-				if (numeroMasAlto < mesa.getNumero()) {
-					numeroMasAlto = mesa.getNumero();
+				if(mesa.getEstado().equals("Ocupada")){
+					seguir =false;
 				}
 			}
-			// Generamos la venta!
-			Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,"Abierta");
-			s.save(nuevaVenta);
+			if(seguir){
+				for (Mesa mesa : mesasParaAbrir) {
+					mesa.setEstado("Ocupada");
+					if (numeroMasAlto < mesa.getNumero()) {
+						numeroMasAlto = mesa.getNumero();
+					}
+				}
+				// Generamos la venta!
+				Venta nuevaVenta = new Venta(numeroMasAlto, mesasParaAbrir, mozo,"Abierta");
+				this.ventasAbiertas.add(nuevaVenta);
+				return true;
+			}else{
+				return false;
+			}
 			
-			s.close();
-			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public List<Sector> getSectores() {
+		return sectores;
+	}
+
+	public void setSectores(List<Sector> sectores) {
+		this.sectores = sectores;
 	}
 
 	private int getLugaresLibres() {
@@ -134,8 +149,8 @@ public class Salon {
 		}
 	}
 
-	public Collection<Mesa> buscarMesas(List<Integer> nrosMesas) {
-		Collection<Mesa> mesasBuscadas = new ArrayList<Mesa>();
+	public List<Mesa> buscarMesas(List<Integer> nrosMesas) {
+		List<Mesa> mesasBuscadas = new ArrayList<Mesa>();
 		
 		for (int i = 0; i < nrosMesas.size(); i++) {
 			for (Mesa m : this.mesas) {
@@ -149,5 +164,17 @@ public class Salon {
 
 	public Salon() {
 
+	}
+
+	public Mozo obtenerMozo(String nombreMozo) {
+		List<Sector> sectores2 = this.getSectores();
+		for (Sector sector : sectores2) {
+			List<Mozo> mozos = sector.getMozos();
+			for (Mozo mozo : mozos) {
+				if(mozo.getNombre().equals(nombreMozo))
+					return mozo;
+			}
+		}
+		return null;
 	}
 }
