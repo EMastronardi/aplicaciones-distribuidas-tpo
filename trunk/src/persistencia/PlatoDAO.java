@@ -4,6 +4,7 @@ import java.util.List;
 
 import negocio.Carta;
 import negocio.Plato;
+import negocio.Producto;
 
 import org.hibernate.Session;
 
@@ -28,5 +29,12 @@ public class PlatoDAO {
 		
 		
 		return platos;
+	}
+	
+	public Plato obtenerPlato(int idPlato){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Plato plato = (Plato) s.createQuery("from Plato where idPlato = :idPlato").setInteger("idPlato", idPlato).uniqueResult();
+		
+		return plato;	
 	}
 }

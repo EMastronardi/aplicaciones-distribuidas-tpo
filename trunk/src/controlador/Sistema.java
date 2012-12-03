@@ -1,7 +1,6 @@
 package controlador;
 
 import interfaz.InterfazRemota;
-
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -9,12 +8,13 @@ import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import negocio.Administracion;
 import negocio.Area;
 import negocio.Comanda;
+import negocio.Deposito;
 import negocio.DepositoCentral;
 import negocio.ItemBillete;
+import negocio.Lote;
 import negocio.ItemComanda;
 import negocio.Mesa;
 import negocio.Mozo;
@@ -25,8 +25,11 @@ import negocio.Venta;
 
 import org.hibernate.Session;
 
+import persistencia.ComandaDAO;
 import persistencia.HibernateUtil;
+import persistencia.LoteDAO;
 import persistencia.PlatoDAO;
+import persistencia.ProductoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
 import persistencia.VentaDAO;
@@ -54,29 +57,85 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
+		HibernateUtil.getSessionFactory();
+/*+++++++++++++++++++++++PRUEBA RESTAR++++++++++++++++++++*/		
+// Prueba de datos
+//		Sucursal sucursal_1 = null;
+//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
+//		System.out.println("Sucursal: " + sucursal_1.getNombre());
+//		
+//		for(Area a : sucursal_1.getAreas()){
+//			if(a.getIdArea() == 1){
+//				System.out.println("Áreas: " + a.getNombre());
+//				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
+//				Deposito dep_cocina_suc_1 = a.getDeposito();
+//				System.out.println("Depósito: " + a.getDeposito().getDescripcion());
+//			    
+//				//Busco el producto Papa
+//				Producto prod = ProductoDAO.getInstancia().obtenerProducto(3);
+//				System.out.println("Producto: " + prod.getNombre() + " " + prod.getCategorizacion());
+//				dep_cocina_suc_1.restarInventario(prod, 10, sucursal_1.getDeposito());
+//			}
+//		}
+/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/
 		
-		Sucursal suc = instance.buscarSucursalPorNombre("Belgrano");
-		System.out.println(suc.getNombre());
+/*+++++++++++++++++++++++PRUEBA SUMAR+++++++++++++++++++++*/
+//		Sucursal sucursal_1 = null;
+//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
+//		System.out.println("Sucursal: " + sucursal_1.getNombre());
+//		
+//		for(Area a : sucursal_1.getAreas()){
+//			if(a.getIdArea() == 1){
+//				System.out.println("Áreas: " + a.getNombre());
+//				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
+//				Deposito dep_cocina_suc_1 = a.getDeposito();
+//				System.out.println("Depósito: " + a.getDeposito().getDescripcion());
+//			    
+//				//Busco un Lote
+//				Lote lote = LoteDAO.getIntancia().obtenerLote(8);
+//				dep_cocina_suc_1.sumarInventario(678, lote);
+//			}
+//		}				
+/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/		
+
+/*+++++++++++++++++++++++PRUEBA COMANDA++++++++++++++++++*/		
+// Prueba de datos
+//		Sucursal sucursal_1 = null;
+//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
+//		System.out.println("Sucursal: " + sucursal_1.getNombre());
+//		for(Comanda c: sucursal_1.getSalon().getComandas()){
+//			if (c.confirmarComanda()){
+//				System.out.println("Comanda Confirmada");
+//			}else{
+//				System.out.println("Falló al confirmar la comanda");
+//			}
+//		}		
+/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/
+
+//		try {
+
+//		Sucursal suc = instance.buscarSucursalPorNombre("Belgrano");
+//		System.out.println(suc.getNombre());
 		
 		//Session openSession = HibernateUtil.getSessionFactory().openSession();
 		//openSession.close();
-		try {
+//		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
 			 * (System.getSecurityManager() == null) System.setSecurityManager (
 			 * new RMISecurityManager() );
 			 */
-			LocateRegistry.createRegistry(1099);
-			InterfazRemota gestion = new ServerRMI();
-			Naming.rebind("//127.0.0.1:1099/Server", gestion);
-			System.out.println("Fijado en //127.0.0.1:1099/Server");
-
-		} catch (RemoteException e) {
-
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+//			LocateRegistry.createRegistry(1099);
+//			InterfazRemota gestion = new ServerRMI();
+//			Naming.rebind("//127.0.0.1:1099/Server", gestion);
+//			System.out.println("Fijado en //127.0.0.1:1099/Server");
+//
+//		} catch (RemoteException e) {
+//
+//			e.printStackTrace();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -260,12 +319,13 @@ public class Sistema {
 		for(int i=0; i<platos.length; i++){
 			ItemComanda itms = new ItemComanda();
 			itms.setCantidad(Integer.parseInt(cantidades[i]));
-			//itms.setPlato(platos[i]);
+			itms.setPlato(PlatoDAO.getInstancia().obtenerPlato(Integer.parseInt(platos[i])));
 			listaItems.add(itms);
 		}
 
 		cmd.setItemsComanda(listaItems);
 		//Guardar La comanda
+		ComandaDAO.getInstancia().grabarComanda(cmd);
 		return true;
 		
 	}
