@@ -4,11 +4,9 @@ import interfaz.InterfazRemota;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +18,9 @@ import negocio.Mesa;
 import negocio.Mozo;
 import negocio.Plato;
 import negocio.Producto;
-import negocio.Sector;
 import negocio.Sucursal;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import persistencia.HibernateUtil;
 import persistencia.MesaDAO;
@@ -35,6 +31,7 @@ import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
 import beans.PlatoVO;
 import beans.SucursalVO;
+import beans.VentaVO;
 
 public class Sistema {
 
@@ -204,9 +201,9 @@ public class Sistema {
 		return vo;
 	}
 	
-	public List<PlatoVO> getPlatos(){
+	public List<PlatoVO> getPlatos(String sucursal){
 		List<PlatoVO> lista = new ArrayList<PlatoVO>();
-		List<Plato> platos = PlatoDAO.getInstancia().getPlatos();
+		List<Plato> platos = PlatoDAO.getInstancia().getPlatos(sucursal);
 		
 		for (Plato plato : platos) {
 			PlatoVO plvo = new PlatoVO();
@@ -216,6 +213,12 @@ public class Sistema {
 			lista.add(plvo);
 		}
 		return lista;		
+	}
+	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre){
+		List<VentaVO> lista = new ArrayList<VentaVO>();
+		
+		
+		return lista;
 	}
 
 	
