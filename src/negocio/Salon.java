@@ -177,4 +177,13 @@ public class Salon {
 		}
 		return null;
 	}
+
+	public List<Comanda> getComandas() {
+		return comandas;
+	}
+
+	public void setComandas(List<Comanda> comandas) {
+		this.comandas = comandas;
+	}
+
 }

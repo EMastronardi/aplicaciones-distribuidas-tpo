@@ -98,7 +98,7 @@ public class Comanda {
 
 	public boolean confirmarComanda() {
 		//Recupero el depósito de Sucursal para esta comanda, por si tengo que pedirle Stock
-		Deposito depSucursal = DepositoDAO.getInstancia().obtenerDepositoSucursal(itemsComanda.get(0).getPlato().getArea().getIdArea());
+		Deposito depSucursal = DepositoDAO.getInstancia().obtenerDepositoSucursal(this.idComanda);
 		for (ItemComanda ic : itemsComanda) {
 			// Obtengo el depósito desde donde va a salir el plato
 			// Desde este depósito se descontará el Stock
