@@ -59,7 +59,7 @@ public class Deposito {
 		MovimientoDAO.getInstancia().grabarMovimientos(auxMovimientos);
 	}
 
-	public void restarInventario(Producto p, float cant) {
+	public boolean restarInventario(Producto p, float cant, Deposito depSucursal) {
 		ArrayList<Movimiento> auxMovimientos = new ArrayList<Movimiento>();
 		List<LoteCantidad> cantidadLote = getStockProducto(p);
 		
@@ -91,11 +91,60 @@ public class Deposito {
 		if (cant == 0){
 			System.out.println("Pude Grabar los movimientos");
 			MovimientoDAO.getInstancia().grabarMovimientos(auxMovimientos);
+			return true;
 		}else{
-			System.out.println("No me da el Stock amigo, pedile al deposito Sucursal");
+			System.out.println("No me da el Stock amigo, le pido al deposito Sucursal. Intentelo mas tarde.");
+			//Resto la cantidad del deposito sucursal
+			depSucursal.traspasoDepSucursalDepArea(p, cant, this);
+			return false;
+		}
+	}
+	
+	public boolean traspasoDepSucursalDepArea(Producto p, float cant, Deposito depArea) {
+		ArrayList<Movimiento> auxMovimientos = new ArrayList<Movimiento>();
+		List<LoteCantidad> cantidadLote = getStockProducto(p);
+		
+		while (cant > 0 && !cantidadLote.isEmpty()) {
+			LoteCantidad loteMasViejo = null;
+			for (LoteCantidad lc : cantidadLote) {
+				if (loteMasViejo == null
+						|| (lc.getLote().getVencimiento().compareTo(loteMasViejo.getLote().getVencimiento())) < 0) {
+					loteMasViejo = lc;
+				}
+			}
+			
+			if (cant <= loteMasViejo.getCantidad()) {
+				auxMovimientos.add(new Movimiento(new Date(), this,
+						loteMasViejo.getLote(), cant * -1, "Traspaso Baja Suc",
+						"prueba"));
+				auxMovimientos.add(new Movimiento(new Date(), depArea,
+						loteMasViejo.getLote(), cant, "Traspaso Alta Area",
+						"prueba"));
+				cant = 0;
+			} else {
+					Lote l = loteMasViejo.getLote();
+					auxMovimientos.add(new Movimiento(new Date(), this, l,
+							loteMasViejo.getCantidad() * -1, "Traspaso Baja Suc",
+							"prueba"));
+					auxMovimientos.add(new Movimiento(new Date(), depArea, l,
+							loteMasViejo.getCantidad(), "Traspaso Alta Suc",
+							"prueba"));
+					cant = cant - loteMasViejo.getCantidad();
+					cantidadLote.remove(loteMasViejo);
+				}
+			}
+		
+		if (cant == 0){
+			System.out.println("Pude Grabar los movimientos de traspaso");
+			MovimientoDAO.getInstancia().grabarMovimientos(auxMovimientos);
+			return true;
+		}else{
+			System.out.println("No me da el Stock en el depósito Sucursal");
+			return false;
 		}
 	}
 
+	
 	private List<LoteCantidad> getStockProducto(Producto p) {
 		List<LoteCantidad> loteCantidad = new ArrayList<LoteCantidad>();
 		

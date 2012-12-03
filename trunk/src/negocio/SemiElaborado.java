@@ -25,7 +25,9 @@ public class SemiElaborado extends Ingrediente {
 		super(categorizacion, nombre, proveedores, fresco);
 		this.receta = receta;
 	}
+	
 	public SemiElaborado() {
+	
 	}
 
 }
