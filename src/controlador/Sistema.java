@@ -27,6 +27,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import persistencia.HibernateUtil;
+import persistencia.MesaDAO;
 import persistencia.PlatoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
@@ -204,7 +205,6 @@ public class Sistema {
 	}
 	
 	public List<PlatoVO> getPlatos(){
-		System.out.println("Metodo GET PLATOS EN SERVER:");
 		List<PlatoVO> lista = new ArrayList<PlatoVO>();
 		List<Plato> platos = PlatoDAO.getInstancia().getPlatos();
 		
@@ -217,4 +217,6 @@ public class Sistema {
 		}
 		return lista;		
 	}
+
+	
 }
