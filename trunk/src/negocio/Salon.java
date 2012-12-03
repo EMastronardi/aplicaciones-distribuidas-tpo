@@ -39,6 +39,14 @@ public class Salon {
 	@JoinColumn(name = "idSalon")
 	private List<Venta> ventasAbiertas;
 
+	public List<Venta> getVentasAbiertas() {
+		return ventasAbiertas;
+	}
+
+	public void setVentasAbiertas(List<Venta> ventasAbiertas) {
+		this.ventasAbiertas = ventasAbiertas;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idSalon")
 	private List<Comanda> comandas;
