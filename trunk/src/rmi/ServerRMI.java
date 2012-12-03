@@ -11,6 +11,7 @@ import persistencia.MesaDAO;
 import beans.MesaVO;
 import beans.PlatoVO;
 import beans.SucursalVO;
+import beans.VentaVO;
 import controlador.Sistema;
 
 public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
@@ -62,8 +63,15 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 	}
 
 	
-	public List<PlatoVO> getPlatos() throws RemoteException {
-		return Sistema.getInstance().getPlatos();
+	public List<PlatoVO> getPlatos(String sucursal) throws RemoteException {
+		return Sistema.getInstance().getPlatos(sucursal);
+	}
+
+
+	@Override
+	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
