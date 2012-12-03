@@ -74,4 +74,10 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 		return null;
 	}
 
+
+	public boolean cerrarVenta(String sucursal, int nroMesa) throws RemoteException {
+		
+		return Sistema.getInstance().cerrarVenta(sucursal, nroMesa);
+	}
+
 }
