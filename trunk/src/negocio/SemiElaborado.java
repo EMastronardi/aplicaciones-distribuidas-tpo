@@ -9,7 +9,7 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name="idIngrediente")
 public class SemiElaborado extends Ingrediente {
 	@OneToOne(cascade = CascadeType.REFRESH)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="idReceta")
 	private Receta receta;
 
 	public Receta getReceta() {

@@ -1,26 +1,50 @@
 package negocio;
 
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import controlador.Sistema;
 
+@Entity
+@Table(name="PlanesProduccion")
 public class PlanProduccion {
-	public Area getArea() {
-		return area;
-	}
-
-	public void setArea(Area area) {
-		this.area = area;
-	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idPlanProduccion;
+	@ManyToOne
+	@JoinColumn(name="idSucursal")
 	private Sucursal sucursal;
+	@ManyToOne
+	@JoinColumn(name="idArea")
 	private Area area;
-	private Collection<ItemPlanProduccion> itemsPlaneados;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="idPlanProduccion")
+	private List<ItemPlanProduccion> itemsPlaneados;
 	private int tiempo;
 	private Date fecha;
 	private String estado;
+	
+	public int getIdPlanProduccion() {
+		return idPlanProduccion;
+	}
+
+	public void setIdPlanProduccion(int idPlanProduccion) {
+		this.idPlanProduccion = idPlanProduccion;
+	}
 
 	public Sucursal getSucursal() {
 		return sucursal;
@@ -54,14 +78,28 @@ public class PlanProduccion {
 		this.estado = estado;
 	}
 
-	public PlanProduccion(Sucursal sucursal, Area area, int tiempo, Date fecha,
-			String estado) {
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+	
+	public PlanProduccion(Sucursal sucursal, Area area, int tiempo,
+			Date fecha, String estado) {
+		super();
 		this.sucursal = sucursal;
 		this.area = area;
+		this.itemsPlaneados = new ArrayList<ItemPlanProduccion>();
 		this.tiempo = tiempo;
 		this.fecha = fecha;
 		this.estado = estado;
-		itemsPlaneados = new ArrayList<ItemPlanProduccion>();
+	}
+
+	public PlanProduccion() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public void addItemPlaneado(String nombreSemielaborad, float cantidad) {
