@@ -22,12 +22,10 @@ public class SucursalDAO {
 	}
 	
 	public Sucursal obtenerSucursal(String usuario){
-		System.out.println("(SERVER) MEtodo obtenerSucursal llamado");
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		List<Sucursal> suc = s.createQuery("Select s from Sucursal s inner join s.salon sa inner join sa.sectores sec inner join sec.mozos m where m.nombre = :nombre").setString("nombre", usuario).list();
-		System.out.println(suc.get(0).getNombre());
+		Sucursal suc = (Sucursal)s.createQuery("Select s from Sucursal s inner join s.salon sa inner join sa.sectores sec inner join sec.mozos m where m.nombre = :nombre").setString("nombre", usuario).uniqueResult();
 		
-		return suc.get(0);	
+		return suc;	
 	}
 	
 	public Sucursal obtenerSucursal(int idSucursal){

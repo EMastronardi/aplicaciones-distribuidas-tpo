@@ -4,18 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Ventas")
@@ -25,9 +15,9 @@ public class Venta {
 	private int idVenta;
 	private int nroMesa;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private Collection<Mesa> mesas;
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Mesa> mesas;
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private String estado;
@@ -37,7 +27,7 @@ public class Venta {
 	@OneToOne
 	@JoinColumn(name = "idFactura")
 	private Factura factura;
-	public Venta(int nroMesa, Collection<Mesa> mesas, Mozo mozo, String estado) {
+	public Venta(int nroMesa, List<Mesa> mesas, Mozo mozo, String estado) {
 		super();
 		this.nroMesa = nroMesa;
 		this.mesas = mesas;
@@ -50,7 +40,7 @@ public class Venta {
 		return mesas;
 	}
 
-	public void setMesas(Collection<Mesa> mesas) {
+	public void setMesas(List<Mesa> mesas) {
 		this.mesas = mesas;
 	}
 
