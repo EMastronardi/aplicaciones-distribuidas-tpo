@@ -10,7 +10,7 @@ public class ItemReceta {
 	private int idItemReceta;
 	private float cantidad;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idIngrediente")
 	private Ingrediente ingrediente;
 

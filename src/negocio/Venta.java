@@ -14,19 +14,16 @@ public class Venta {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idVenta;
 	private int nroMesa;
-	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Mesa> mesas;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idMozo")
 	private Mozo mozo;
 	private String estado;
-
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="idVenta")
 	private List<ItemVenta> itemsVenta;
-	@OneToOne
-	@JoinColumn(name = "idFactura")
-	private Factura factura;
+	
 	public Venta(int nroMesa, List<Mesa> mesas, Mozo mozo, String estado) {
 		super();
 		this.nroMesa = nroMesa;
@@ -36,7 +33,7 @@ public class Venta {
 		this.itemsVenta = new ArrayList<ItemVenta>();
 	}
 
-	public Collection<Mesa> getMesas() {
+	public List<Mesa> getMesas() {
 		return mesas;
 	}
 
@@ -88,14 +85,6 @@ public class Venta {
 
 	public void setIdVenta(int idVenta) {
 		this.idVenta = idVenta;
-	}
-
-	public Factura getFactura() {
-		return factura;
-	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
 	}
 
 	public Venta() {
