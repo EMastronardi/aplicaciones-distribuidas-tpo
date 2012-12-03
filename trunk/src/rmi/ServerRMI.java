@@ -6,6 +6,9 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import negocio.Mesa;
+import persistencia.MesaDAO;
+import beans.MesaVO;
 import beans.PlatoVO;
 import beans.SucursalVO;
 import controlador.Sistema;
