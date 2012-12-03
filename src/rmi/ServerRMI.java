@@ -8,6 +8,7 @@ import java.util.List;
 
 import negocio.Mesa;
 import persistencia.MesaDAO;
+import beans.ComandaVO;
 import beans.MesaVO;
 import beans.PlatoVO;
 import beans.SucursalVO;
@@ -86,6 +87,22 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 			String[] cantidad) throws RemoteException {
 		// TODO Auto-generated method stub
 		return Sistema.getInstance().generarComanda(sucursal, nombre, mesa, platos, cantidad);
+	}
+
+
+	@Override
+	public List<ComandaVO> getComandasAbiertas(String sucursal)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean confirmarComandaRealizada(String idComanda)
+			throws RemoteException {
+	
+		return false;
 	}
 
 }
