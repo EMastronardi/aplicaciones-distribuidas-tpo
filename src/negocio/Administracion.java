@@ -3,10 +3,15 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import controlador.Sistema;
 import vista.ViewItemPlanProduccion;
 
 public class Administracion {
+	@OneToMany
+	@JoinColumn(name="idPlanProduccion")
 	private ArrayList<PlanProduccion> planesProduccion;
 	private ArrayList<OrdenCompra> ordenesCompra;
 	private ArrayList<NotaDevolucion> notasDevolucion;
