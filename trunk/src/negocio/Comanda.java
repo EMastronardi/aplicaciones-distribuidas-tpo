@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import persistencia.DepositoDAO;
 import persistencia.IngredienteDAO;
+import persistencia.VentaDAO;
 
 @Entity
 @Table(name = "Comandas")
@@ -97,14 +98,17 @@ public class Comanda {
 	}
 
 	public boolean confirmarComanda() {
-		//Recupero el dep�sito de Sucursal para esta comanda, por si tengo que pedirle Stock
+		//Recupero el deposito de Sucursal para esta comanda, por si tengo que pedirle Stock
 		Sucursal suc = DepositoDAO.getInstancia().obtenerSucursal(this.idComanda);
+		ArrayList<ItemVenta> itemsVenta = new ArrayList<ItemVenta>();
 		
 		Deposito depPlato = null;
 		Deposito depSucursal = suc.getDeposito();
 		for (ItemComanda ic : itemsComanda) {
-			// Obtengo el dep�sito desde donde va a salir el plato
-			// Desde este dep�sito se descontar� el Stock
+			//Creo el ItemVenta
+			itemsVenta.add(new ItemVenta(ic.getPlato(),ic.getCantidad(),"No Facturado"));
+			// Obtengo el deposito desde donde va a salir el plato
+			// Desde este deposito se descontar� el Stock
 			for(Area area: suc.getAreas()){
 				for(Plato pla: area.getPlatos()){
 					if (pla.getIdPlato()==ic.getPlato().getIdPlato())
@@ -112,7 +116,7 @@ public class Comanda {
 				}
 			}
 			
-			//Primera Opci�n: Descontar el producto "Compra a Venta" o "Elevaraci�n a venta" directamente
+			//Primera Opcion: Descontar el producto "Compra a Venta" o "Elevaraci�n a venta" directamente
 			for (ItemReceta ir: ic.getPlato().getReceta().getItemsReceta()){
 				//Creo el movimiento de Baja del Ingrediente por la cantidad de la receta y la cantidad en la comanda
 				if (!depPlato.restarInventario(ir.getIngrediente(),ic.getCantidad()*ir.getCantidad(), depSucursal)){
@@ -127,7 +131,26 @@ public class Comanda {
 				}
 			}
 		}
+		
+		//Le agrego a la venta los Items
+		this.venta.setItemsVenta(itemsVenta);
+		//Persisto los Items
+		VentaDAO.getInstancia().grabarVenta(this.venta);
+		
 		//Harcodeado que devuelva True porque siempre voy a poder cumplir con los pedidos (REVEER)
 		return true;
 	}
+
+	public int getIdComanda() {
+		return idComanda;
+	}
+
+	public void setIdComanda(int idComanda) {
+		this.idComanda = idComanda;
+	}
+
+	public void setItemsComanda(List<ItemComanda> itemsComanda) {
+		this.itemsComanda = itemsComanda;
+	}
+	
 }

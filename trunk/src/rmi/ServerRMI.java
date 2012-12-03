@@ -101,8 +101,7 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 	@Override
 	public boolean confirmarComandaRealizada(String idComanda)
 			throws RemoteException {
-	
-		return false;
+		return Sistema.getInstance().confirmarComanda(idComanda);
 	}
 
 }

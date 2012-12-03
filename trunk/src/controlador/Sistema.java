@@ -1,6 +1,7 @@
 package controlador;
 
 import interfaz.InterfazRemota;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -8,13 +9,12 @@ import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import negocio.Administracion;
 import negocio.Area;
 import negocio.Comanda;
-import negocio.Deposito;
 import negocio.DepositoCentral;
 import negocio.ItemBillete;
-import negocio.Lote;
 import negocio.ItemComanda;
 import negocio.Mesa;
 import negocio.Mozo;
@@ -27,14 +27,13 @@ import org.hibernate.Session;
 
 import persistencia.ComandaDAO;
 import persistencia.HibernateUtil;
-import persistencia.LoteDAO;
 import persistencia.PlatoDAO;
-import persistencia.ProductoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
 import persistencia.VentaDAO;
 import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
+import beans.ComandaVO;
 import beans.PlatoVO;
 import beans.SucursalVO;
 import beans.VentaVO;
@@ -327,7 +326,24 @@ public class Sistema {
 		//Guardar La comanda
 		ComandaDAO.getInstancia().grabarComanda(cmd);
 		return true;
-		
+	}
+	
+	public boolean confirmarComanda(String idComanda){
+		Comanda comanda = ComandaDAO.getInstancia().obtenerComanda(Integer.parseInt(idComanda));
+		return comanda.confirmarComanda();
+	}
+	
+	public List<ComandaVO> getComandasAbiertas(String sucursal, String nombre){
+		List<ComandaVO> lista = new ArrayList<ComandaVO>();
+		List<Comanda> comandasActivas = ComandaDAO.getInstancia().getComandasActivas(sucursal, nombre);
+		for (Comanda comanda : comandasActivas) {
+			ComandaVO cvo = new ComandaVO();
+			cvo.setIdComanda(comanda.getIdComanda());
+			cvo.setFecha(comanda.getFecha());
+			System.out.println("(SERVER) getComandasABIERTAS ");
+			lista.add(cvo);
+		}
+		return lista;
 	}
 	
 }
