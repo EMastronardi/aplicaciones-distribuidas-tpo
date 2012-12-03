@@ -8,7 +8,7 @@ public class ItemBillete {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemBillete;
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idBillete")
 	private Billete billete;
 	private int cantidad;

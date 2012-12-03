@@ -16,10 +16,6 @@ public class Plato {
 	
 	@ManyToMany
 	private List<Plato> platosAlternativos;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idArea")
-	private Area area;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="idReceta")
@@ -31,12 +27,10 @@ public class Plato {
 		
 	}
 	
-	public Plato(String nombre, float precio, List<Plato> platosAlternativos,
-			Area area, float comisionExtra, Receta receta) {
+	public Plato(String nombre, float precio, List<Plato> platosAlternativos, float comisionExtra, Receta receta) {
 		this.nombre = nombre;
 		this.precio = precio;
 		this.platosAlternativos = platosAlternativos;
-		this.area = area;
 		this.comisionExtra = comisionExtra;
 		this.receta = receta;
 	}
@@ -73,13 +67,6 @@ public class Plato {
 		this.platosAlternativos = platosAlternativos;
 	}
 
-	public Area getArea() {
-		return area;
-	}
-
-	public void setArea(Area area) {
-		this.area = area;
-	}
 
 	public float getComisionExtra() {
 		return comisionExtra;
