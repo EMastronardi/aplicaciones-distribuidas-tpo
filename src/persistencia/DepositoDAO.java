@@ -21,9 +21,9 @@ public class DepositoDAO {
 		return instancia;
 	}
 	
-	public Deposito obtenerDepositoSucursal(int idArea){
+	public Deposito obtenerDepositoSucursal(int idComanda){
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		Deposito dep = (Deposito) s.createQuery("Select suc.deposito from Sucursal suc join suc.areas where suc.areas.idArea = :idArea").setInteger("idArea", idArea).uniqueResult();
+		Deposito dep = (Deposito) s.createQuery("Select suc.deposito from Sucursal suc join suc.salon sal join sal.comandas where sal.comandas.idComanda = :idComanda").setInteger("idComanda", idComanda).uniqueResult();
 		
 		return dep;	
 	}
