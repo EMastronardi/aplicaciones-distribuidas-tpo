@@ -97,14 +97,14 @@ public class Comanda {
 	}
 
 	public boolean confirmarComanda() {
-		//Recupero el depósito de Sucursal para esta comanda, por si tengo que pedirle Stock
+		//Recupero el depï¿½sito de Sucursal para esta comanda, por si tengo que pedirle Stock
 		Sucursal suc = DepositoDAO.getInstancia().obtenerSucursal(this.idComanda);
 		
 		Deposito depPlato = null;
 		Deposito depSucursal = suc.getDeposito();
 		for (ItemComanda ic : itemsComanda) {
-			// Obtengo el depósito desde donde va a salir el plato
-			// Desde este depósito se descontará el Stock
+			// Obtengo el depï¿½sito desde donde va a salir el plato
+			// Desde este depï¿½sito se descontarï¿½ el Stock
 			for(Area area: suc.getAreas()){
 				for(Plato pla: area.getPlatos()){
 					if (pla.getIdPlato()==ic.getPlato().getIdPlato())
@@ -112,7 +112,7 @@ public class Comanda {
 				}
 			}
 			
-			//Primera Opción: Descontar el producto "Compra a Venta" o "Elevaración a venta" directamente
+			//Primera Opciï¿½n: Descontar el producto "Compra a Venta" o "Elevaraciï¿½n a venta" directamente
 			for (ItemReceta ir: ic.getPlato().getReceta().getItemsReceta()){
 				//Creo el movimiento de Baja del Ingrediente por la cantidad de la receta y la cantidad en la comanda
 				if (!depPlato.restarInventario(ir.getIngrediente(),ic.getCantidad()*ir.getCantidad(), depSucursal)){

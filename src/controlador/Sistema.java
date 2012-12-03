@@ -12,8 +12,10 @@ import java.util.List;
 
 import negocio.Administracion;
 import negocio.Area;
+import negocio.Comanda;
 import negocio.DepositoCentral;
 import negocio.ItemBillete;
+import negocio.ItemComanda;
 import negocio.Mesa;
 import negocio.Mozo;
 import negocio.Plato;
@@ -52,6 +54,10 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
+		
+		Sucursal suc = instance.buscarSucursalPorNombre("Belgrano");
+		System.out.println(suc.getNombre());
+		
 		//Session openSession = HibernateUtil.getSessionFactory().openSession();
 		//openSession.close();
 		try {
@@ -192,10 +198,8 @@ public class Sistema {
 	public SucursalVO getSucursal(String usuario) {
 		SucursalVO vo = new SucursalVO();
 		Sucursal suc = SucursalDAO.getInstancia().obtenerSucursal(usuario);
-
 		vo.setIdSucursal(suc.getIdSucursal());
 		vo.setNombre(suc.getNombre());
-
 		return vo;
 	}
 	
@@ -234,6 +238,36 @@ public class Sistema {
 		
 		return false;
 	}
+	public boolean generarComanda(String sucursal, String nombreMozo, Integer mesa, String[] platos, String[] cantidades){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		s.beginTransaction();
+		Sucursal suc = (Sucursal) s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", sucursal).uniqueResult();
+		
+		Mozo mozo = suc.getSalon().obtenerMozo(nombreMozo);
+		List<Venta> vtas = suc.getSalon().getVentasAbiertas();
+		Venta vta = null ;
+		for (Venta venta : vtas) {
+			if(venta.getNroMesa() == mesa){
+				vta = venta;
+				break;
+			}
+		}
+		Comanda cmd = new Comanda();
+		cmd.setFecha(new Date());
+		cmd.setMozo(mozo);
+		cmd.setVenta(vta);
+		ArrayList<ItemComanda> listaItems = new ArrayList<ItemComanda>();
+		for(int i=0; i<platos.length; i++){
+			ItemComanda itms = new ItemComanda();
+			itms.setCantidad(Integer.parseInt(cantidades[i]));
+			//itms.setPlato(platos[i]);
+			listaItems.add(itms);
+		}
 
+		cmd.setItemsComanda(listaItems);
+		//Guardar La comanda
+		return true;
+		
+	}
 	
 }

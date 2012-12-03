@@ -80,4 +80,12 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 		return Sistema.getInstance().cerrarVenta(sucursal, nroMesa);
 	}
 
+
+	@Override
+	public boolean generarComanda(String sucursal, String nombre, Integer mesa, String[] platos,
+			String[] cantidad) throws RemoteException {
+		// TODO Auto-generated method stub
+		return Sistema.getInstance().generarComanda(sucursal, nombre, mesa, platos, cantidad);
+	}
+
 }
