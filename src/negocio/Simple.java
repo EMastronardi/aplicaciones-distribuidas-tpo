@@ -17,4 +17,5 @@ public class Simple extends Ingrediente {
 	public Simple() {
 		// TODO Auto-generated constructor stub
 	}
+	
 }

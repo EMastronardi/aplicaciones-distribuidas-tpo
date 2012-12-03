@@ -95,7 +95,7 @@ public class Administracion {
 				SemiElaborado semi = (SemiElaborado)p;
 				Receta rec = semi.getReceta();
 				for (ItemReceta ir : rec.getItemsReceta()) { // Descuento los items correspondientes
-					dep.restarInventario((Producto)ir.getIngrediente(), ir.getCantidad()*viewItmPlanProd.getCantidadFinalizada());
+					dep.restarInventario((Producto)ir.getIngrediente(), ir.getCantidad()*viewItmPlanProd.getCantidadFinalizada(),pp.getSucursal().getDeposito());
 				}
 			}
 		}
