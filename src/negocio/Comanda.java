@@ -29,7 +29,7 @@ public class Comanda {
 	@JoinColumn(name = "idVenta")
 	private Venta venta;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "idMozo")
 	private Mozo mozo;
 	private Date fecha;
@@ -98,11 +98,20 @@ public class Comanda {
 
 	public boolean confirmarComanda() {
 		//Recupero el depósito de Sucursal para esta comanda, por si tengo que pedirle Stock
-		Deposito depSucursal = DepositoDAO.getInstancia().obtenerDepositoSucursal(this.idComanda);
+		Sucursal suc = DepositoDAO.getInstancia().obtenerSucursal(this.idComanda);
+		
+		Deposito depPlato = null;
+		Deposito depSucursal = suc.getDeposito();
 		for (ItemComanda ic : itemsComanda) {
 			// Obtengo el depósito desde donde va a salir el plato
 			// Desde este depósito se descontará el Stock
-			Deposito depPlato = ic.getPlato().getArea().getDeposito();
+			for(Area area: suc.getAreas()){
+				for(Plato pla: area.getPlatos()){
+					if (pla.getIdPlato()==ic.getPlato().getIdPlato())
+						depPlato = area.getDeposito();
+				}
+			}
+			
 			//Primera Opción: Descontar el producto "Compra a Venta" o "Elevaración a venta" directamente
 			for (ItemReceta ir: ic.getPlato().getReceta().getItemsReceta()){
 				//Creo el movimiento de Baja del Ingrediente por la cantidad de la receta y la cantidad en la comanda
