@@ -2,6 +2,7 @@ package persistencia;
 
 import java.util.List;
 
+import negocio.Carta;
 import negocio.Plato;
 
 import org.hibernate.Session;
@@ -21,7 +22,11 @@ public class PlatoDAO {
 	}
 	
 	public List<Plato> getPlatos(String sucursal){
-		List<Plato> platos = session.createQuery("Select p from Carta c join Rubro r join Plato p where c.sucursal.nombre =:nombre").setString("nombre", sucursal).list();
+		
+		//Carta carta = (Carta)session.createQuery("Select c from Carta c where c.sucursal.nombre = :nombre").setParameter("nombre", sucursal).uniqueResult();
+		List<Plato> platos = session.createQuery("Select p from Carta c join c.rubros r join r.platos p where c.sucursal.nombre =:nombre").setString("nombre", sucursal).list();
+		
+		
 		return platos;
 	}
 }

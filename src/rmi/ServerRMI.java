@@ -70,8 +70,8 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 
 	@Override
 	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		return Sistema.getInstance().getVentasAbiertas(sucursal, nombre);
+		
 	}
 
 

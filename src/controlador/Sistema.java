@@ -27,6 +27,7 @@ import persistencia.HibernateUtil;
 import persistencia.PlatoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
+import persistencia.VentaDAO;
 import rmi.ServerRMI;
 import vista.ViewItemPlanProduccion;
 import beans.PlatoVO;
@@ -51,8 +52,8 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
-		Session openSession = HibernateUtil.getSessionFactory().openSession();
-		openSession.close();
+		//Session openSession = HibernateUtil.getSessionFactory().openSession();
+		//openSession.close();
 		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
@@ -213,8 +214,15 @@ public class Sistema {
 	}
 	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre){
 		List<VentaVO> lista = new ArrayList<VentaVO>();
-		
-		
+		List<Venta> ventasActivas = VentaDAO.getInstancia().getVentasActivas(sucursal, nombre);
+		for (Venta venta : ventasActivas) {
+			VentaVO vvo = new VentaVO();
+			vvo.setEstado(venta.getEstado());
+			vvo.setIdVenta(venta.getIdVenta());
+			vvo.setNroMesa(venta.getNroMesa());
+			System.out.println("(SERVER) getVEntasABIERTAS "+vvo.getNroMesa());
+			lista.add(vvo);
+		}
 		return lista;
 	}
 
