@@ -19,11 +19,11 @@ import negocio.Mozo;
 import negocio.Plato;
 import negocio.Producto;
 import negocio.Sucursal;
+import negocio.Venta;
 
 import org.hibernate.Session;
 
 import persistencia.HibernateUtil;
-import persistencia.MesaDAO;
 import persistencia.PlatoDAO;
 import persistencia.SucursalDAO;
 import persistencia.UsuarioDAO;
@@ -51,11 +51,8 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
-		
-		List<Integer> nrosMesas = new ArrayList<>();
-		nrosMesas.add(2);
-		
-		//Sistema.getInstance().AbrirMesa("Belgrano", nrosMesas , "mozo1", 2);
+		Session openSession = HibernateUtil.getSessionFactory().openSession();
+		openSession.close();
 		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
@@ -219,6 +216,15 @@ public class Sistema {
 		
 		
 		return lista;
+	}
+
+	public boolean cerrarVenta(String sucursal, int nroMesa) {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Venta venta =(Venta) s.createQuery("Select v from Sucursal s join s.salon.ventasAbiertas v where s.nombre = :nombre and v.nroMesa = :nroMesa").setParameter("nombre", sucursal).setParameter("nroMesa", nroMesa).uniqueResult();
+		
+		
+		return false;
 	}
 
 	
