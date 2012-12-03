@@ -19,8 +19,9 @@ public class PlatoDAO {
 	private PlatoDAO(){
 		
 	}
-	public List<Plato> getPlatos(){
-		List<Plato> platos = session.createQuery("Select p from Plato p").list();
+	
+	public List<Plato> getPlatos(String sucursal){
+		List<Plato> platos = session.createQuery("Select p from Carta c join Rubro r join Plato p where c.sucursal.nombre =:nombre").setString("nombre", sucursal).list();
 		return platos;
 	}
 }
