@@ -82,6 +82,22 @@ public class Venta {
 		}
 		this.estado = "Cerrada";
 	}
+	public int getIdVenta() {
+		return idVenta;
+	}
+
+	public void setIdVenta(int idVenta) {
+		this.idVenta = idVenta;
+	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
 	public Venta() {
 	
 	}
