@@ -7,14 +7,16 @@ import javax.persistence.*;
 public class ItemVenta {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	@OneToOne(cascade=CascadeType.ALL)
+	private int idItemVenta;
+	@ManyToOne
 	@JoinColumn(name="idPlato")
 	private Plato item;
 	private int cantidad;
 	private String estado;
 
-	public ItemVenta() {}
+	public ItemVenta() {
+		
+	}
 	public ItemVenta(Plato item, int cantidad, String estado) {
 		this.item = item;
 		this.cantidad = cantidad;

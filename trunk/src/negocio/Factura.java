@@ -25,7 +25,9 @@ public class Factura {
 	private int idFactura;
 	private Date fecha;
 	private float total;
+	private int idVenta;
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="idFactura")
 	private List<ItemFactura> itemsFactura;
 
 	public Factura() {
@@ -43,8 +45,18 @@ public class Factura {
 				total += itemVenta.getCantidad() * itemVenta.getItem().getPrecio();
 			}
 		}
+		this.idVenta = vta.getIdVenta(); 
 		this.total = total;
 		this.fecha = new Date();
+	}
+
+	
+	public int getIdVenta() {
+		return idVenta;
+	}
+
+	public void setIdVenta(int idVenta) {
+		this.idVenta = idVenta;
 	}
 
 	public int getNumero() {
@@ -67,7 +79,7 @@ public class Factura {
 		this.total = total;
 	}
 
-	public Collection<ItemFactura> getItemsFactura() {
+	public List<ItemFactura> getItemsFactura() {
 		return itemsFactura;
 	}
 

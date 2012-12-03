@@ -13,15 +13,16 @@ public class ListaReposicion {
 	private Date fecha;
 	private String estado;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idSucursal")
 	private Sucursal sucursal;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idArea")
 	private Area area;
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="idListaReposicion")
 	private List<ItemRepo> items;
 	public ListaReposicion(){
 		

@@ -8,11 +8,15 @@ public class ItemFactura {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemFactura;
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idPlato")
 	private Plato plato;
 	private int cantidad;
-	public ItemFactura() {}
+	
+	public ItemFactura() {
+		
+	}
+	
 	public ItemFactura(Plato plato, int cantidad) {
 		this.plato = plato;
 		this.cantidad = cantidad;
