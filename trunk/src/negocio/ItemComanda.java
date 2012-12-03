@@ -8,7 +8,7 @@ public class ItemComanda {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemComanda;
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="idPlato")
 	private Plato plato;
 	private int cantidad;
