@@ -66,10 +66,10 @@ public class Sistema {
 //		
 //		for(Area a : sucursal_1.getAreas()){
 //			if(a.getIdArea() == 1){
-//				System.out.println("Áreas: " + a.getNombre());
+//				System.out.println("ï¿½reas: " + a.getNombre());
 //				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
 //				Deposito dep_cocina_suc_1 = a.getDeposito();
-//				System.out.println("Depósito: " + a.getDeposito().getDescripcion());
+//				System.out.println("Depï¿½sito: " + a.getDeposito().getDescripcion());
 //			    
 //				//Busco el producto Papa
 //				Producto prod = ProductoDAO.getInstancia().obtenerProducto(3);
@@ -86,10 +86,10 @@ public class Sistema {
 //		
 //		for(Area a : sucursal_1.getAreas()){
 //			if(a.getIdArea() == 1){
-//				System.out.println("Áreas: " + a.getNombre());
+//				System.out.println("ï¿½reas: " + a.getNombre());
 //				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
 //				Deposito dep_cocina_suc_1 = a.getDeposito();
-//				System.out.println("Depósito: " + a.getDeposito().getDescripcion());
+//				System.out.println("Depï¿½sito: " + a.getDeposito().getDescripcion());
 //			    
 //				//Busco un Lote
 //				Lote lote = LoteDAO.getIntancia().obtenerLote(8);
@@ -107,7 +107,7 @@ public class Sistema {
 //			if (c.confirmarComanda()){
 //				System.out.println("Comanda Confirmada");
 //			}else{
-//				System.out.println("Falló al confirmar la comanda");
+//				System.out.println("Fallï¿½ al confirmar la comanda");
 //			}
 //		}		
 /*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/
@@ -119,23 +119,23 @@ public class Sistema {
 		
 		//Session openSession = HibernateUtil.getSessionFactory().openSession();
 		//openSession.close();
-//		try {
+		try {
 			/*
 			 * System.setProperty("java.security.policy", "java.policy"); if
 			 * (System.getSecurityManager() == null) System.setSecurityManager (
 			 * new RMISecurityManager() );
 			 */
-//			LocateRegistry.createRegistry(1099);
-//			InterfazRemota gestion = new ServerRMI();
-//			Naming.rebind("//127.0.0.1:1099/Server", gestion);
-//			System.out.println("Fijado en //127.0.0.1:1099/Server");
-//
-//		} catch (RemoteException e) {
-//
-//			e.printStackTrace();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
+			LocateRegistry.createRegistry(1099);
+			InterfazRemota gestion = new ServerRMI();
+			Naming.rebind("//127.0.0.1:1099/Server", gestion);
+			System.out.println("Fijado en //127.0.0.1:1099/Server");
+
+		} catch (RemoteException e) {
+
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
