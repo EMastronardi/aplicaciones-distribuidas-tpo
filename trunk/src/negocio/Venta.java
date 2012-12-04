@@ -70,7 +70,7 @@ public class Venta {
 	}
 
 	public void setItemsVenta(List<ItemVenta> itemsVenta) {
-		this.itemsVenta = itemsVenta;
+		this.itemsVenta.addAll(itemsVenta);
 	}
 
 	public void cerrarVenta() {

@@ -52,7 +52,7 @@ public class CajaDiaria {
 
 	public void generarFactura(Venta venta) {
 		Factura fact = new Factura(venta);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getCurrent();
 		session.save(fact);
 	}
 

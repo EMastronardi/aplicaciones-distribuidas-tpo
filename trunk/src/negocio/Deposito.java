@@ -55,7 +55,7 @@ public class Deposito {
 	public void sumarInventario(float cant, Lote l) {
 		ArrayList<Movimiento> auxMovimientos = new ArrayList<Movimiento>();
 		auxMovimientos.add(new Movimiento(new Date(), this, l, cant,
-				"Incremento de Stock", "prueba"));
+				"Incremento de Stock", "mozo1"));
 		MovimientoDAO.getInstancia().grabarMovimientos(auxMovimientos);
 	}
 
@@ -75,14 +75,14 @@ public class Deposito {
 			if (cant <= loteMasViejo.getCantidad()) {
 				auxMovimientos.add(new Movimiento(new Date(), this,
 						loteMasViejo.getLote(), cant * -1, "Resta de Stock",
-						"prueba"));
+						"mozo1"));
 				cant = 0;
 			} else {
 					Lote l = loteMasViejo.getLote();
 					l.setEstado(false);
 					auxMovimientos.add(new Movimiento(new Date(), this, l,
 							loteMasViejo.getCantidad() * -1, "Resta de Stock",
-							"prueba"));
+							"mozo1"));
 					cant = cant - loteMasViejo.getCantidad();
 					cantidadLote.remove(loteMasViejo);
 				}
@@ -116,19 +116,19 @@ public class Deposito {
 			if (cant <= loteMasViejo.getCantidad()) {
 				auxMovimientos.add(new Movimiento(new Date(), this,
 						loteMasViejo.getLote(), cant * -1, "Traspaso Baja Suc",
-						"prueba"));
+						"mozo1"));
 				auxMovimientos.add(new Movimiento(new Date(), depArea,
 						loteMasViejo.getLote(), cant, "Traspaso Alta Area",
-						"prueba"));
+						"mozo1"));
 				cant = 0;
 			} else {
 					Lote l = loteMasViejo.getLote();
 					auxMovimientos.add(new Movimiento(new Date(), this, l,
 							loteMasViejo.getCantidad() * -1, "Traspaso Baja Suc",
-							"prueba"));
+							"mozo1"));
 					auxMovimientos.add(new Movimiento(new Date(), depArea, l,
 							loteMasViejo.getCantidad(), "Traspaso Alta Suc",
-							"prueba"));
+							"mozo1"));
 					cant = cant - loteMasViejo.getCantidad();
 					cantidadLote.remove(loteMasViejo);
 				}
@@ -139,7 +139,7 @@ public class Deposito {
 			MovimientoDAO.getInstancia().grabarMovimientos(auxMovimientos);
 			return true;
 		}else{
-			System.out.println("No me da el Stock en el depósito Sucursal");
+			System.out.println("No me da el Stock en el depï¿½sito Sucursal");
 			return false;
 		}
 	}

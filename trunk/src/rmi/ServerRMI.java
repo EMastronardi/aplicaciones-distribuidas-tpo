@@ -91,10 +91,10 @@ public class ServerRMI extends UnicastRemoteObject implements InterfazRemota {
 
 
 	@Override
-	public List<ComandaVO> getComandasAbiertas(String sucursal)
+	public List<ComandaVO> getComandasAbiertas(String sucursal, String nombre)
 			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return Sistema.getInstance().getComandasAbiertas(sucursal, nombre);
 	}
 
 

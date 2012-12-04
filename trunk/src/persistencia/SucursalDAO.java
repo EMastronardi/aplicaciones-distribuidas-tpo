@@ -22,14 +22,14 @@ public class SucursalDAO {
 	}
 	
 	public Sucursal obtenerSucursal(String usuario){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		Sucursal suc = (Sucursal)s.createQuery("Select s from Sucursal s inner join s.salon sa inner join sa.sectores sec inner join sec.mozos m where m.nombre = :nombre").setString("nombre", usuario).uniqueResult();
 		
 		return suc;	
 	}
 	
 	public Sucursal obtenerSucursal(int idSucursal){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		Sucursal suc = (Sucursal) s.createQuery("from Sucursal where idSucursal = :idSucursal").setInteger("idSucursal", idSucursal).uniqueResult();
 	
 		return suc;	
@@ -37,7 +37,7 @@ public class SucursalDAO {
 	
 	public List<SucursalVO> obtenerSucursales() {
 		List<SucursalVO> lista = new ArrayList<SucursalVO>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getCurrent();
 		List<Sucursal> sucursales = session.createQuery("from Sucursal").list();
 		System.out.println("Metodo en server encontro:");
 		for (Sucursal s : sucursales) {

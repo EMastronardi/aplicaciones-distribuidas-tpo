@@ -22,7 +22,7 @@ public class ProductoDAO {
 	}
 	
 	public Producto obtenerProducto(int idProducto){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		Producto prod = (Producto) s.createQuery("from Producto where idProducto = :idProducto").setInteger("idProducto", idProducto).uniqueResult();
 		
 		return prod;	

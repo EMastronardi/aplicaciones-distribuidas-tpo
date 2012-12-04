@@ -1,7 +1,50 @@
 package persistencia;
 
-import negocio.*;
+import negocio.Administracion;
+import negocio.Administrativo;
+import negocio.Area;
+import negocio.Billete;
+import negocio.Caja;
+import negocio.CajaDiaria;
+import negocio.Carta;
+import negocio.Comanda;
+import negocio.Comision;
+import negocio.Deposito;
+import negocio.DepositoCentral;
+import negocio.Empleado;
+import negocio.Encargado;
+import negocio.Factura;
+import negocio.Ingrediente;
+import negocio.Insumo;
+import negocio.ItemBillete;
+import negocio.ItemComanda;
+import negocio.ItemFactura;
+import negocio.ItemPlanProduccion;
+import negocio.ItemProveedor;
+import negocio.ItemReceta;
+import negocio.ItemRepo;
+import negocio.ItemVenta;
+import negocio.ListaReposicion;
+import negocio.Lote;
+import negocio.Mesa;
+import negocio.Movimiento;
+import negocio.Mozo;
+import negocio.Pago;
+import negocio.PlanProduccion;
+import negocio.Plato;
+import negocio.Producto;
+import negocio.Proveedor;
+import negocio.Receta;
+import negocio.Reserva;
+import negocio.Rubro;
+import negocio.Salon;
+import negocio.Sector;
+import negocio.SemiElaborado;
+import negocio.Simple;
+import negocio.Sucursal;
+import negocio.Venta;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
@@ -62,7 +105,19 @@ public class HibernateUtil {
 		}
 	}
 
-	public static SessionFactory getSessionFactory() {
+	private static SessionFactory getSessionFactory() {
 		return sessionFactory;
+	}
+
+	public static Session getNewSession() {
+		return getSessionFactory().openSession();
+	}
+
+	public static Session getCurrent() {
+//		if (getSessionFactory().getCurrentSession() == null) {
+			return getSessionFactory().openSession();
+//		}
+
+//		return getSessionFactory().getCurrentSession();
 	}
 }

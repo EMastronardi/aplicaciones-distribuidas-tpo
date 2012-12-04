@@ -15,7 +15,7 @@ public class PlatoDAO {
 	public static PlatoDAO getInstancia() {
 		if (instancia == null)
 			instancia = new PlatoDAO();
-			instancia.session =  HibernateUtil.getSessionFactory().openSession();	
+			instancia.session =  HibernateUtil.getCurrent();	
 		return instancia;
 	}
 	private PlatoDAO(){
@@ -32,7 +32,7 @@ public class PlatoDAO {
 	}
 	
 	public Plato obtenerPlato(int idPlato){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		Plato plato = (Plato) s.createQuery("from Plato where idPlato = :idPlato").setInteger("idPlato", idPlato).uniqueResult();
 		
 		return plato;	

@@ -16,9 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import persistencia.DepositoDAO;
+import persistencia.HibernateUtil;
 import persistencia.IngredienteDAO;
-import persistencia.VentaDAO;
 
 @Entity
 @Table(name = "Comandas")
@@ -34,7 +37,7 @@ public class Comanda {
 	@JoinColumn(name = "idMozo")
 	private Mozo mozo;
 	private Date fecha;
-
+	private Boolean estado;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idComanda")
 	private List<ItemComanda> itemsComanda;
@@ -42,17 +45,10 @@ public class Comanda {
 	public Comanda() {
 	}
 
-	public Comanda(Venta venta, Mozo mozo) {
-		super();
-		this.venta = venta;
-		this.mozo = mozo;
-		this.fecha = new Date();
-		this.itemsComanda = new ArrayList<ItemComanda>();
-	}
-
 	public Venta getVenta() {
 		return venta;
 	}
+	
 
 	public void setVenta(Venta venta) {
 		this.venta = venta;
@@ -84,6 +80,14 @@ public class Comanda {
 
 	public void addItemComanda(ItemComanda itmComanda) {
 		this.itemsComanda.add(itmComanda);
+	}
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
 	}
 
 	public void deleteItemComanda(ItemComanda itmComanda) {
@@ -133,9 +137,21 @@ public class Comanda {
 		}
 		
 		//Le agrego a la venta los Items
+		Session current = HibernateUtil.getNewSession();
+		this.venta = (Venta)current.get(Venta.class, venta.getIdVenta());
 		this.venta.setItemsVenta(itemsVenta);
+		
 		//Persisto los Items
-		VentaDAO.getInstancia().grabarVenta(this.venta);
+		try {
+			Transaction beginTransaction = current.beginTransaction();
+			current.saveOrUpdate(venta);
+			beginTransaction.commit();
+			current.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		//Harcodeado que devuelva True porque siempre voy a poder cumplir con los pedidos (REVEER)
 		return true;

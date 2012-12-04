@@ -10,18 +10,16 @@ import org.hibernate.SessionFactory;
 
 public class MovimientoDAO {
 	private static MovimientoDAO instancia = null;
-	private static SessionFactory sf = null;
 
 	public static MovimientoDAO getInstancia() {
 		if (instancia == null) {
-			sf = HibernateUtil.getSessionFactory();
 			instancia = new MovimientoDAO();
 		}
 		return instancia;
 	}
 
 	public void grabarMovimientos(List<Movimiento> movimientos) {
-		Session session = sf.openSession();
+		Session session = HibernateUtil.getCurrent();
 		session.beginTransaction();
 		for (Movimiento m : movimientos) {
 			session.persist(m);
@@ -29,8 +27,9 @@ public class MovimientoDAO {
 				session.update(m.getLote());
 			}
 		}
-		session.flush();
 		session.getTransaction().commit();
-		session.close();
+//		session.flush();
+//		session.getTransaction().commit();
+//		session.close();
 	}
 }
