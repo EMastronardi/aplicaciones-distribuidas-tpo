@@ -18,7 +18,7 @@ public class IngredienteDAO {
 	}
 	
 	public SemiElaborado obtenerSemielaborado(int idIngrediente){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		SemiElaborado sem = (SemiElaborado) s.createQuery("from SemiElaborado where idIngrediente = :idIngrediente").setInteger("idIngrediente", idIngrediente).uniqueResult();
 		return sem;	
 	}

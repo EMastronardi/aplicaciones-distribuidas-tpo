@@ -139,13 +139,13 @@ public class Salon {
 		return cantDisponible;
 	}
 
-	public void generarComanda(ArrayList<ItemComanda> itemsComanda, Venta vta) {
-		Comanda cmd = new Comanda(vta, vta.getMozo());
-		for (ItemComanda itemComanda : itemsComanda) {
-			cmd.addItemComanda(itemComanda);
-		}
-		comandas.add(cmd);
-	}
+//	public void generarComanda(ArrayList<ItemComanda> itemsComanda, Venta vta) {
+//		Comanda cmd = new Comanda(vta, vta.getMozo());
+//		for (ItemComanda itemComanda : itemsComanda) {
+//			cmd.addItemComanda(itemComanda);
+//		}
+//		comandas.add(cmd);
+//	}
 
 	public void eliminarComanda(Comanda cmd) {
 		int i = 0;
@@ -192,6 +192,9 @@ public class Salon {
 
 	public void setComandas(List<Comanda> comandas) {
 		this.comandas = comandas;
+	}
+	public void addComanda(Comanda c){
+		this.comandas.add(c);
 	}
 
 }

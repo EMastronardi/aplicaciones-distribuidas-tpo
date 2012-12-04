@@ -3,14 +3,19 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 
 import persistencia.HibernateUtil;
-
-import controlador.Sistema;
 
 @Entity
 @Table(name = "Sucursales")
@@ -129,14 +134,14 @@ public class Sucursal {
 	}
 
 	public Mozo buscarMozo(String nombreMozo) {
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		Mozo m = (Mozo) s.createQuery(
 				"From Mozo m where m.nombre = :nombre").setParameter("nombre",nombreMozo).uniqueResult();
 		return m;
 	}
 
 	public Venta buscarVenta(int venta) {
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		return (Venta) s.createQuery("From Venta v where v.nroMesa = " + venta)
 				.list();
 	}

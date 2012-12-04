@@ -16,6 +16,7 @@ import negocio.Comanda;
 import negocio.DepositoCentral;
 import negocio.ItemBillete;
 import negocio.ItemComanda;
+import negocio.ItemVenta;
 import negocio.Mesa;
 import negocio.Mozo;
 import negocio.Plato;
@@ -56,74 +57,9 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		System.out.println("Arranco el sistema");
-		HibernateUtil.getSessionFactory();
-/*+++++++++++++++++++++++PRUEBA RESTAR++++++++++++++++++++*/		
-// Prueba de datos
-//		Sucursal sucursal_1 = null;
-//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
-//		System.out.println("Sucursal: " + sucursal_1.getNombre());
-//		
-//		for(Area a : sucursal_1.getAreas()){
-//			if(a.getIdArea() == 1){
-//				System.out.println("�reas: " + a.getNombre());
-//				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
-//				Deposito dep_cocina_suc_1 = a.getDeposito();
-//				System.out.println("Dep�sito: " + a.getDeposito().getDescripcion());
-//			    
-//				//Busco el producto Papa
-//				Producto prod = ProductoDAO.getInstancia().obtenerProducto(3);
-//				System.out.println("Producto: " + prod.getNombre() + " " + prod.getCategorizacion());
-//				dep_cocina_suc_1.restarInventario(prod, 10, sucursal_1.getDeposito());
-//			}
-//		}
-/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/
 		
-/*+++++++++++++++++++++++PRUEBA SUMAR+++++++++++++++++++++*/
-//		Sucursal sucursal_1 = null;
-//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
-//		System.out.println("Sucursal: " + sucursal_1.getNombre());
-//		
-//		for(Area a : sucursal_1.getAreas()){
-//			if(a.getIdArea() == 1){
-//				System.out.println("�reas: " + a.getNombre());
-//				//Estoy en la Cocina de la sucursal 1, y quiero dar de baja un producto Papa
-//				Deposito dep_cocina_suc_1 = a.getDeposito();
-//				System.out.println("Dep�sito: " + a.getDeposito().getDescripcion());
-//			    
-//				//Busco un Lote
-//				Lote lote = LoteDAO.getIntancia().obtenerLote(8);
-//				dep_cocina_suc_1.sumarInventario(678, lote);
-//			}
-//		}				
-/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/		
-
-/*+++++++++++++++++++++++PRUEBA COMANDA++++++++++++++++++*/		
-// Prueba de datos
-//		Sucursal sucursal_1 = null;
-//		sucursal_1 = SucursalDAO.getInstancia().obtenerSucursal(1);
-//		System.out.println("Sucursal: " + sucursal_1.getNombre());
-//		for(Comanda c: sucursal_1.getSalon().getComandas()){
-//			if (c.confirmarComanda()){
-//				System.out.println("Comanda Confirmada");
-//			}else{
-//				System.out.println("Fall� al confirmar la comanda");
-//			}
-//		}		
-/*+++++++++++++++++++++++PRUEBA+++++++++++++++++++++++++*/
-
-//		try {
-
-//		Sucursal suc = instance.buscarSucursalPorNombre("Belgrano");
-//		System.out.println(suc.getNombre());
-		
-		//Session openSession = HibernateUtil.getSessionFactory().openSession();
-		//openSession.close();
 		try {
-			/*
-			 * System.setProperty("java.security.policy", "java.policy"); if
-			 * (System.getSecurityManager() == null) System.setSecurityManager (
-			 * new RMISecurityManager() );
-			 */
+		
 			LocateRegistry.createRegistry(1099);
 			InterfazRemota gestion = new ServerRMI();
 			Naming.rebind("//127.0.0.1:1099/Server", gestion);
@@ -163,9 +99,11 @@ public class Sistema {
 	}
 
 	public Sucursal buscarSucursalPorNombre(String nombre) {
-		Session s = HibernateUtil.getSessionFactory().openSession();
-		List<Sucursal> list = s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", nombre).list();
-		if(!list.isEmpty())
+		Session s = HibernateUtil.getCurrent();
+		List<Sucursal> list = s
+				.createQuery("From Sucursal s where s.nombre = :nombre")
+				.setParameter("nombre", nombre).list();
+		if (!list.isEmpty())
 			return list.get(0);
 		else
 			return null;
@@ -224,20 +162,23 @@ public class Sistema {
 		return null;
 	}
 
-	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,String nombreMozo, int cantComenzales) {
-		//Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
-		
-		Session s = HibernateUtil.getSessionFactory().openSession();
+	public boolean AbrirMesa(String nombreSucursal, List<Integer> nrosMesas,
+			String nombreMozo, int cantComenzales) {
+		// Sucursal suc = buscarSucursalPorNombre(nombreSucursal);
+
+		Session s = HibernateUtil.getCurrent();
 		s.beginTransaction();
-		Sucursal suc = (Sucursal) s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", nombreSucursal).uniqueResult();
-		
-		//Mozo mozo = suc.buscarMozo(nombreMozo);
+		Sucursal suc = (Sucursal) s
+				.createQuery("From Sucursal s where s.nombre = :nombre")
+				.setParameter("nombre", nombreSucursal).uniqueResult();
+
+		// Mozo mozo = suc.buscarMozo(nombreMozo);
 		Mozo mozo = suc.getSalon().obtenerMozo(nombreMozo);
-		
-		
+
 		List<Mesa> mesas = suc.getSalon().buscarMesas(nrosMesas);
-		boolean resultado  = suc.getSalon().abrirMesa(mesas, mozo, cantComenzales);
-		if(resultado) {
+		boolean resultado = suc.getSalon().abrirMesa(mesas, mozo,
+				cantComenzales);
+		if (resultado) {
 			s.getTransaction().commit();
 			s.close();
 		}
@@ -260,11 +201,11 @@ public class Sistema {
 		vo.setNombre(suc.getNombre());
 		return vo;
 	}
-	
-	public List<PlatoVO> getPlatos(String sucursal){
+
+	public List<PlatoVO> getPlatos(String sucursal) {
 		List<PlatoVO> lista = new ArrayList<PlatoVO>();
 		List<Plato> platos = PlatoDAO.getInstancia().getPlatos(sucursal);
-		
+
 		for (Plato plato : platos) {
 			PlatoVO plvo = new PlatoVO();
 			plvo.setIdPlato(plato.getIdPlato());
@@ -272,40 +213,50 @@ public class Sistema {
 			plvo.setPrecio(plato.getPrecio());
 			lista.add(plvo);
 		}
-		return lista;		
+		return lista;
 	}
-	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre){
+
+	public List<VentaVO> getVentasAbiertas(String sucursal, String nombre) {
 		List<VentaVO> lista = new ArrayList<VentaVO>();
-		List<Venta> ventasActivas = VentaDAO.getInstancia().getVentasActivas(sucursal, nombre);
+		List<Venta> ventasActivas = VentaDAO.getInstancia().getVentasActivas(
+				sucursal, nombre);
 		for (Venta venta : ventasActivas) {
 			VentaVO vvo = new VentaVO();
 			vvo.setEstado(venta.getEstado());
 			vvo.setIdVenta(venta.getIdVenta());
 			vvo.setNroMesa(venta.getNroMesa());
-			System.out.println("(SERVER) getVEntasABIERTAS "+vvo.getNroMesa());
+			System.out
+					.println("(SERVER) getVEntasABIERTAS " + vvo.getNroMesa());
 			lista.add(vvo);
 		}
 		return lista;
 	}
 
 	public boolean cerrarVenta(String sucursal, int nroMesa) {
-		
-		Session s = HibernateUtil.getSessionFactory().openSession();
-		Venta venta =(Venta) s.createQuery("Select v from Sucursal s join s.salon.ventasAbiertas v where s.nombre = :nombre and v.nroMesa = :nroMesa").setParameter("nombre", sucursal).setParameter("nroMesa", nroMesa).uniqueResult();
-		
-		
+
+		Session s = HibernateUtil.getCurrent();
+		Venta venta = (Venta) s
+				.createQuery(
+						"Select v from Sucursal s join s.salon.ventasAbiertas v where s.nombre = :nombre and v.nroMesa = :nroMesa")
+				.setParameter("nombre", sucursal)
+				.setParameter("nroMesa", nroMesa).uniqueResult();
+
 		return false;
 	}
-	public boolean generarComanda(String sucursal, String nombreMozo, Integer mesa, String[] platos, String[] cantidades){
-		Session s = HibernateUtil.getSessionFactory().openSession();
+
+	public boolean generarComanda(String sucursal, String nombreMozo,
+			Integer mesa, String[] platos, String[] cantidades) {
+		Session s = HibernateUtil.getCurrent();
 		s.beginTransaction();
-		Sucursal suc = (Sucursal) s.createQuery("From Sucursal s where s.nombre = :nombre").setParameter("nombre", sucursal).uniqueResult();
-		
+		Sucursal suc = (Sucursal) s
+				.createQuery("From Sucursal s where s.nombre = :nombre")
+				.setParameter("nombre", sucursal).uniqueResult();
+
 		Mozo mozo = suc.getSalon().obtenerMozo(nombreMozo);
 		List<Venta> vtas = suc.getSalon().getVentasAbiertas();
-		Venta vta = null ;
+		Venta vta = null;
 		for (Venta venta : vtas) {
-			if(venta.getNroMesa() == mesa){
+			if (venta.getNroMesa() == mesa) {
 				vta = venta;
 				break;
 			}
@@ -313,29 +264,36 @@ public class Sistema {
 		Comanda cmd = new Comanda();
 		cmd.setFecha(new Date());
 		cmd.setMozo(mozo);
+		cmd.setEstado(true);
 		cmd.setVenta(vta);
 		ArrayList<ItemComanda> listaItems = new ArrayList<ItemComanda>();
-		for(int i=0; i<platos.length; i++){
+		for (int i = 0; i < platos.length; i++) {
 			ItemComanda itms = new ItemComanda();
 			itms.setCantidad(Integer.parseInt(cantidades[i]));
-			itms.setPlato(PlatoDAO.getInstancia().obtenerPlato(Integer.parseInt(platos[i])));
+			itms.setPlato(PlatoDAO.getInstancia().obtenerPlato(
+					Integer.parseInt(platos[i])));
 			listaItems.add(itms);
 		}
 
 		cmd.setItemsComanda(listaItems);
-		//Guardar La comanda
-		ComandaDAO.getInstancia().grabarComanda(cmd);
+
+		suc.getSalon().addComanda(cmd);
+		s.getTransaction().commit();
+		s.close();
+		// Guardar La comanda
+		// ComandaDAO.getInstancia().grabarComanda(cmd);
 		return true;
 	}
-	
-	public boolean confirmarComanda(String idComanda){
+
+	public boolean confirmarComanda(String idComanda) {
 		Comanda comanda = ComandaDAO.getInstancia().obtenerComanda(Integer.parseInt(idComanda));
 		return comanda.confirmarComanda();
 	}
-	
-	public List<ComandaVO> getComandasAbiertas(String sucursal, String nombre){
+
+	public List<ComandaVO> getComandasAbiertas(String sucursal, String nombre) {
 		List<ComandaVO> lista = new ArrayList<ComandaVO>();
-		List<Comanda> comandasActivas = ComandaDAO.getInstancia().getComandasActivas(sucursal, nombre);
+		List<Comanda> comandasActivas = ComandaDAO.getInstancia()
+				.getComandasActivas(sucursal, nombre);
 		for (Comanda comanda : comandasActivas) {
 			ComandaVO cvo = new ComandaVO();
 			cvo.setIdComanda(comanda.getIdComanda());
@@ -345,5 +303,5 @@ public class Sistema {
 		}
 		return lista;
 	}
-	
+
 }

@@ -4,7 +4,8 @@ import java.util.List;
 
 import negocio.Empleado;
 
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
+
 
 public class UsuarioDAO {
 
@@ -21,7 +22,7 @@ public class UsuarioDAO {
 	}
 
 	public boolean validarUsuario(String usuario, String password) {
-		Session s = HibernateUtil.getSessionFactory().openSession();
+		Session s = HibernateUtil.getCurrent();
 		List<Empleado> list = s.createQuery(" from Empleado e where e.nombre = ? and  e.clave = ?").setString(0, usuario).setString(1,password).list();
 		if(!list.isEmpty())
 			return true;
